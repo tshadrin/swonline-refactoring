@@ -1,0 +1,14 @@
+<?php
+
+echo "<div align=\"center\"><b>Владение луком</b> (50)</div>\r\n<br>\r\n\r\n<div align=\"justify\" class=small>\r\nЭто умение позволяет повысить урон и качество наносимых стрелами лука . Чем выше способности в этом умении, тем больше урон . Для использования умения необходимо иметь в руках лук и стрелы, в противном случае удары не появятся в списке действий.<br><br>\r\nВладение луком даёт вам возможность наносить урон стрела";
+echo "ми, находясь в соседней комнате от противника. Учтите, что данная способность будет работать <b>только на игровых персонажах</b>.\r\n</div><br>\r\n<div align=\"center\"><b>Таблица владения луком</b></div>\r\n<table width=95% align=center bgcolor=A5B2B5 cellspacing=1>\r\n<tr bgcolor=E7EBDE><td width=30 align=center  class=small><b>УР</b></td><td class=small><b>Название</b></td><td class=small><b>Описание</b></td><td width=60  alig";
+echo "n=center class=small><b>Энергия</b></td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>1</td><td class=small width=120>Обычный выстрел</td><td class=small>Наносит слабый урон противнику с 10%-ным шансом вызвать кровотечение у противника(3).</td><td width=60  align=center class=small>0</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>12</td><td class=small width=120>Подготовленный";
+echo " выстрел</td><td class=small>Наносит средний урон противнику с 15%-ным шансом вызвать кровотечение у противника(3).</td><td width=60  align=center class=small>10</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>28</td><td class=small width=120>Двойной выстрел</td><td class=small>Выпускает 2 стрелы которые каждая из которых наносит слабый урон противнику 15%-ным шансом вызвать кровотечение у";
+echo " противника(3). Стоит также учесть, что на этот выстрел тратиться 2 стрелы.</td><td width=60  align=center class=small>22</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>40</td><td class=small width=120>Снайперский выстрел</td><td class=small>Наносит сильный урон противнику с 30%-ным шансом вызвать кровотечение у противника(3).</td><td width=60  align=center class=small>40</td></tr>\r\n</table>";
+echo "\r\n<br>\r\n<div align=\"center\"><b>Действия</b></div>\r\n<table width=95% align=center cellspacing=1 cellpadding=3>\r\n<tr><td width=30><img src=maingame/pic/stuff/aff/3.gif width=25 height=25></td><td>Кровотечения - противник истекает кровью.</td></tr>\r\n</table>\r\n<br>\r\n<table width=95% cellpadding=4 cellspacing=0><tr><td><img src=maingame/pic/stuff/bow/arrows.gif></td><td>Для того чтобы пользоваться луком, вам необходимо куп";
+echo "ить любые стрелы и взять их в руки на место щита. </td></tr></table>\r\n<br>\r\n<br>\r\n<b><div align=\"center\"><a href=index.php?load=";
+print "{$load}";
+echo "&show=";
+print $show;
+echo ">Назад</div></b><br>\r\n";
+?>

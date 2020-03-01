@@ -1,0 +1,13 @@
+<?php
+
+echo "<div align=\"center\"><b>Магия воды</b> (50)</div>\r\n<br>\r\n\r\n<div align=\"justify\" class=small>\r\nЭто умение позволяет повысить урон и серьезность наносимых повреждений магией воды. Чем выше способности в этом умении, тем больше урон.  Для использования умения необходимо иметь в руках посох и соответствующий свиток в книге заклинаний, в противном случае способность не появятся в списке действий.\r\n</div><br>\r\n<d";
+echo "iv align=\"center\"><b>Таблица Магии воды</b></div>\r\n<table width=95% align=center bgcolor=A5B2B5 cellspacing=1>\r\n<tr bgcolor=E7EBDE><td width=30 align=center  class=small><b>УР</b></td><td class=small><b>Название</b></td><td class=small><b>Описание</b></td><td width=60  align=center class=small><b>Энергия</b></td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>1</td><td class=small width=120>Ледяная стрела</t";
+echo "d><td class=small>Наносит слабый урон противнику.</td><td width=60  align=center class=small>10</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>8</td><td class=small width=120>Лечение ожогов</td><td class=small>Полностью вылечивает ожоги.</td><td width=60  align=center class=small>15</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>15</td><td class=small width=120>Шар холода</td";
+echo "><td class=small>Наносит средний урон противнику.</td><td width=60  align=center class=small>20</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>22</td><td class=small width=120>Благословение</td><td class=small>Увеличивает защиту(5) и атаку(5) у выбранной цели.</td><td width=60  align=center class=small>30</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>42</td><td class=small ";
+echo "width=120>Ледяные шипы</td><td class=small>Наносит сильный урон противнику с 15% шансом нанести медлительность(3).</td><td width=60  align=center class=small>55</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>45</td><td class=small width=120>Телепорт</td><td class=small>Телепортирует выбранную цель к вам в комнату.</td><td width=60  align=center class=small>120</td></tr>\r\n</table>\r\n<br>\r\n<div ali";
+echo "gn=\"center\"><b>Действия</b></div>\r\n<table width=95% align=center cellspacing=1 cellpadding=3>\r\n<tr><td width=30><img src=maingame/pic/stuff/aff/12.gif width=25 height=25></td><td>Благословение - Увеличивает защиту и атаку на 15%-ов</td></tr>\r\n</table>\r\n<br>\r\n<br>\r\n<b><div align=\"center\"><a href=index.php?load=";
+print "{$load}";
+echo "&show=";
+print $show;
+echo ">Назад</div></b><br>\r\n";
+?>

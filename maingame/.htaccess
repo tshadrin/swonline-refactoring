@@ -1,0 +1,11 @@
+php_flag register_globals on
+
+php_value date.timezone "Europe/Moscow"
+
+AddDefaultCharset windows-1251
+
+<IfModule dir_module>
+    DirectoryIndex index.php
+</IfModule>
+AddCharset windows-1251 .js
+AddCharset win-1251 .js

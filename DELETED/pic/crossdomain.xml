@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">
+<cross-domain-policy>
+	<allow-access-from domain="*.shamaal-world.com"/>
+	<allow-access-from domain="*.shamaal-world.ru"/>
+	<allow-access-from domain="84.52.11.123"/>
+</cross-domain-policy>

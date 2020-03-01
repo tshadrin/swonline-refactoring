@@ -1,0 +1,42 @@
+8-30 13:45 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1409391905,rnd=20578 where id=538
+8-30 13:45 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+8-30 14:23 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1409394186,rnd=29572 where id=538
+8-30 14:23 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+8-30 15:23 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1409397819,rnd=12134 where id=538
+8-30 15:23 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+8-30 20:07 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1409414865,rnd=10469 where id=538
+8-30 20:07 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+9-06 12:23 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1409991790,rnd=18258 where id=538
+9-06 12:23 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+9-06 13:12 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1409994733,rnd=25177 where id=538
+9-06 13:12 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+9-06 19:06 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1410015999,rnd=8039 where id=538
+9-06 19:06 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+9-06 19:06 select count(*) as num from sw_users where npc=0 and online > 1410016003-60 and city <> 7
+9-06 19:06 select name,race,level, city from sw_users where npc=0 and online > 1410016003-60 and city <> 7 order by name limit 0,20
+9-06 21:54 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1410026082,rnd=10841 where id=538
+9-06 21:54 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+9-06 21:54 select count(*) as num from sw_users where npc=0 and online > 1410026085-60 and city <> 7
+9-06 21:54 select name,race,level, city from sw_users where npc=0 and online > 1410026085-60 and city <> 7 order by name limit 0,20
+9-11 23:56 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1410465365,rnd=27262 where id=538
+9-11 23:56 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+9-11 23:56 select count(*) as num from sw_users where npc=0 and online > 1410465367-60 and city <> 7
+9-11 23:56 select name,race,level, city from sw_users where npc=0 and online > 1410465367-60 and city <> 7 order by name limit 0,20
+9-12 11:11 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1410505911,rnd=24678 where id=538
+9-12 11:11 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+9-12 11:11 select count(*) as num from sw_users where npc=0 and online > 1410505913-60 and city <> 7
+9-12 11:11 select name,race,level, city from sw_users where npc=0 and online > 1410505913-60 and city <> 7 order by name limit 0,20
+9-15 13:22 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1410772967,rnd=14734 where id=538
+9-15 13:22 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+9-15 13:22 select count(*) as num from sw_users where npc=0 and online > 1410772968-60 and city <> 7
+9-15 13:22 select name,race,level, city from sw_users where npc=0 and online > 1410772968-60 and city <> 7 order by name limit 0,20
+9-15 18:32 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1410791578,rnd=29159 where id=538
+9-15 18:32 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+9-15 18:33 select count(*) as num from sw_users where npc=0 and online > 1410791582-60 and city <> 7
+9-15 18:33 select name,race,level, city from sw_users where npc=0 and online > 1410791582-60 and city <> 7 order by name limit 0,20
+9-20 15:49 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1411213795,rnd=28764 where id=538
+9-20 15:49 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+9-20 19:03 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1411225404,rnd=10390 where id=538
+9-20 19:03 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')
+9-20 19:27 UPDATE sw_users SET ip='195.122.252.137;195.122.252.137;',online=1411226840,rnd=16774 where id=538
+9-20 19:27 insert into sw_login (owner,dat,tim,ip) values (538,NOW(),NOW(),'195.122.252.137;195.122.252.137;')

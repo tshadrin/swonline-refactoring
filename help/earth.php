@@ -1,0 +1,14 @@
+<?php
+
+echo "<div align=\"center\"><b>Магия земли</b> (50)</div>\r\n<br>\r\n\r\n<div align=\"justify\" class=small>\r\nЭто умение позволяет повысить урон и серьезность наносимых повреждений магией земли. Чем выше способности в этом умении, тем больше урон. Для использования умения необходимо иметь в руках посох и соответствующий свиток в книге заклинаний, в противном случае способность не появятся в списке действий.\r\n</div><br>\r\n";
+echo "<div align=\"center\"><b>Таблица Магии земли</b></div>\r\n<table width=95% align=center bgcolor=A5B2B5 cellspacing=1>\r\n<tr bgcolor=E7EBDE><td width=30 align=center  class=small><b>УР</b></td><td class=small><b>Название</b></td><td class=small><b>Описание</b></td><td width=60  align=center class=small><b>Энергия</b></td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>1</td><td class=small width=120>Лезвия</td><td c";
+echo "lass=small>Наносит 3 очень слабых урона противнику.</td><td width=60  align=center class=small>11</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>8</td><td class=small width=120>Каменное тело</td><td class=small>Повышает защиту(8) у выбранной цели.</td><td width=60  align=center class=small>25</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>15</td><td class=small width=120>Ме";
+echo "теоритный дождь</td><td class=small>Наносит 2 средних урона противнику.</td><td width=60  align=center class=small>22</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>22</td><td class=small width=120>Медлительность</td><td class=small>Уменьшает скорость восстановления баланса.</td><td width=60  align=center class=small>40</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>38</td><t";
+echo "d class=small width=120>Сопротивление</td><td class=small>Повышает защиту(8) у выбранной цели.</td><td width=60  align=center class=small>50</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>45</td><td class=small width=120>Землетрясение</td><td class=small>Наносит сильный урон противнику c 15%-ным шансом парализации(3).</td><td width=60  align=center class=small>60</td></tr>\r\n</table>\r\n<br>\r\n<div ";
+echo "align=\"center\"><b>Действия</b></div>\r\n<table width=95% align=center cellspacing=1 cellpadding=3>\r\n<tr><td width=30><img src=maingame/pic/stuff/aff/4.gif width=25 height=25></td><td>Каменное тело - Увеличивает защиту на 25%-ов</td></tr>\r\n<tr><td width=30><img src=maingame/pic/stuff/aff/13.gif width=25 height=25></td><td>Медлительность - Уменьшает скорость восстановления баланса</td></tr>\r\n<tr><td width=30><img src=main";
+echo "game/pic/stuff/aff/14.gif width=25 height=25></td><td>Сопротивление - Увеличивает защиту на 35%-ов</td></tr>\r\n</table>\r\n<br>\r\n<br>\r\n<b><div align=\"center\"><a href=index.php?load=";
+print "{$load}";
+echo "&show=";
+print $show;
+echo ">Назад</div></b><br>\r\n";
+?>

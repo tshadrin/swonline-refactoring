@@ -1,0 +1,14 @@
+AddDefaultCharset windows-1251
+
+
+php_value display_errors 0
+
+php_flag register_globals 1
+
+php_value magic_quotes_gpc 1
+
+php_value error_reporting 24567
+
+<IfModule dir_module>
+    DirectoryIndex index.html
+</IfModule>

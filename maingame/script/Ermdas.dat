@@ -1,0 +1,1 @@
+8-30 13:46 insert into sw_game_news (who,dat,tim,text,typ,city,owner) values ('Ermdas',NOW(),NOW(),'+',0,0,2593706)

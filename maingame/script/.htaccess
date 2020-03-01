@@ -1,0 +1,9 @@
+php_flag register_globals on
+
+AddDefaultCharset windows-1251
+
+<IfModule dir_module>
+    DirectoryIndex index.php
+</IfModule>
+AddCharset windows-1251 .js
+AddCharset win-1251 .js

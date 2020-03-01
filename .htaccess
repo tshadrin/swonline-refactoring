@@ -1,0 +1,27 @@
+AddDefaultCharset windows-1251
+
+php_value display_errors 0
+
+
+php_value magic_quotes_gpc 1
+
+
+php_value error_reporting 24567
+
+
+<IfModule dir_module>
+DirectoryIndex index.php
+</IfModule>
+deny from 178.151.23.123
+deny from 185.16.127.62
+deny from 109.251.209.37
+deny from 91.242.21.124
+deny from 91.234.22.46
+deny from 91.234.22.47
+deny from 91.234.22.48
+deny from 91.234.22.49
+deny from 91.234.22.50
+deny from 91.234.22.51
+deny from 91.233.249.50
+deny from 193.28.228.54
+deny from 91.233.249.42

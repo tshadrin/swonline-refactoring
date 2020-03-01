@@ -1,0 +1,14 @@
+<?php
+
+echo "<div align=\"center\"><b>Магия воздуха</b> (50)</div>\r\n<br>\r\n\r\n<div align=\"justify\" class=small>\r\nЭто умение позволяет повысить урон и серьезность наносимых повреждений магией воздуха. Чем выше способности в этом умении, тем больше урон.  Для использования умения необходимо иметь в руках посох и соответствующий свиток в книге заклинаний, в противном случае способность не появятся в списке действий.\r\n</div>";
+echo "<br>\r\n<div align=\"center\"><b>Таблица Магии воздуха</b></div>\r\n<table width=95% align=center bgcolor=A5B2B5 cellspacing=1>\r\n<tr bgcolor=E7EBDE><td width=30 align=center  class=small><b>УР</b></td><td class=small><b>Название</b></td><td class=small><b>Описание</b></td><td width=60  align=center class=small><b>Энергия</b></td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>1</td><td class=small width=120>Молния</";
+echo "td><td class=small>Наносит 1-2 слабых урона противнику.</td><td width=60  align=center class=small>10</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>8</td><td class=small width=120>Щит</td><td class=small>Повышает защиту(5) у выбранной цели.</td><td width=60  align=center class=small>25</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>15</td><td class=small width=120>Цепная мо";
+echo "лния</td><td class=small>Наносит 2-4 средних урона противнику.</td><td width=60  align=center class=small>21</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>25</td><td class=small width=120>Ясный взор</td><td class=small>Усиливает остроту зрения(5).</td><td width=60  align=center class=small>35</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>38</td><td class=small width=120>Ско";
+echo "рость</td><td class=small>Повышает скорость восстановления баланса.</td><td width=60  align=center class=small>50</td></tr>\r\n<tr bgcolor=F0F8F0><td width=30 align=center class=small>45</td><td class=small width=120>Звуковая волна</td><td class=small>Наносит сильный урон противнику c 10%-ным шансом ослепления(2).</td><td width=60  align=center class=small>58</td></tr>\r\n</table>\r\n<br>\r\n<div align=\"center\"><b>Действия</b";
+echo "></div>\r\n<table width=95% align=center cellspacing=1 cellpadding=3>\r\n<tr><td width=30><img src=maingame/pic/stuff/aff/4.gif width=25 height=25></td><td>Защита - Увеличивает защиту на 25%-ов</td></tr>\r\n<tr><td width=30><img src=maingame/pic/stuff/aff/13.gif width=25 height=25></td><td>Скорость - Увеличивает скорость восстановления баланса</td></tr>\r\n<tr><td width=30><img src=maingame/pic/stuff/aff/15.gif width=25 hei";
+echo "ght=25></td><td>Ясный взор - Позволяет видеть всех скрывающихся в комнате.</td></tr>\r\n</table>\r\n<br>\r\n<br>\r\n<b><div align=\"center\"><a href=index.php?load=";
+print "{$load}";
+echo "&show=";
+print $show;
+echo ">Назад</div></b><br>\r\n";
+?>
