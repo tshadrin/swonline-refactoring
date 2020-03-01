@@ -70,30 +70,36 @@ $race_bonus[5][3] = 8;
 $race_bonus[5][4] = 8;
 $race_bonus[5][5] = 8;
 
-function exptolevel($level,$race)
+/**
+ * Количество опыта необходимое для получения уровня
+ * @param $level
+ * @param $race
+ * @return false|float
+ */
+function exptolevel($level, $race)
 {
-	global $race_exp;
-	$level++;
-	$exp = round(($level*$level*5+$level*40)*(1+$race_exp[$race]));
+    global $race_exp;
+    $level++;
+    $exp = round(($level * $level * 5 + $level * 40) * (1 + $race_exp[$race]));
 
-	if ($level > 65)
-	{
-		$nl = ($level - 65);
-		$exp += $nl * $nl * 100;
-	}
-	return $exp;
+    /*if ($level > 115)
+    {
+        $nl = ($level - 115);
+        $exp += $nl * $nl * 50;
+    }*/
+    return $exp;
 }
 
 function exptolevel2($level,$race)
 {
-	global $race_exp;
-	$level++;
-	$exp = round(($level*$level*5+$level*40)*(1+$race_exp[$race]));
+    global $race_exp;
+    $level++;
+    $exp = round(($level*$level*5+$level*40)*(1+$race_exp[$race]));
 
-	if ($level > 65)
-	{
-		$nl = ($level - 65);
-		$exp += $nl * $nl * 100;
-	}
-	return $exp;
+    if ($level > 115)
+    {
+        $nl = ($level - 115);
+        $exp += $nl * $nl * 50;
+    }
+    return $exp;
 }

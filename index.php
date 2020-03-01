@@ -1,10 +1,9 @@
 <?php
-require 'vendor/autoload.php';
-session_start();
-header('Content-type: text/html; charset=win-1251');
-include('mysqlconfig.php');
-include("maingame/racecfg.php");
+    session_start();
+    header('Content-type: text/html; charset=win-1251');
+    require 'vendor/autoload.php';
 ?>
+
 <html>
 <head>
 <head>
@@ -94,6 +93,8 @@ if ($blocked) {
 	exit();
 }
 
+include('mysqlconfig.php');
+include("maingame/racecfg.php");
 $file = fopen("maingame/cur_online.dat","r");
 $all_online = fgets($file,15);
 $all_online = str_replace(chr(10),"",$all_online);
