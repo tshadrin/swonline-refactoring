@@ -1594,7 +1594,7 @@ else if ($load == "city")
 				if (($c_rank <> 1) || ($city_rank == 1))
 				{
 
-					$for = htmlspecialchars("$for", ENT_QUOTES);
+					$for = htmlspecialchars("$for", ENT_QUOTES, 'cp1251');
 					$for = str_replace("\r\n"," ",$for);
 					if (strlen($for) > 255)
 					$for=substr($for,0,255);
@@ -2166,7 +2166,7 @@ else if ($load == "clan")
 						mysqli_free_result($result);
 						if ($city_i == 0)
 							$dead_room = 135;
-						$for = htmlspecialchars("$for", ENT_QUOTES);
+						$for = htmlspecialchars("$for", ENT_QUOTES, 'cp1251');
 						$for = str_replace("\r\n"," ",$for);
 						if (strlen($for) > 255)
 						$for=substr($for,0,255);

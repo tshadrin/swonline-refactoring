@@ -1,5 +1,4 @@
 <?php
-
 $race_name[1] ='Человек';
 $race_str[1] = 10;
 $race_dex[1] = 10;

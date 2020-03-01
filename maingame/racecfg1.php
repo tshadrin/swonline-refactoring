@@ -1,5 +1,4 @@
-<?
-
+<?php
 $race_name[1] ='Человек';
 $race_str[1] = 10;
 $race_dex[1] = 10;
@@ -71,11 +70,17 @@ $race_bonus[5][3] = 8;
 $race_bonus[5][4] = 8;
 $race_bonus[5][5] = 8;
 
-function exptolevel($level,$race)
+/**
+ * Количество опыта необходимое для получения уровня
+ * @param $level
+ * @param $race
+ * @return false|float
+ */
+function exptolevel($level, $race)
 {
 	global $race_exp;
 	$level++;
-	$exp = round(($level*$level*5+$level*40)*(1+$race_exp[$race]));
+	$exp = round(($level * $level * 5 + $level * 40) * (1 + $race_exp[$race]));
 	
 	/*if ($level > 115)
 	{
@@ -98,5 +103,3 @@ function exptolevel2($level,$race)
 	}
 	return $exp;
 }
-
-?>

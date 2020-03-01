@@ -102,7 +102,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 			else
 			{
 				$info_obj[$i] = "$info_obj_name[$i]";
-				$info_obj[$i] = htmlspecialchars("$info_obj[$i]", ENT_QUOTES);
+				$info_obj[$i] = htmlspecialchars("$info_obj[$i]", ENT_QUOTES, 'cp1251');
 				$info_obj[$i] = str_replace(" ","&nbsp;",$info_obj[$i]);
 			}
 		}
@@ -454,7 +454,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				}
 				if ($info_stuff_madeby[$i] <> '')
 					$info_obj[$i] .= "<br><i>Мастер: $info_stuff_madeby[$i]</i>";
-				$info_obj[$i] = htmlspecialchars("$info_obj[$i]", ENT_QUOTES);
+				$info_obj[$i] = htmlspecialchars("$info_obj[$i]", ENT_QUOTES, 'cp1251');
 				$info_obj[$i] = str_replace(" ","&nbsp;",$info_obj[$i]);
 			}
 

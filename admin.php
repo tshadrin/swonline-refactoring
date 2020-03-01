@@ -2095,7 +2095,7 @@ Function player()
 		$name = strtoupper($name);
 		if (($action == "history") && ($admin_text <> ''))
 		{
-			$admin_text = htmlspecialchars("$admin_text", ENT_QUOTES);
+			$admin_text = htmlspecialchars("$admin_text", ENT_QUOTES, 'cp1251');
 			$admin_text = checkletter($admin_text);
 			$time = date("Y-m-d H:i");
 			$SQL="update sw_users set admin_text=CONCAT(admin_text,'$time [$admin_name]: $admin_text<br>') where up_name='$name'";
@@ -2146,7 +2146,7 @@ Function player()
 						$chat_banTime = 120;
 
 				$chat_banTime = $chat_banTime*60 + $cur_time;
-				$chat_banFor = htmlspecialchars("$chat_banFor", ENT_QUOTES);
+				$chat_banFor = htmlspecialchars("$chat_banFor", ENT_QUOTES, 'cp1251');
 				$chat_banFor = checkletter($chat_banFor);
 				$min = (round((($chat_banTime - $cur_time) / 60) * 10))/10;
 				$hour = (round(($chat_banTime - $cur_time ) / 60 / 60 * 10))/10;
@@ -2175,7 +2175,7 @@ Function player()
 						$ban_time = 4320;
 
 				$ban_time = $ban_time*60 + $cur_time;
-				$ban_for = htmlspecialchars("$ban_for", ENT_QUOTES);
+				$ban_for = htmlspecialchars("$ban_for", ENT_QUOTES, 'cp1251');
 				$ban_for = checkletter($ban_for);
 				$min = (round((($ban_time - $cur_time) / 60) * 10))/10;
 				$hour = (round(($ban_time - $cur_time ) / 60 / 60 * 10))/10;

@@ -1,4 +1,4 @@
-<?
+<?php
 Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice=0,$pages=0)
 {
 	global $GLOBAL_SKILL, $page,$pages_return,$id,$lt,$info_obj_obj,$info_obj_num,$info_obj_name,$info_canon,$info_obj,$info_obj_id,$info_obj_active,$info_obj_type,$info_obj_place,$info_obj_pic,$cur_weight,$race_str,$race_dex,$race_int,$race_wis,$race_con,$race,$str,$dex,$int,$wis,$con,$load,$do,$show,$result,$cbuy,$trade_id,$stg;
@@ -72,7 +72,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 			else
 			{
 				$info_obj[$i] = "$info_obj_name[$i]";
-				$info_obj[$i] = htmlspecialchars("$info_obj[$i]", ENT_QUOTES);
+				$info_obj[$i] = htmlspecialchars("$info_obj[$i]", ENT_QUOTES, 'cp1251');
 				$info_obj[$i] = str_replace(" ","&nbsp;",$info_obj[$i]);
 			}
 		}
@@ -497,7 +497,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				}
 				if ($info_stuff_madeby[$i] <> '')
 					$info_obj[$i] .= "<br><i>Мастер: $info_stuff_madeby[$i]</i>";
-				$info_obj[$i] = htmlspecialchars("$info_obj[$i]", ENT_QUOTES);
+				$info_obj[$i] = htmlspecialchars("$info_obj[$i]", ENT_QUOTES, 'cp1251');
 				$info_obj[$i] = str_replace(" ","&nbsp;",$info_obj[$i]);
 			}
 

@@ -23,7 +23,7 @@ include("maingame/racecfg.php");
 	<title>Old Shamaal World</title>
 </head>
 <LINK REL=STYLESHEET TYPE="TEXT/CSS" HREF="site.css" TITLE="STYLE">
-<?
+<?php
 
 function currentLoad()
 {
@@ -158,7 +158,7 @@ for ($i = 1;$i <= 4;$i++)
 		<tr>
 
 			<td bgcolor=F2F6F6  align=center>
-				<? include "banners.php"; ?>
+				<?php include "banners.php"; ?>
 			</td>
 
 		</tr>

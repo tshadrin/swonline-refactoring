@@ -148,7 +148,7 @@ while ($row_num){
 	$crank=$row_num[4];
 	$a = "| sel$crank |";
 	$cps = str_replace("$a","SELECTED",$ps);
-	$ctext = htmlspecialchars("$ctext", ENT_QUOTES);
+	$ctext = htmlspecialchars("$ctext", ENT_QUOTES, 'cp1251');
 	$ctext = checkletter($ctext);
 	if ($city_rank==1)
 		$info .= "<form action=citypositions.php method=post><input type=hidden name=id value=$cid><input type=hidden name=do value=save><tr bgcolor=F7FBFF><td width=30 height=20 align=center><a href=citypositions.php?do=del&id=$cid><img src=../pic/game/del.gif></a></td><td align=center width=120>$cname</td><td align=center width=120>$cps</td><td align=center width=120><input type=text name=c_pay size=2 maxlength=2 value=\"$cpay\"></td><td align=center width=120><input type=text name=c_text size=15 value=\"$ctext\"></td><td align=center><input type=submit value=Изменить></td></tr></form>";

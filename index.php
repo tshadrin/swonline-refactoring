@@ -1,19 +1,10 @@
 <?php
+require 'vendor/autoload.php';
 session_start();
 header('Content-type: text/html; charset=win-1251');
 include('mysqlconfig.php');
 include("maingame/racecfg.php");
 ?>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-18391239-4', 'auto');
-  ga('send', 'pageview');
-
-</script>
 <html>
 <head>
 <head>
@@ -25,43 +16,32 @@ include("maingame/racecfg.php");
 <LINK REL=STYLESHEET TYPE="TEXT/CSS" HREF="site.css" TITLE="STYLE">
 <?php
 
+/** Значение передается из формы входа type=hidden */
 function currentLoad()
 {
-	if (isset($_GET['load'])) {
-		$load = $_GET['load'];
-	} else if (isset($_POST['load'])) {
-		$load = $_POST['load'];
-	} else {
-		$load = 1;
-	}
-	return $load;
+	return array_key_exists('load', $_REQUEST) ? intval($_REQUEST['load']) : 1;
 }
-
+/** В форме ничего подобного нет */
 function currentSubLoad()
 {
-	if (isset($_GET['subload'])) {
-		$subload = $_GET['subload'];
-	} else if (isset($_POST['subload'])) {
-		$subload = $_POST['subload'];
-	} else {
-		$subload = 1;
-	}
-	return $subload;
+    return array_key_exists('subload', $_REQUEST) ? intval($_REQUEST['subload']) : 1;
 }
-
+/** Проверка сети */
 function CheckLan($text)
 {
 	$rus = 0;
 	$eng = 0;
 	$num = 0;
-	for ($i = 0; $i < strlen($text);$i++) {
+	for ($i = 0; $i < strlen($text); $i++) {
 	 	$char = substr($text, $i, 1);
 
-		if (ord($char) > 0x7A)
-			$rus = 1;
-		else if ((ord($char) >= 0x41 && ord($char) <= 0x5A) ||
-  				 (ord($char) >= 0x61 && ord($char) <= 0x7A))
-			$eng = 1;
+		if (ord($char) > 0x7A) {
+            $rus = 1;
+        } else if ((ord($char) >= 0x41 && ord($char) <= 0x5A) ||
+  				 (ord($char) >= 0x61 && ord($char) <= 0x7A)) {
+            $eng = 1;
+        }
+
 		if (($char >= '0' ) && ($char <= '9' )) {
             $num = 1;
         }
@@ -69,6 +49,7 @@ function CheckLan($text)
 		if ($rus == 1 && $eng == 1) {
             return 0;
         }
+
 		if ($num == 1) {
             return 0;
         }
@@ -187,8 +168,6 @@ for ($i = 1;$i <= 4;$i++)
 						$load = currentLoad();
 						$subload = currentSubLoad();
 
-						$load = (integer) $load;
-						$subload = (integer) $subload;
 						$link = array();
 						$link2 = array();
 						$link[1] = "Новости";

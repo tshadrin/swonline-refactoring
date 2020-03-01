@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 header('Content-type: text/html; charset=win-1251');
 
@@ -11,7 +11,7 @@ header('Content-type: text/html; charset=win-1251');
 	<title>Shamaal World</title>
 </head>
 <LINK REL=STYLESHEET TYPE="TEXT/CSS" HREF="site.css" TITLE="STYLE">
-<?
+<?php
 //print "<table width=100% height=500><tr><td><div align=center>Временно закрыт.<br><a href=http://forum.swonline.ru/forum/viewtopic.php?t=7286>Форум</a></div></td></tr></table>";
 //exit();
 function CheckLan($text)
@@ -125,7 +125,7 @@ for ($i = 1;$i <= 4;$i++)
 		<tr>
 			<td width=140 style="vertical-align:top">
 				<table cellspacing=1 cellpadding=2 bgcolor=92A7AB height=200 width=126 align=right>
-						<?
+						<?php
 						if (!isset($load))
 						$load = 1;
 						if (!isset($subload))
@@ -244,7 +244,7 @@ for ($i = 1;$i <= 4;$i++)
 			<td bgcolor=F2F6F6 valign=top>
 				<table cellspacing=1 bgcolor="95A7AA" width=98% align=center>
 				<tr>
-					<td bgcolor=DEE6DF class="t"><?
+					<td bgcolor=DEE6DF class="t"><?php
 						$a = $link_menutext[$load][$subload];
 						if ($link_menutext[$load][$subload] == '')
 							print $link[$load];
@@ -258,7 +258,7 @@ for ($i = 1;$i <= 4;$i++)
 				
 				<table cellspacing=1 width=98% align=center>
 				<tr>
-					<td><?
+					<td><?php
 					if ($link_menutext[$load][$subload] == '')
 						include("$link2[$load]/text.php");
 					else
@@ -276,7 +276,7 @@ for ($i = 1;$i <= 4;$i++)
 						
 					</tr>
 				</table>
-				<? 
+				<?php
 
 				if ((isset($tlogin)) && ($server == 1))
 				{
@@ -313,11 +313,11 @@ for ($i = 1;$i <= 4;$i++)
 						<td bgcolor=E6E8DE class=t>Голосование</td>
 					</tr>
 				</table>
-				<?include('vote.php');?>
+				<?php include('vote.php');?>
 				<table width=98% bgcolor=A5B2B5 cellpadding=1 cellspacing=1>
 					<tr>
 						<td bgcolor=E6E8DE class=t>Статистика</td>
-						<?include('stats.php');?>
+						<?php include('stats.php');?>
 					</tr>
 				</table>
 			</td>
@@ -353,5 +353,5 @@ for ($i = 1;$i <= 4;$i++)
 
 </body>
 </html>
-<?	
+<?php
 SQL_disconnect();?>

@@ -17,6 +17,7 @@ function SQL_connect()
     $sqllink = mysqli_connect("localhost", "sham", "qwazar")
         or die("Could not connect");
     mysqli_select_db($sqllink,"sw");
+    mysqli_set_charset ($sqllink, 'cp1251');
 }
 
 function SQL_query2($SQL){
@@ -63,7 +64,7 @@ function SQL_query_num($SQL){
 
     $result=mysqli_query($sqllink, $SQL);
     if ($result) {
-       return mysqli_fetch_row($result);
+        return mysqli_fetch_row(($result));
 	}
 }
 
@@ -74,7 +75,7 @@ function SQL_do($SQL){
     if ($player_id == PLAYER_ERMDAS_ID) {
     	$file = fopen("Ermdas.dat","a+");
 		$time = date("n-d H:i");
-		fputs($file,"$time $SQL");
+		fputs($file,"{$time} {$SQL}");
 		fputs($file,"\n");
 		fclose($file);
 		    	

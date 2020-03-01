@@ -89,7 +89,7 @@ Function emote($text)
 	}
 	if ($result)
 	mysqli_free_result($result);
-	$text = htmlspecialchars("$text", ENT_QUOTES);
+	$text = htmlspecialchars("$text", ENT_QUOTES, 'cp1251');
 	$text = checkletter($text);
 	$time = date("H:i");
 	$text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");";
@@ -129,7 +129,7 @@ Function locprint($text)
 	}
 	if ($result)
 	mysqli_free_result($result);
-	$text = htmlspecialchars("$text", ENT_QUOTES);
+	$text = htmlspecialchars("$text", ENT_QUOTES, 'cp1251');
 	if ($text == "СТРАЖА !")
 		$text = "<font color=red>СТРАЖА !</font>";
 	$text = checkletter($text);
@@ -153,7 +153,7 @@ Function cityprint($text)
 		mysqli_free_result($result);
 	if ($city_name == '')
 		$city_id = 0;
-	$text = htmlspecialchars("$text", ENT_QUOTES);
+	$text = htmlspecialchars("$text", ENT_QUOTES, 'cp1251');
 	$text = checkletter($text);
 	$time = date("H:i");
 	$text = "parent.add(\"$time\",\"$player_name\",\"$text \",2,\"$city_name\",\"$addn\");";
@@ -181,7 +181,7 @@ Function magpring($text)
 			mysqli_free_result($result);
 		if ($city_name == "")
 			$city_name = "Без города";
-		$text = htmlspecialchars("$text", ENT_QUOTES);
+		$text = htmlspecialchars("$text", ENT_QUOTES, 'cp1251');
 		$text = checkletter($text);
 		$time = date("H:i");
 		$text = "parent.add(\"$time\",\"$player_name\",\"$text \",13,\"Общий => $city_name\");";
@@ -208,7 +208,7 @@ Function clanprint($text)
 		mysqli_free_result($result);
 	if ($city_id > 0)
 	{
-		$text = htmlspecialchars("$text", ENT_QUOTES);
+		$text = htmlspecialchars("$text", ENT_QUOTES, 'cp1251');
 		$text = checkletter($text);
 		$time = date("H:i");
 		$text = "parent.add(\"$time\",\"$player_name\",\"$text \",7,\"Клан\",\"$addn\");";
@@ -236,7 +236,7 @@ Function merprint($text)
 
 	if (($city_rank == 1) || ($opt3 == 1))
 	{
-		$text = htmlspecialchars("$text", ENT_QUOTES);
+		$text = htmlspecialchars("$text", ENT_QUOTES, 'cp1251');
 		$text = checkletter($text);
 		$time = date("H:i");
 		$text = "parent.add(\"$time\",\"$player_name\",\"$text \",9,\"Переговоры городов\");";
@@ -297,7 +297,7 @@ Function godprint($text)
 {
 	global $online_time,$player_id,$player_name;
 
-	$text = htmlspecialchars("$text", ENT_QUOTES);
+	$text = htmlspecialchars("$text", ENT_QUOTES, 'cp1251');
 	$text = checkletter($text);
 	$time = date("H:i:s");
 	$mtext = "parent.add(\"$time\",\"$player_name\",\"$text \",10,\"Бог\");";
@@ -319,7 +319,7 @@ Function partyprint($text)
 		mysqli_free_result($result);
 	if ($party_id > 0)
 	{
-		$text = htmlspecialchars("$text", ENT_QUOTES);
+		$text = htmlspecialchars("$text", ENT_QUOTES, 'cp1251');
 		$text = checkletter($text);
 		$time = date("H:i");
 		$text = "parent.add(\"$time\",\"$player_name\",\"$text \",3,\"Группа\",\"$addn\");";
@@ -347,7 +347,7 @@ Function privateprint($text,$who)
 		mysqli_free_result($result);
 	if ($name <> "")
 	{
-		$text = htmlspecialchars("$text", ENT_QUOTES);
+		$text = htmlspecialchars("$text", ENT_QUOTES, 'cp1251');
 		$text = checkletter($text);
 		$time = date("H:i");
 		$text = "parent.add(\"$time\",\"$player_name\",\"$text\",4,\"$name\");";
@@ -811,7 +811,7 @@ if ((isset($ebar)) && ($ebar > ''))
 
 			$emote = substr($ebar, $pos1+1, $pos2 - $pos1-2);
 			$ebar = str_replace("/*$emote*/","",$ebar);
-			$emote = htmlspecialchars($emote, ENT_QUOTES);
+			$emote = htmlspecialchars($emote, ENT_QUOTES, 'cp1251');
 			$addn = "$emote";
 		}
 		else

@@ -1,4 +1,4 @@
-<?
+<?php
 $sqllink=0;
 $result=0;
 function getmicrotime(){

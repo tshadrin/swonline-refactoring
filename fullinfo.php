@@ -1,39 +1,56 @@
 <?php
+require "vendor/autoload.php";
 session_start();
 header('Content-type: text/html; charset=win-1251');
 
+if (array_key_exists('name', $_REQUEST)) {
+    $name = $_REQUEST['name'];
+} else {
+    $name = '';
+}
+//test sham
+//$player = ['id' => 485, 'name' => 'Stefanic'];
+//test sham
+//откуда берется переменная $name?
+//$name = 'Alefant';
+
 $player_id = $player['id'];
 $player_name = $player['name'];
-if ( !session_is_registered("player")) {
-$player_id = -1;
+if ( !isset($_SESSION["player"])) {
+    $player_id = -1;
 }
-$cur_time=time();
-Function checkletter($text)
-{
-	$k = 0;
-	$newtext = '';
-	For ($i=0;$i<=strlen($text);$i++)
-	{
-		if ( ($text[$i] == '-') || ($text[$i] == ' ') || ($text[$i] == '?') || ($text[$i] == chr(60)) )
-			$k = 0;
-		else
-			$k++;
 
-		$newtext = $newtext.$text[$i];
-		if ($k > 15)
-		{
-			$newtext = $newtext.' ';
-			$k = 0;
-		}
-	}
+$cur_time=time();
+function checkletter($text)
+{
+    if(is_array($text)) {
+        $k = 0;
+        $newtext = '';
+        for ($i = 0; $i <= strlen($text); $i++) {
+            if (($text[$i] == '-') || ($text[$i] == ' ') || ($text[$i] == '?') || ($text[$i] == chr(60)))
+                $k = 0;
+            else
+                $k++;
+
+            $newtext = $newtext . $text[$i];
+            if ($k > 15) {
+                $newtext = $newtext . ' ';
+                $k = 0;
+            }
+        }
+    } else {
+        $newtext = $text;
+    }
 	return $newtext;
 }
-
-
 function GetIP()
 {
 	global $_SERVER;
-	$iphost1=$_SERVER['HTTP_X_FORWARDED_FOR'];
+	if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+        $iphost1 = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+	    $iphost1 = '0.0.0.0';
+    }
 	$iphost2=$_SERVER['REMOTE_ADDR'];
 	$iphost="$iphost2;$iphost1;";
 	return $iphost;
@@ -47,21 +64,29 @@ $file = fopen("log.dat","a+");
 $time = date("n-d H:i:s");
 $agent_data = $_SERVER['HTTP_USER_AGENT'];
 $blocked = false;
-if(preg_match('/JoeDog/i',$agent_data))
-	$blocked = true;
-if ($blocked)
-	fputs($file,"$time Fullinfo |$name| |$player_id|".$plip. "|Cookie user:".$_COOKIE["lastuser"]."|".$agent_data." Blocked: true");
-else
-	fputs($file,"$time Fullinfo |$name| |$player_id|".$plip. "|Cookie user:".$_COOKIE["lastuser"]."|".$agent_data." Blocked: false");
+if (preg_match('/JoeDog/i', $agent_data)) {
+    $blocked = true;
+}
+//sham add
+if (array_key_exists('lastuser', $_COOKIE)) {
+    $last_user = $_COOKIE['lastuser'];
+} else {
+    $last_user = '';
+}
+if ($blocked) {
+    fputs($file, "{$time} Fullinfo |{$name}| |{$player_id}|{$plip}|Cookie user:{$last_user}|{$agent_data} Blocked: true");
+} else {
+    fputs($file, "{$time} Fullinfo |{$name}| |{$player_id}|{$plip}|Cookie user:{$last_user}|{$agent_data} Blocked: false");
+}
 fputs($file,"\n");
 fclose($file);
 
-if ($blocked)
-{
+if ($blocked) {
 	exit();
 }
-if (strpos($plip, "206.53.155.87") > 0 || strpos($plip, "46.0.207.176") > 0)
-	exit();
+if (strpos($plip, "206.53.155.87") > 0 || strpos($plip, "46.0.207.176") > 0) {
+    exit();
+}
 
 include("mysqlconfig.php");
 include("maingame/functions/plinfo.php");
@@ -137,11 +162,11 @@ while ($row_num){
 	$clan=$row_num[39];
 	$auth=$row_num[40];
 	$server=$row_num[41];
-
 	$row_num=SQL_next_num();
 }
-if ($result)
-mysqli_free_result($result);
+if ($result) {
+    mysqli_free_result($result);
+}
 if (strlen($clas) > 25)
 	$clas=substr($clas,0,25);
 if ($city <> 0)
@@ -190,13 +215,12 @@ if ($clan <> 0)
 	mysqli_free_result($result);
 }
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
+<!DOCTYPE HTML">
 <html>
 <head>
+    <meta charset=windows-1251">
 	<title>» Информация <?php print "$name";?></title>
 </head>
-<meta content="text/html; charset=windows-1251" http-equiv="Content-Type">
 <LINK REL=STYLESHEET TYPE="TEXT/CSS" HREF="maingame/style.css" TITLE="STYLE">
 <div id="stooltipmsg" class="stooltip">
 	<div id="stooltip_e1"></div><div id="stooltip_e2"></div><div id="stooltip_e3"></div><div id="stooltip_e4"></div>
@@ -222,7 +246,7 @@ if ($id > 0)
 		{
 			$SQL="select name from sw_city where id=$city";
 			$row_num=SQL_query_num($SQL);
-			while ($row){
+			while ($row_num){
 				$city_name=$row_num[0];
 				$row_num=SQL_next_num();
 			}
@@ -300,7 +324,7 @@ if ($id > 0)
 		if ($pic == "")
 			$pic = 'no_obraz.gif';
 
-		$tclas = htmlspecialchars("$tclas", ENT_QUOTES);
+		$tclas = htmlspecialchars("$tclas", ENT_QUOTES, 'cp1251');
 		?>
 
 		<table cellpadding=8><TR><TD>
@@ -434,20 +458,20 @@ if ($id > 0)
 			<tr bgcolor=F6FAFF><td width=44% bgcolor=EBF1F7><b>Девиз:</b></td><td><input type=text name=inf_dev value='$inf_dev' size=58 maxlength=150></td></tr>
 			<tr bgcolor=F6FAFF><td width=44% bgcolor=EBF1F7><b>О себе:</b></td><td><textarea cols=58 rows=10 name=inf_his>$inf_his</textarea></td></tr></table><div align=center><br><input type=submit value=Сохранить></div>";
 		}else{
-			$inf_his = htmlspecialchars($inf_his, ENT_QUOTES);
+			$inf_his = htmlspecialchars($inf_his, ENT_QUOTES, 'cp1251');
 			$inf_his = str_replace("\r","<br>",$inf_his);
 			$inf_his = checkletter($inf_his);
 			if (strlen($inf_wep) > 40)
 				$inf_his=substr($inf_wep,0,40);
-			$inf_wep = htmlspecialchars($inf_wep, ENT_QUOTES);
+			$inf_wep = htmlspecialchars($inf_wep, ENT_QUOTES, 'cp1251');
 			$inf_wep = checkletter($inf_wep);
 			if (strlen($inf_dev) > 500)
 				$inf_dev=substr($inf_dev,0,50);
-			$inf_dev = htmlspecialchars($inf_dev, ENT_QUOTES);
+			$inf_dev = htmlspecialchars($inf_dev, ENT_QUOTES, 'cp1251');
 			$inf_dev = checkletter($inf_dev);
 			print "<tr bgcolor=F6FAFF><td width=44% bgcolor=EBF1F7><b>Любимое оружие:</b></td><td>$inf_wep</td></tr>
 			<tr bgcolor=F6FAFF><td width=44% bgcolor=EBF1F7><b>Девиз:</b></td><td>$inf_dev</td></tr>
-			<tr bgcolor=F6FAFF><td width=44% bgcolor=EBF1F7><b>О себе:</b></td><td>$inf_his</td></tr>";
+			<tr bgcolor=F6FAFF><td width=44% bgcolor=EBF1F7><b>О себе:</b></td><td>{$inf_his}</td></tr>";
 			$cur_time=time();
 			if ($ban > $cur_time)
 			{
