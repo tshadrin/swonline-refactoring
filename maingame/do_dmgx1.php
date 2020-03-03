@@ -1,4 +1,4 @@
-<?
+<?php
 $text = '';
 $jsptext = '';
 $jsptex = '';

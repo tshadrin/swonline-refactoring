@@ -1,7 +1,11 @@
-<?
+<?php
 session_start();
+if (!array_key_exists("player", $_SESSION)) {
+    exit;
+} else {
+    $player = $_SESSION['player'];
+}
 header('Content-type: text/html; charset=win-1251');
-if ( !session_is_registered("player")) {exit();}
 $player_id = $player['id'];
 $player_name = $player['name'];
 $player_opt= $player['opt'];

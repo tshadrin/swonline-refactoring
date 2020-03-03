@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 header('Content-type: text/html; charset=win-1251');
 if (!isset($player['id'])) {exit();}
@@ -7,7 +7,7 @@ $player_name = $player['name'];
 $cur_time = time();
 ?>
 <meta content="text/html; charset=windows-1251" http-equiv="Content-Type">
-<?
+<?php
 include("../../mysqlconfig.php");
 Function checkletter($text)
 {

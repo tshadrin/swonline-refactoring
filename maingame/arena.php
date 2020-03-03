@@ -1,8 +1,6 @@
 <?php
-
-if ( !session_is_registered( "player" ) )
-{
-    exit( );
+if (array_key_exists("player", $_SESSION)) {
+    $player = $_SESSION['player'];
 }
 $showit = 1;
 $what = "";

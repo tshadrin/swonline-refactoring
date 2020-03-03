@@ -1,4 +1,4 @@
-<?
+<?php
 function domir($type)
 {
 	global $player,$cur_balance,$cur_time,$balance,$balance_ten,$race_dex,$player_sex,$player_id,$player_name,$action,$load,$scroll,$mobj1,$mobj2,$mobj3,$mobj1_num,$mobj2_num,$mobj3_num,$old_room,$player_race,$result;

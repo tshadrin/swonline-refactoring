@@ -1,8 +1,6 @@
 <?php
-
-if ( !session_is_registered( "player" ) )
-{
-    exit( );
+if (!isset($player)) {
+    exit;
 }
 $text = "";
 $SQL = "select sw_object.text,sw_object.id from sw_object inner join sw_users on sw_object.id=sw_users.room where sw_users.id={$player_id}  and what='horse'";

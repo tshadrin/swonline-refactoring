@@ -1,4 +1,4 @@
-<?
+<?php
 if ($secureKey != "Frmajkf@9840!jnmj")
 	exit();
 $tmi=0;
@@ -13,6 +13,7 @@ $player['afk'] = $cur_time;
 $player_random =$player['rnd'];
 $online_time = $cur_time-40;
 $time = date("H:i");
+
 /*if (!isset($n_pvp))
 $n_pvp = 0;*/
 $player['room'] = $player_room;
@@ -49,7 +50,7 @@ if ($rnd != $player_random)
 	exit();
 }
 
-if ( ($dir >= 1) && ($dir <=8) && ($d[$dir] <> ""))
+if (isset($dir) && ($dir >= 1) && ($dir <=8) && ($d[$dir] <> ""))
 {
 
 	if (($sleep == 0) && ($dir >= 0))
@@ -297,9 +298,10 @@ if ((isset($dir)) &&($dir == -1))
 	showusers($player_id,$player_room);
 }
 $player['regen'] = $regen;
-max_parametr($level,$race,$con,$wis);
+
+max_parametr($level,$race,$con,isset($wis) ? $wis : 0);
 openscript();
-if ( ($dir >= 1) && ($dir <=8) && ($d[$dir] <> ""))
+if (isset($dir) && ($dir >= 1) && ($dir <=8) && ($d[$dir] <> ""))
 {
 	if ($trap == 1)
 	{
@@ -400,7 +402,9 @@ else
 /*$pt = getmicrotime();
 print "alert('".($lt-$pt)."');";*/
 if ($no_pvp == 0)
-	print "top.map($went,'$player_room','$m_name','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi);";
+	print "document.addEventListener(\"DOMContentLoaded\", function(event) { 
+	top.map($went, '$player_room','$m_name','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi);
+	});";
 else if ($no_pvp == 1)
 	print "top.map($went,'$player_room','<a title=\"Анти-боевая зона\"><font class=usergood>$m_name</font></a>','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi);";
 else

@@ -1,4 +1,4 @@
-<?
+<?php
 // Владение монашеством
 $game_skill_type_dmg[16]= 1;
 $game_skill_num[16] = 1;

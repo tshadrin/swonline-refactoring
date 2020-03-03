@@ -1,4 +1,4 @@
-<?
+<?php
 Function prepareinfo($num)
 {
 	global $iobj_id2,$info_obj_active,$info_obj_place,$obj_img2,$obj_img,$obj_alt2,$obj_alt,$info_obj_pic,$info_obj,$iobj_id,$obj_id2,$info_obj_id,$result;

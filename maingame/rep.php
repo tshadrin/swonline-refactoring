@@ -1,5 +1,6 @@
-<?
-if ( !session_is_registered("player")) {exit();}
+<?php
+if (!isset($player)) { exit; }
+
 $SQL="select sw_object.dat,sw_object.owner as owner_id,sw_object.owner_city,what,text,room,str,race,gold,bag_q,city from sw_object inner join sw_users on sw_object.id=sw_users.room where sw_users.id=$player_id and what='rep'";
 $row_num=SQL_query_num($SQL);
 while ($row_num){

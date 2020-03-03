@@ -1,7 +1,9 @@
-<?
+<?php
+if (array_key_exists("player", $_SESSION)) {
+    $player = $_SESSION['player'];
+}
 //$player_id = $player['id'];
 $player_id = (integer) $player_id;
-if ( !session_is_registered("player")) {exit();}
 $admin = -1;
 $decodepwd = md5("#".$player_pass);
 

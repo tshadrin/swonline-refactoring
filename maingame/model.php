@@ -1,6 +1,8 @@
 <?php
 session_start();
-if ( !session_is_registered("player")) {exit();}
+if (array_key_exists("player", $_SESSION)) {
+    $player = $_SESSION['player'];
+}
 $img1_path = "pic/game/captcha/".$_SESSION['captcha_1'].".png";
 $img2_path = "pic/game/captcha/".$_SESSION['captcha_2'].".png";
 $img3_path = "pic/game/captcha/".$_SESSION['captcha_3'].".png";

@@ -1,4 +1,4 @@
-<?
+<?php
 // Магия воздуха
 $game_skill_type_dmg[20]= 5;
 $game_skill_num[20] = 1;

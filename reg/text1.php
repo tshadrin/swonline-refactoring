@@ -1,4 +1,4 @@
-<?
+<?php
 //print "<div align=center><b>Регистрация закрыта.</b></div><br>";
 $rt = 1;
 
@@ -169,14 +169,14 @@ if ((!isset($optnum)) || ($optnum == 0))
 	?>
 
 	<form action="index.php" method="post">
-	<input type="hidden" name="load" value=<?print $load;?>>
+	<input type="hidden" name="load" value=<?php print $load;?>>
 	<input type="hidden" name="register" value="1">
 					<div align = "center"><font face="Comic Sans MS" size = 4>Регистрация нового пользователя</font><br></div><br>
 
 	<table width=95% align=center>
 	<tr>
 		<td>Логин (12 символов): </td>
-		<td><input type="text" CLASS=B name="mlogin" value=<? print "$mlogin";?>></td>
+		<td><input type="text" CLASS=B name="mlogin" value=<?php print "$mlogin";?>></td>
 	</tr>
 	<tr>
 		<td colspan="2"><em><font size="1" class=ssmall color=red>Ваш логин для входа в Shamaal World, который не должен совпадать с вашим именем в игре.</font></em><br>
@@ -185,7 +185,7 @@ if ((!isset($optnum)) || ($optnum == 0))
 	</tr>
 	<tr>
 		<td>Имя героя (12 символов): </td>
-		<td><input type="text" CLASS=B name="name" value=<? print "$name";?>></td>
+		<td><input type="text" CLASS=B name="name" value=<?php print "$name";?>></td>
 	</tr>
 	<tr>
 		<td colspan="2"><em><font size="1" class=ssmall>Разрешается использовать или только английские буквы, или только русские.</font></em>
@@ -199,11 +199,11 @@ if ((!isset($optnum)) || ($optnum == 0))
 
 	<tr>
 		<td>Пароль (15 символов): </td>
-		<td><input type="password" CLASS=B name="password" value=<? print "$password";?>></td>
+		<td><input type="password" CLASS=B name="password" value=<?php print "$password";?>></td>
 	</tr>
 	<tr>
 		<td>Повторить пароль (15 символов): </td>
-		<td><input type="password" CLASS=B name="repassword" value=<? print "$repassword";?>></td>
+		<td><input type="password" CLASS=B name="repassword" value=<?php print "$repassword";?>></td>
 	</tr>
 	<tr>
 		<td colspan="2"><em><font size="1" class=ssmall>Разрешается использовать английский и русский алфавит. Как минимум 5 символов.</font></em><br>
@@ -212,7 +212,7 @@ if ((!isset($optnum)) || ($optnum == 0))
 	</tr>
 	<tr>
 		<td>E-mail (40 символов): </td>
-		<td><input type="text" name="email" CLASS=B value=<? print "$email";?>></td>
+		<td><input type="text" name="email" CLASS=B value=<?php print "$email";?>></td>
 	</tr>
 	<tr>
 		<td colspan="2"><em><font size="1" class=ssmall color=red>На ваш E-mail будет высылаться пароль, если вы его забудете.</font></em><br><br>
@@ -233,7 +233,7 @@ if ((!isset($optnum)) || ($optnum == 0))
 	</tr>
 	<tr>
 		<td colspan="2">Пол вашего героя<br>
-		<?
+		<?php
 		If (isset($sex) && ($sex == 1))
 			print "&nbsp;&nbsp;Мужской <input type='radio' name='sex' value='1' checked class=bgarea><br>";
 		else
@@ -256,7 +256,7 @@ if ((!isset($optnum)) || ($optnum == 0))
 			<table width=95% align=right>
 			<tr>
 				<td>
-				 <? If (isset($race) && ($race == 1))
+				 <?php If (isset($race) && ($race == 1))
 						print "<input type='radio' name='race' value='1' checked class=bgarea>";
 					else
 						if (!isset($race))
@@ -280,7 +280,7 @@ if ((!isset($optnum)) || ($optnum == 0))
 			</tr>
 			<tr>
 				<td>
-				<? If (isset($race) && ($race == 2))
+				<?php If (isset($race) && ($race == 2))
 						print "<input type='radio' name='race' value='2' checked class=bgarea>";
 					else
 						print "<input type='radio' name='race' value='2' class=bgarea>";
@@ -304,7 +304,7 @@ if ((!isset($optnum)) || ($optnum == 0))
 				</td>
 			</tr>
 			<tr>
-				<td>			<? If (isset($race) && ($race == 4))
+				<td>			<?php If (isset($race) && ($race == 4))
 						print "<input type='radio' name='race' value='3' checked class=bgarea>";
 					else
 						print "<input type='radio' name='race' value='3' class=bgarea>";
@@ -326,7 +326,7 @@ if ((!isset($optnum)) || ($optnum == 0))
 				</td>
 			</tr>
 			<tr>
-				<td>			<? If (isset($race) && ($race == 8))
+				<td>			<?php If (isset($race) && ($race == 8))
 						print "<input type='radio' name='race' value='4' checked class=bgarea>";
 					else
 						print "<input type='radio' name='race' value='4' class=bgarea>";
@@ -348,7 +348,7 @@ if ((!isset($optnum)) || ($optnum == 0))
 				</td>
 			</tr>
 			<tr>
-				<td>			<? If (isset($race) && ($race == 16))
+				<td>			<?php If (isset($race) && ($race == 16))
 						print "<input type='radio' name='race' value='5' checked class=bgarea>";
 					else
 						print "<input type='radio' name='race' value='5' class=bgarea>";
@@ -385,7 +385,7 @@ if ((!isset($optnum)) || ($optnum == 0))
 	<div align="center"><input type="submit" value="Создать героя" ></div><br>
 	<br>
 	</form>
-	<?
+	<?php
 	}
 
 //<input type="submit" value="Создать героя">

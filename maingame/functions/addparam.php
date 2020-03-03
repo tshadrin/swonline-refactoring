@@ -1,4 +1,4 @@
-<?
+<?php
 function addparametr()
 {
 	global $param,$player_id,$race_str,$race_dex,$race_int,$race_wis,$race_con,$result;

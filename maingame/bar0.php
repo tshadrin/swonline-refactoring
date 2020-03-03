@@ -1,6 +1,6 @@
 <?php
-
 session_start( );
+$player = $_SESSION['player'];
 header( "Content-type: text/html; charset=win-1251" );
 $sleep = $player['sleep'];
 if ( $sleep == 1 )

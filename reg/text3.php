@@ -1,4 +1,4 @@
-<?
+<?php
 	$er = '';
 	$error = 0;
 	if ((isset($r_login)) && (isset($r_name)) && (isset($old_password)) && (isset($new_password)) && (isset($new_password2)) && (isset($captcha)))
@@ -51,11 +51,11 @@
 ?> 
 <table width=90% align=center cellspacing=1 bgcolor=A5B2B5>
 <form action="" method="post">
-<input type="hidden" name="load" value="<?print $load;?>">
-<input type="hidden" name="subload" value="<?print $subload;?>">
+<input type="hidden" name="load" value="<?php print $load;?>">
+<input type="hidden" name="subload" value="<?php print $subload;?>">
 <tr bgcolor=E6E8DE><td height=40>
 <div align=center>Заполните форму, и Ваш пароль будет поменян.
-<?
+<?php
 if ($er <> '')
 print "<font color=red class=small>$er</font>";
 ?>

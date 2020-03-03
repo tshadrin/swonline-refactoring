@@ -1,10 +1,10 @@
-<?
+<?php
 
 session_start();
 header('Content-type: text/html; charset=win-1251');
 ?>
 <meta content="text/html; charset=windows-1251" http-equiv="Content-Type">
-<?
+<?php
 print "<LINK REL=STYLESHEET TYPE=\"TEXT/CSS\" HREF=\"../style.css\" TITLE=\"STYLE\"> ";
 if (!isset($player['id'])) {exit();}
 $player_id = $player['id'];

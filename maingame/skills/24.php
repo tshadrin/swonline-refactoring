@@ -1,4 +1,4 @@
-<?
+<?php
 $game_skill_type_dmg[24]= 1;
 if ($num ==1)
 {

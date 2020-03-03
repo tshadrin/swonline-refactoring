@@ -1,4 +1,4 @@
-<?
+<?php
 	$er = '';
 	if (isset($code) && isset($r_login))
 	{
@@ -135,11 +135,11 @@ if (!isset($code))
 ?>
 <table width=90% align=center cellspacing=1 bgcolor=A5B2B5>
 <form action="" method="post">
-<input type="hidden" name="load" value="<?print $load;?>">
-<input type="hidden" name="subload" value="<?print $subload;?>">
+<input type="hidden" name="load" value="<?php print $load;?>">
+<input type="hidden" name="subload" value="<?php print $subload;?>">
 <tr bgcolor=E6E8DE><td height=40>
 <div align=center>Заполните форму, и Ваш пароль будет выслан на зарегистрированный E-Mail.
-<?
+<?php
 if ($er <> '')
 print "<font color=red class=small>$er</font>";
 ?>
@@ -177,4 +177,4 @@ print "<font color=red class=small>$er</font>";
 </td></tr>
 </form>
 </table>
-<? } ?>
+<?php } ?>

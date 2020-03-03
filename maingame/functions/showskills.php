@@ -1,4 +1,4 @@
-<?
+<?php
 function showskills()
 {
 	global $upskill,$player_id,$result,$downskill;

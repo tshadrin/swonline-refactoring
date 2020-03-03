@@ -1,4 +1,4 @@
-<?
+<?php
 include('functions/objinfo.php');
 include("functions/plinfo.php");
 function useobj($id)

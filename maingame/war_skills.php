@@ -1,4 +1,4 @@
-<?
+<?php
 $opera = 0;
 include("skill.php");
 $SQL="select typ from sw_obj inner join sw_stuff on sw_obj.obj=sw_stuff.id where sw_obj.owner=$player_id and room=0 and sw_stuff.obj_place=4 and sw_obj.active=1";
@@ -9,7 +9,7 @@ while ($row_num){
 }
 if ($result)
 mysqli_free_result($result);
-if ($weptyp == "")
+if (!isset($weptyp))
 	$weptyp = 0;
 $SkillText = "";
 $ltyp = 0;

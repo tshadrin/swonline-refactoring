@@ -1,4 +1,4 @@
-<?
+<?php
 // Магия тела
 $game_skill_type_dmg[21]= 1;
 $game_skill_num[21] = 1;

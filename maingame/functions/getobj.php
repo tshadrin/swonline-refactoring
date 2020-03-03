@@ -1,4 +1,4 @@
-<?
+<?php
 Function getobj()
 {
 	global $result,$player_name,$player_id,$id,$cur_time,$player,$cur_balance,$race_dex,$balance,$balance_ten,$race_str;

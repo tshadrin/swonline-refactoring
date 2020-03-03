@@ -1,4 +1,4 @@
-<?
+<?php
 // Магия Огня
 $game_skill_type_dmg[17]= 2;
 $game_skill_num[17] = 1;

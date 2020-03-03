@@ -11,11 +11,11 @@ $race_exp[1] = -0.05;
 $race_bal[1] = 15;
 
 $race_name[2] ='Ёльф';
-$race_str[2] = 8;
-$race_dex[2] = 12;
-$race_int[2] = 11;
-$race_wis[2] = 11;
-$race_con[2] = 8;
+$race_str[2] = 8; //сила
+$race_dex[2] = 12; //ловкость
+$race_int[2] = 11; //интеллект
+$race_wis[2] = 11; //мудрость
+$race_con[2] = 8; //телосложение
 $race_hp[2] = 1;
 $race_mana[2] = 1;
 $race_exp[2] = 0;

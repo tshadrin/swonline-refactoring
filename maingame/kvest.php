@@ -1,4 +1,8 @@
-<?
+<?php
+if (array_key_exists("player", $_SESSION)) {
+    $player = $_SESSION['player'];
+}
+
 function checkvar($name)
 {
 	global $result,$var_count,$vr_name,$vr_value,$res2;
@@ -16,7 +20,6 @@ function checkvar($name)
 	}
 	return $res;
 }
-if ( !session_is_registered("player")) {exit();}
 $player_id = (integer) $player_id;
 $player_room = (integer)$player_room;
 //$step = (integer) $step;

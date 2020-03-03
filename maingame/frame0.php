@@ -1,5 +1,5 @@
 <?php
-echo "<title>Old Shamaal World</title>\r\n";
+echo "<title>Shamaal World</title>\r\n";
 echo "<script>\r\nplayer_name = '";
 print $player_name;
 echo "';\r\nvar\tignor= new Array();\r\nignor[0] = '1';\r\n</script>\r\n";

@@ -1,5 +1,6 @@
-<?
-if ( !session_is_registered("player")) {exit();}
+<?php
+if (!isset($player)) { exit; }
+
 
 $file = fopen("30min.dat","r");
 $min30 = fgets($file,15);

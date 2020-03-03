@@ -1,4 +1,4 @@
-<?
+<?php
 // Магия воды
 $game_skill_type_dmg[18]= 3;
 $game_skill_num[18] = 1;

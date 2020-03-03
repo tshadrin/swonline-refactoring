@@ -1,4 +1,4 @@
-<?
+<?php
 max_parametr($level,$race,$con,$wis);
 $cur_time=time();
 $t[1] = "";

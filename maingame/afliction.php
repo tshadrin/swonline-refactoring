@@ -1,4 +1,4 @@
-<?
+<?php
 $count = 0;
 $npc_aff = '';
 $player_do = '';

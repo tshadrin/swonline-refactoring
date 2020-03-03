@@ -1,4 +1,4 @@
-<?
+<?php
 $count = 0;
 $aff = '';
 $totext = "";

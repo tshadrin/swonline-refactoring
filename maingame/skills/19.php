@@ -1,4 +1,4 @@
-<?
+<?php
 // Магия земли
 $game_skill_type_dmg[19]= 4;
 $game_skill_num[19] = 1;

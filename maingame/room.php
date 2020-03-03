@@ -1,12 +1,13 @@
-<?header('Content-type: text/html; charset=win-1251');?>
+<?php
+header('Content-type: text/html; charset=win-1251');?>
 <meta content="text/html; charset=windows-1251" http-equiv="Content-Type">
 <LINK REL=STYLESHEET TYPE="TEXT/CSS" HREF="style.css" TITLE="STYLE">
 <html>
 <head>
-	<title>Old Shamaal World</title>
+	<title>Shamaal World</title>
 </head>
 <body>
-<?
+<?php
 if (isset($id))
 {
   $id = (integer) $id;

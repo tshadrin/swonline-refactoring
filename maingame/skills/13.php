@@ -1,4 +1,4 @@
-<?
+<?php
 // Владение мечём
 $game_skill_type_dmg[13]= 1;
 $game_skill_num[13] = 1;

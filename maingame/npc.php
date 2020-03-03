@@ -1,5 +1,8 @@
-<?
-if ( !session_is_registered("player")) {exit();}
+<?php
+if (array_key_exists("player", $_SESSION)) {
+    $player = $_SESSION['player'];
+}
+
 $loop = 0;
 $go_to[1] = 's_id';
 $go_to[2] = 'sv_id';

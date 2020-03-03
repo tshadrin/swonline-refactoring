@@ -13,7 +13,7 @@ print $all;
 echo "</td>\r\n</tr>\r\n<tr>\r\n\t<td  class=ssmall>Активных жителей:</td>\r\n\t<td  class=ssmall>";
 print $all_active;
 echo "</td>\r\n</tr>\r\n<tr>\r\n\t<td  class=ssmall>Сейчас играют:</td>\r\n\t<td  class=ssmall>";
-print $all_online;
+print $onlineCurrentCount;
 echo "</td>\r\n</tr>\r\n<tr>\r\n\t<td  class=ssmall colspan=2 height=1 bgcolor=A7BEC2></td>\r\n</tr>\r\n<tr>\r\n\t<td  class=ssmall>Предметов:</td>\r\n\t<td  class=ssmall>";
 print $obj_count;
 echo "</td>\r\n</tr>\r\n<tr>\r\n\t<td  class=ssmall>Локаций:</td>\r\n\t<td  class=ssmall>";

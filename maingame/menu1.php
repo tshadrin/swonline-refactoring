@@ -1,10 +1,11 @@
-<?
-
+<?php
 session_start();
+if (array_key_exists("player", $_SESSION)) {
+    $player = $_SESSION['player'];
+}
 header('Content-type: text/html; charset=win-1251');
 //print $player['id']."-";
 
-if ( !session_is_registered("player")) {exit();}
 //print $player['id']."-";
 function fpOpen($key,
            $file,

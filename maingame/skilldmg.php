@@ -1,4 +1,4 @@
-<?
+<?php
 if ($pl_sex[$player_id]== 1)
 {
 	$sex_a = '';

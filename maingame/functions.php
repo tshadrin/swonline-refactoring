@@ -1,16 +1,18 @@
-<?
-if ( !session_is_registered("player")) {exit("acces denied");}
-if ($passwd_hidden != "T13D@") {exit("acces denied");}
+<?php
+//if (array_key_exists('player', $_SESSION)) {
+//    $player = $_SESSION['player'];
+//}
+//$player = $_SESSION['player'];
+//if ($passwd_hidden != "T13D@") {exit("acces denied");}
 
 $player_id = $player['id'];
-$id = (integer) $id;
-if ($id == 191392)
-	exit();
-$t_time = (integer) (time() - 60);
-$show_city = (integer) $show_city;
-$room = (integer) $room;
-
-$player_clan = (integer) $player_clan;
+//$id = (integer) $id;
+//if ($id == 191392)
+//	exit();
+//$t_time = (integer) (time() - 60);
+//$show_city = (integer) $show_city;
+//$room = (integer) $room;
+//$player_clan = (integer) $player_clan;
 
 
 Function max_parametr($level,$race,$con,$wis, $isNpc = 0)

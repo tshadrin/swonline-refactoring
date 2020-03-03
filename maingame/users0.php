@@ -1,5 +1,6 @@
 <?php
 session_start( );
+$player = $_SESSION['player'];
 header( "Content-type: text/html; charset=win-1251" );
 if ( !isset( $player['id'] ) )
 {
@@ -7,7 +8,7 @@ if ( !isset( $player['id'] ) )
 }
 $player_name = $player['name'];
 $old_users = $player['users'];
-$ban_chat = $player['ban_chat'];
+//$ban_chat = $player['ban_chat'];
 $player['show'] = 0;
 $show = 0;
 echo "<html>\r\n<head>\r\n\t<title>Shamaal World</title>\r\n<meta content=\"text/html; charset=windows-1251\" http-equiv=\"Content-Type\"><LINK REL=STYLESHEET TYPE=\"TEXT/CSS\" HREF=\"style.css\" TITLE=\"STYLE\"></head>\r\n

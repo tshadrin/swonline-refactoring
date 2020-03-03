@@ -1,24 +1,22 @@
 <?php
 require "vendor/autoload.php";
 session_start();
+if ( !isset($_SESSION["player"])) {
+    $player_id = -1;
+} else {
+    $player = $_SESSION['player'];
+    $player_id = $player['id'];
+    $player_name = $player['name'];
+}
 header('Content-type: text/html; charset=win-1251');
 
-if (array_key_exists('name', $_REQUEST)) {
-    $name = $_REQUEST['name'];
-} else {
-    $name = '';
-}
+$name = array_key_exists('name', $_REQUEST) ? $_REQUEST['name'] : '';
+$do = array_key_exists('do', $_REQUEST) ? $_REQUEST['do'] : '';
 //test sham
 //$player = ['id' => 485, 'name' => 'Stefanic'];
 //test sham
 //откуда берется переменная $name?
 //$name = 'Alefant';
-
-$player_id = $player['id'];
-$player_name = $player['name'];
-if ( !isset($_SESSION["player"])) {
-    $player_id = -1;
-}
 
 $cur_time=time();
 function checkletter($text)
@@ -353,16 +351,26 @@ if ($id > 0)
 		<input type="hidden" name="do" value="save">
 		<table class=blue cellpadding=5 cellspacing=1  height=280><tr><td bgcolor=F6FAFF>
 		<?php
-		$samulet = "<img src=maingame/pic/stuff/$obj_img[1] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[1]');></a>";
-		$sring1 = "<img src=maingame/pic/stuff/$obj_img[2] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[2]');>";
-		$sring2 = "<img src=maingame/pic/stuff/$obj_img2[2] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt2[2]');>";
-		$sbody = "<img src=maingame/pic/stuff/$obj_img[3] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[3]');>";
-		$ssword = "<img src=maingame/pic/stuff/$obj_img[4] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[4]');>";
-		$sglove = "<img src=maingame/pic/stuff/$obj_img[5] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[5]');>";
-		$shelmet = "<img src=maingame/pic/stuff/$obj_img[6] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[6]');>";
-		$scloak = "<img src=maingame/pic/stuff/$obj_img[7] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[7]');>";
-		$sshield = "<img src=maingame/pic/stuff/$obj_img[8] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[8]');>";
-		$slegs = "<img src=maingame/pic/stuff/$obj_img[9] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[9]');>";
+		$samulet = "<img src=maingame/pic/stuff/$obj_img[1] onmouseout=\"hide_info(this);\"";
+        $samulet .= array_key_exists(1, $obj_alt) ? " onmouseover=\"tooltip(this,'{$obj_alt[1]}');\">":">";
+		$sring1 = "<img src=maingame/pic/stuff/$obj_img[2] onmouseout=hide_info(this);";
+        $sring1 .= array_key_exists(2, $obj_alt) ? " onmouseover=\"tooltip(this,'{$obj_alt[2]}');\">":">";
+		$sring2 = "<img src=maingame/pic/stuff/$obj_img2[2] onmouseout=hide_info(this);";
+        $sring2 .= isset($obj_alt2) ? " onmouseover=\"tooltip(this,'{$obj_alt2[2]}');\">":">";
+		$sbody = "<img src=maingame/pic/stuff/$obj_img[3] onmouseout=hide_info(this);";
+		$sbody .= array_key_exists(3, $obj_alt) ? " onmouseover=\"tooltip(this,'{$obj_alt[3]}');\">":">";
+		$ssword = "<img src=maingame/pic/stuff/$obj_img[4] onmouseout=hide_info(this);";
+		$ssword .= array_key_exists(4, $obj_alt) ? " onmouseover=\"tooltip(this,'{$obj_alt[4]}');\">":">";
+		$sglove = "<img src=maingame/pic/stuff/$obj_img[5] onmouseout=hide_info(this);";
+		$sglove .= array_key_exists(5, $obj_alt) ? " onmouseover=\"tooltip(this,'{$obj_alt[5]}');\">":">";
+		$shelmet = "<img src=maingame/pic/stuff/$obj_img[6] onmouseout=hide_info(this);";
+		$shelmet .= array_key_exists(6, $obj_alt) ? " onmouseover=\"tooltip(this,'{$obj_alt[6]}');\">":">";
+		$scloak = "<img src=maingame/pic/stuff/$obj_img[7] onmouseout=hide_info(this);";
+		$scloak .= array_key_exists(7, $obj_alt) ? " onmouseover=\"tooltip(this,'{$obj_alt[7]}');\">":">";
+		$sshield = "<img src=maingame/pic/stuff/$obj_img[8] onmouseout=hide_info(this);";
+		$sshield .= array_key_exists(8, $obj_alt) ? " onmouseover=\"tooltip(this,'{$obj_alt[8]}');\">":">";
+		$slegs = "<img src=maingame/pic/stuff/$obj_img[9] onmouseout=hide_info(this);";
+		$slegs .= array_key_exists(3, $obj_alt) ? " onmouseover=\"tooltip(this,'{$obj_alt[3]}');\">":">";
 
 	//	if ($server == 0)
 			$lnk = "maingame/pic/obraz/$pic";

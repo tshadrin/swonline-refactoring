@@ -6,7 +6,7 @@ header( "Content-type: text/html; charset=win-1251" );
     <title>Shamaal World</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1251"> 
 		
-		<?
+		<?php
 		echo '
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="jquery.noty.packaged.min.js"></script>
