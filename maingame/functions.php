@@ -90,7 +90,7 @@ function make_seed() {
     list($usec, $sec) = explode(' ', microtime());
     return (float) $sec + ((float) $usec * 100000);
 	}
-Function showusers($id,$room,$r_pvp=0)
+Function showusers($id, $room, $r_pvp=0)
 {
 	global $script,$old_users,$cur_time,$player,$ru,$aff_see,$player_party,$player_city,$pact_count,$pact_who,$pact_city,$pact_war,$player_clan,$player,$result;
 	//$lt = getmicrotime();
@@ -252,8 +252,8 @@ Function showusers($id,$room,$r_pvp=0)
 		//print "$c_litle[$player_clan] - $player_clan";
 	//	print "refreshing";
 		openscript();
-		
-		print "top.du('$c_litle[$player_clan]');$ref1 top.fu($show,$show_city);";
+		$clan = isset($c_title) && array_key_exists($player_clan, $c_title) ? $c_title[$player_clan] : '';
+		print "top.du('{$clan}'); $ref1 top.fu($show, $show_city);";
 		//$player['users'] = $ref1;
 		//$player['users'] = '';
 	}

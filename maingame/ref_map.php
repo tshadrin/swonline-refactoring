@@ -1,4 +1,6 @@
 <?php
+$dir = array_key_exists('dir', $_GET) ? intval($_GET['dir']) : 0;
+
 if ($secureKey != "Frmajkf@9840!jnmj")
 	exit();
 $tmi=0;
@@ -50,7 +52,7 @@ if ($rnd != $player_random)
 	exit();
 }
 
-if (isset($dir) && ($dir >= 1) && ($dir <=8) && ($d[$dir] <> ""))
+if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> ""))
 {
 
 	if (($sleep == 0) && ($dir >= 0))
@@ -292,16 +294,16 @@ while ($row_num){
 }
 if ($result)
 mysqli_free_result($result);
-if ((isset($dir)) &&($dir == -1))
+if ($dir == -1)
 {
 	$ru = 1;
-	showusers($player_id,$player_room);
+	showusers($player_id, $player_room);
 }
 $player['regen'] = $regen;
 
 max_parametr($level,$race,$con,isset($wis) ? $wis : 0);
 openscript();
-if (isset($dir) && ($dir >= 1) && ($dir <=8) && ($d[$dir] <> ""))
+if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> ""))
 {
 	if ($trap == 1)
 	{

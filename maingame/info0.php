@@ -20,12 +20,11 @@ if ( $tager_id == "" ) {
 $per_ahp = 100 - $per_hp;
 $per_amana = 100 - $per_mana;
 ?>
-<!doctype html>
 <html>
 <head>
     <title>Shamaal World</title>
     <meta charset="windows-1251">
-    <script type="text/javascript" src="stooltip.js"></script>
+    <!--<script type="text/javascript" src="stooltip.js"></script>-->
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -42,9 +41,9 @@ $per_amana = 100 - $per_mana;
     </div>
     <table cellspacing="0" cellpadding="0" border="0" height="20" width="100%">
         <tbody>
-        <tr>
+        <tr id="trest">
             <td bgcolor="B9C9D9" width="1">
-                <table class="blue" cellspacing="0" cellpadding="0" height='100%' width=1>
+                <table class="blue" cellspacing="0" cellpadding="0" height="100%" width="1">
                     <tbody><tr><td></td></tr></tbody>
                 </table>
             </td>
@@ -54,9 +53,9 @@ $per_amana = 100 - $per_mana;
                         <tr>
                             <td class="har">
                                 <b>&nbsp;» Цель:
-                                    <font id="mytarget" color="005500" class="har"><?=$tager_name?>
-                                        <?= ($tager_level != "") ? "&nbsp;{$tager_level} ур" : ''?>
-                                    </font>
+                                    <span id="mytarget" color="005500" class="har"><?=$tager_name?>
+                                        <?=($tager_level != "") ? "&nbsp;{$tager_level} ур" : ''?>
+                                    </span>
                                 </b>
                             </td>
                             <td width="35" align="left">
@@ -85,7 +84,7 @@ $per_amana = 100 - $per_mana;
                         <td>
                             <table cellpadding="1" cellspacing="0">
                                 <tr>
-                                    <td><font id="maploc"></font></td>
+                                    <td><span id="maploc"></span></td>
                                 </tr>
                             </table>
                         </td>
