@@ -1,7 +1,7 @@
 <?php
 Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice=0,$pages=0)
 {
-	global $GLOBAL_SKILL, $page,$pages_return,$id,$lt,$info_obj_obj,$info_obj_num,$info_obj_name,$info_canon,$info_obj,$info_obj_id,$info_obj_active,$info_obj_type,$info_obj_place,$info_obj_pic,$cur_weight,$race_str,$race_dex,$race_int,$race_wis,$race_con,$race,$str,$dex,$int,$wis,$con,$load,$do,$show,$result,$cbuy,$trade_id,$stg;
+	global $GLOBAL_SKILL, $page,$pages_return,$id,$lt,$info_obj_obj,$info_obj_num,$info_obj_name,$info_canon,$info_obj,$info_obj_id,$info_obj_active,$info_obj_type,$info_obj_place,$info_obj_pic,$cur_weight,$race_str,$race_dex,$race_int,$race_wis,$race_con,$raceId,$str,$dex,$int,$wis,$con,$load,$do,$show,$result,$cbuy,$trade_id,$stg;
 		if ($GLOBAL_SKILL == NULL)
 		{
 			$SQL="select id,name from sw_skills";
@@ -276,7 +276,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				$info_canon[$i] = 1;
 				if ($info_obj_str[$i] > 0)
 				{
-					if ($info_obj_str[$i] > $race_str[$race]+$str)
+					if ($info_obj_str[$i] > $race_str[$raceId]+$str)
 					{
 						$info = $info."<tr><td class=inv width=80>Сила:</td><td class=info2small><font color=red>$info_obj_str[$i]</font></td></tr>";
 						$info_canon[$i] = 1;
@@ -286,7 +286,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				}
 				if ($info_obj_dex[$i] > 0)
 				{
-					if ($info_obj_dex[$i] > $race_dex[$race]+$dex)
+					if ($info_obj_dex[$i] > $race_dex[$raceId]+$dex)
 					{
 						$info = $info."<tr><td class=inv width=80>Подвижность:</td><td class=info2small><font color=red>$info_obj_dex[$i]</font></td></tr>";
 						$info_canon[$i] = 1;
@@ -296,7 +296,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				}
 				if ($info_obj_int[$i] > 0)
 				{
-					if ($info_obj_int[$i] > $race_int[$race]+$int)
+					if ($info_obj_int[$i] > $race_int[$raceId]+$int)
 					{
 						$info = $info."<tr><td class=inv width=80>Интеллект:</td><td class=info2small><font color=red>$info_obj_int[$i]</font></td></tr>";
 						$info_canon[$i] = 1;
@@ -307,7 +307,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				if ($info_obj_wis[$i] > 0)
 				{
 					
-					if ($info_obj_wis[$i] > $race_wis[$race]+$wis)
+					if ($info_obj_wis[$i] > $race_wis[$raceId]+$wis)
 					{
 						$info = $info."<tr><td class=inv width=80>Мудрость:</td><td class=info2small><font color=red>$info_obj_wis[$i]</font></td></tr>";
 						$info_canon[$i] = 1;
@@ -317,7 +317,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				}
 				if ($info_obj_con[$i] > 0)
 				{
-					if ($info_obj_con[$i] > $race_con[$race]+$con)
+					if ($info_obj_con[$i] > $race_con[$raceId]+$con)
 					{
 						$info = $info."<tr><td class=inv width=80>Телосложение:</td><td class=info2small><font color=red>$info_obj_con[$i]</font></td></tr>";
 						$info_canon[$i] = 1;

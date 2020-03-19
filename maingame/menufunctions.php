@@ -44,7 +44,7 @@ Function prepareinfo($num)
 }
 Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice=0,$pages=0)
 {
-	global $page,$pages_return,$id,$lt,$info_obj_obj,$info_obj_num,$info_obj_name,$info_canon,$info_obj,$info_obj_id,$info_obj_active,$info_obj_type,$info_obj_place,$info_obj_pic,$cur_weight,$race_str,$race_dex,$race_int,$race_wis,$race_con,$race,$str,$dex,$int,$wis,$con,$load,$do,$show,$result,$cbuy,$trade_id,$stg;
+	global $page,$pages_return,$id,$lt,$info_obj_obj,$info_obj_num,$info_obj_name,$info_canon,$info_obj,$info_obj_id,$info_obj_active,$info_obj_type,$info_obj_place,$info_obj_pic,$cur_weight,$race_str,$race_dex,$race_int,$race_wis,$race_con,$raceId,$str,$dex,$int,$wis,$con,$load,$do,$show,$result,$cbuy,$trade_id,$stg;
 		$i = 0;
 		$pl[3] = "тела";
 		$pl[4] = "тела";
@@ -280,7 +280,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				$info_canon[$i] = 1;
 				if ($info_obj_str[$i] > 0)
 				{
-					if ($info_obj_str[$i] > $race_str[$race]+$str)
+					if ($info_obj_str[$i] > $race_str[$raceId]+$str)
 					{
 						$info = $info."<tr><td class=inv width=80>Сила:</td><td class=info2small><font color=red>$info_obj_str[$i]</font></td></tr>";
 						$info_canon[$i] = 1;
@@ -290,7 +290,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				}
 				if ($info_obj_dex[$i] > 0)
 				{
-					if ($info_obj_dex[$i] > $race_dex[$race]+$dex)
+					if ($info_obj_dex[$i] > $race_dex[$raceId]+$dex)
 					{
 						$info = $info."<tr><td class=inv width=80>Подвижность:</td><td class=info2small><font color=red>$info_obj_dex[$i]</font></td></tr>";
 						$info_canon[$i] = 1;
@@ -300,7 +300,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				}
 				if ($info_obj_int[$i] > 0)
 				{
-					if ($info_obj_int[$i] > $race_int[$race]+$int)
+					if ($info_obj_int[$i] > $race_int[$raceId]+$int)
 					{
 						$info = $info."<tr><td class=inv width=80>Интеллект:</td><td class=info2small><font color=red>$info_obj_int[$i]</font></td></tr>";
 						$info_canon[$i] = 1;
@@ -311,7 +311,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				if ($info_obj_wis[$i] > 0)
 				{
 					
-					if ($info_obj_wis[$i] > $race_wis[$race]+$wis)
+					if ($info_obj_wis[$i] > $race_wis[$raceId]+$wis)
 					{
 						$info = $info."<tr><td class=inv width=80>Мудрость:</td><td class=info2small><font color=red>$info_obj_wis[$i]</font></td></tr>";
 						$info_canon[$i] = 1;
@@ -321,7 +321,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				}
 				if ($info_obj_con[$i] > 0)
 				{
-					if ($info_obj_con[$i] > $race_con[$race]+$con)
+					if ($info_obj_con[$i] > $race_con[$raceId]+$con)
 					{
 						$info = $info."<tr><td class=inv width=80>Телосложение:</td><td class=info2small><font color=red>$info_obj_con[$i]</font></td></tr>";
 						$info_canon[$i] = 1;
@@ -676,7 +676,7 @@ function copyfromobj($id,$owner,$num,$nroom = 0,$setprice = 0)
 }
 Function getobj()
 {
-	global $result,$player_name,$player_id,$id,$cur_time,$player,$cur_balance,$race_dex,$balance,$balance_ten,$race_str;
+	global $result,$player_name,$player_id,$id,$currentTimestamp,$player,$cur_balance,$race_dex,$balance,$balance_ten,$race_str;
 	
 	$SQL="select room,race,str,bag_q from sw_users where id=$player_id";
 	$row_num=SQL_query_num($SQL);
@@ -726,10 +726,10 @@ Function getobj()
 	mysqli_free_result($result);
 	setbalance($race);
 	//print "|$num|";
-	if (($num == 1) && ($cur_balance < $cur_time - $balance+1) && ($cur_weight+0.2<$max_weight))
+	if (($num == 1) && ($cur_balance < $currentTimestamp - $balance+1) && ($cur_weight+0.2<$max_weight))
 	{
 		
-		$player['balance'] = $cur_time-$balance+22;
+		$player['balance'] = $currentTimestamp-$balance+22;
 		print "<script>top.settop('Сбор');top.rbal(220,220);</script>";
 		
 		include("script/ruda.php");
@@ -872,7 +872,7 @@ Function getobj()
 							$exam[2] = "<b>$player_name</b> добывает руду в местных скалах.";
 							$r=rand(0,2);
 							$text = "parent.add(\"$time\",\"$player_name\",\"$exam[$r] \",5,\"\");";
-							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and id <> $player_id and room=$room and npc=0";
+							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $currentTimestamp-60 and id <> $player_id and room=$room and npc=0";
 							SQL_do($SQL);
 							//print "<script>alert('Сказать это фиксу : where online > $online_time and id <> $player_id and room=$room and npc=0');</script>";
 							
@@ -950,7 +950,7 @@ Function getobj()
 							$exam[2] = "<b>$player_name</b> с серпом пытается найти ценную траву.";
 							$r=rand(0,2);
 							$text = "parent.add(\"$time\",\"$player_name\",\"$exam[$r] \",5,\"\");";
-							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and id <> $player_id and room=$room and npc=0";
+							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $currentTimestamp-60 and id <> $player_id and room=$room and npc=0";
 							SQL_do($SQL);
 						}
 						else
@@ -1025,7 +1025,7 @@ Function getobj()
 							$exam[2] = "<b>$player_name</b> машет топором перед деревом.";
 							$r=rand(0,2);
 							$text = "parent.add(\"$time\",\"$player_name\",\"$exam[$r] \",5,\"\");";
-							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and id <> $player_id and room=$room and npc=0";
+							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $currentTimestamp-60 and id <> $player_id and room=$room and npc=0";
 							SQL_do($SQL);
 						}
 						else
@@ -1050,7 +1050,7 @@ Function getobj()
 	else
 	{
 		//print "else if ($cur_weight+0.2>=$max_weight)";
-		if ($cur_balance >= $cur_time - $balance+1)
+		if ($cur_balance >= $currentTimestamp - $balance+1)
 		{
 			if (!($player_opt & 2))
 			{
@@ -1212,7 +1212,7 @@ Function getinfo($id)
 }
 Function inventory($id)
 {
-	global $iobj_id2,$info_canon,$player_name,$player_id,$info_obj,$info_obj_id,$info_obj_active,$info_obj_type,$info_obj_place,$info_obj_pic,$obj_img,$obj_img2,$obj_alt,$obj_alt2,$player,$iobj_id,$obj_id2,$race_str,$race_dex,$race_int,$race_wis,$race_con,$cur_weight,$race,$str,$dex,$int,$con,$wis,$result;
+	global $iobj_id2,$info_canon,$player_name,$player_id,$info_obj,$info_obj_id,$info_obj_active,$info_obj_type,$info_obj_place,$info_obj_pic,$obj_img,$obj_img2,$obj_alt,$obj_alt2,$player,$iobj_id,$obj_id2,$race_str,$race_dex,$race_int,$race_wis,$race_con,$cur_weight,$raceId,$str,$dex,$int,$con,$wis,$result;
 	$bagquality[0] = 'плохое';
 	$bagquality[1] = 'нормальное';
 	$bagquality[2] = 'чорошее';
@@ -1226,7 +1226,7 @@ Function inventory($id)
 		$int=$row_num[3];
 		$wis=$row_num[4];
 		$con=$row_num[5];
-		$race=$row_num[6];
+		$raceId=$row_num[6];
 		$pic=$row_num[7];
 		$row_num=SQL_next_num();
 	}
@@ -1246,7 +1246,7 @@ Function inventory($id)
 	$player['text'] = $text;
 	$t = $player['text'];
 	
-	$max_weight = round(($race_str[$race]+$str)*(1+$bag_q/9));
+	$max_weight = round(($race_str[$raceId]+$str)*(1+$bag_q/9));
 
 	if ($pic == "")
 			$pic = 'no_obraz.gif';
@@ -1254,7 +1254,7 @@ Function inventory($id)
 }
 function useobj($id)
 {
-	global $player,$dir,$do,$load,$obj_id,$cur_time,$online_time,$player_id,$player_name,$race_str,$race_dex,$race_int,$race_wis,$race_con,$result,$player_max_hp,$player_max_mana,$level,$race_con,$race_wis,$drink_balance,$race_wis,$player,$do,$clan_name,$clan_litle,$clan_http;
+	global $player,$direction,$do,$load,$obj_id,$currentTimestamp,$online_time,$player_id,$player_name,$race_str,$race_dex,$race_int,$race_wis,$race_con,$result,$player_max_hp,$player_max_mana,$level,$race_con,$race_wis,$drink_balance,$race_wis,$player,$do,$clan_name,$clan_litle,$clan_http;
 	$SQL="select sex,chp,cmana,level,str,dex,intt,wis,con,race,room,clan from sw_users where id=$player_id";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
@@ -1349,7 +1349,7 @@ function useobj($id)
 		if ($obj_name <> "")
 		{
 			$btime = $race_wis[$race]*10;
-			if ($drink_balance + $race_wis[$race]<= $cur_time)
+			if ($drink_balance + $race_wis[$race]<= $currentTimestamp)
 				include("elixir.php");
 			else
 				print "<script>alert('Ваш организм не может принимать столько жидкостей.')</script>";
@@ -1511,7 +1511,7 @@ function useobj($id)
 			$text = "parent.add(\"$time\",\"$player_name\",\"$text \",6,\"\");";
 			print "<script>$text</script>";
 			//include("map.php");
-			$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and id <> $player_id and (room=$player_room or room= $obj_toroom)  and npc=0";
+			$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $currentTimestamp-60 and id <> $player_id and (room=$player_room or room= $obj_toroom)  and npc=0";
 			SQL_do($SQL);
 			//print "$SQL";
 			inventory($player_id);
@@ -1834,7 +1834,7 @@ function showskills()
 }
 function domir($type)
 {
-	global $player,$cur_balance,$cur_time,$balance,$balance_ten,$race_dex,$player_sex,$player_id,$player_name,$action,$load,$scroll,$mobj1,$mobj2,$mobj3,$mobj1_num,$mobj2_num,$mobj3_num,$old_room,$player_race,$result;
+	global $player,$cur_balance,$currentTimestamp,$balance,$balance_ten,$race_dex,$player_sex,$player_id,$player_name,$action,$load,$scroll,$mobj1,$mobj2,$mobj3,$mobj1_num,$mobj2_num,$mobj3_num,$old_room,$player_race,$result;
 	$SQL="select count(*) as num from sw_object where what='$load' and id=$old_room";
 		$row_num=SQL_query_num($SQL);
 		while ($row_num){
@@ -1952,9 +1952,9 @@ function domir($type)
 							if ($error == 0)
 							{
 								setbalance($player_race);
-								if (($cur_balance < $cur_time - $balance+1))
+								if (($cur_balance < $currentTimestamp - $balance+1))
 								{
-									$player['balance'] = $cur_time+15;
+									$player['balance'] = $currentTimestamp+15;
 									$balance_ten = $balance_ten+150;
 									print "<script>top.rbal($balance_ten,$balance_ten);</script>";
 					
@@ -1965,7 +1965,7 @@ function domir($type)
 									$r = rand(0,2);;
 									$text = $skill_all[$sk][0][$r];
 									$text = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-									$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and room=$old_room and id <> $player_id and npc=0";
+									$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $currentTimestamp-60 and room=$old_room and id <> $player_id and npc=0";
 									SQL_do($SQL);
 									$text1 = $skill_text[$sk][1];
 									$text2 = $skill_text[$sk][2];

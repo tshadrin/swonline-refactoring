@@ -62,7 +62,7 @@ while ($row_num){
 }
 if ($result)
 mysqli_free_result($result);
-$online_time = $cur_time-60;
+$online_time = $currentTimestamp-60;
 for ($npccount=1;$npccount<=$pi;$npccount++)
 {
 	$target_id = '';
@@ -196,7 +196,7 @@ for ($npccount=1;$npccount<=$pi;$npccount++)
 				{
 					if ($trap == 1)
 					{
-						if ($npc_aff_see_all[$npccount] < $cur_time)
+						if ($npc_aff_see_all[$npccount] < $currentTimestamp)
 						{
 							$dmg = -rand(round($npc_maxhp[$npccount]/10),round($npc_maxhp[$npccount]/8));
 							
@@ -221,7 +221,7 @@ for ($npccount=1;$npccount<=$pi;$npccount++)
 					}
 					else if ($trap == 2)
 					{
-						if ($npc_aff_see_all[$npccount] < $cur_time)
+						if ($npc_aff_see_all[$npccount] < $currentTimestamp)
 						{
 							$dmg = -rand(round($npc_maxhp[$npccount]/5),round($npc_maxhp[$npccount]/4));
 							
@@ -231,7 +231,7 @@ for ($npccount=1;$npccount<=$pi;$npccount++)
 							$trap_text= "[<b>$npc_name[$npccount]</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$npc_name[$npccount] </b>попала в <b>капкан</b>.</i>";
 							 $ptext .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
 							$npchp += $dmg;
-							 $player_do .= ",aff_paralize=$cur_time+5*12";
+							 $player_do .= ",aff_paralize=$currentTimestamp+5*12";
 							
 							$SQL="update sw_map SET trap=0 where id=$npc_room[$npccount]";
 							SQL_do($SQL);
@@ -247,7 +247,7 @@ for ($npccount=1;$npccount<=$pi;$npccount++)
 						}
 					}
 					
-					if ($npc_aff_invis[$npccount] < $cur_time)
+					if ($npc_aff_invis[$npccount] < $currentTimestamp)
 					{
 						$ptext .= "top.mtext(\"$time\",\"$npc_name[$npccount]\",$randgo,1);";
 						$SQL="update sw_users SET mytext=CONCAT(mytext,'$ptext') where online > $online_time and room=$npc_room[$npccount] and npc=0";
@@ -255,7 +255,7 @@ for ($npccount=1;$npccount<=$pi;$npccount++)
 					}
 					$player_do .= ",room=$room_id";
 					$npc_room[$npccount] = $room_id;
-					if ($npc_aff_invis[$npccount] < $cur_time)
+					if ($npc_aff_invis[$npccount] < $currentTimestamp)
 						$ptext = "top.mtext(\"$time\",\"$npc_name[$npccount]\",$randgo,2);";
 				}
 			}

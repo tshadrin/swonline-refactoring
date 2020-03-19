@@ -3,7 +3,7 @@
 $game_skill_type_dmg[12] = 1;
 $game_skill_num[12] = 1;
 $game_skill_afflict_percent[12][1] = 3;
-$game_skill_afflict[12][1] = ",aff_cut={$cur_time}+3*12";
+$game_skill_afflict[12][1] = ",aff_cut={$currentTimestamp}+3*12";
 $game_skill_afflict_text[12][1] = "[<b>{$target_name}</b>] <font class=italic><b>{$player_name}</b> нанес{$sex_la} глубокие раны {$sopernika4}.</font>";
 $game_skill_name[12][1] = "Удар топором";
 $game_skill_dmg[12][1] = $blunt_dmg * 1.1;
@@ -23,7 +23,7 @@ $game_skill_type[12][1] = 1;
 $game_skill_percent[12][1] = 0;
 $game_skill_name[12][2] = "Рубящий удар";
 $game_skill_afflict_percent[12][2] = 8;
-$game_skill_afflict[12][2] = ",aff_cut={$cur_time}+5*12";
+$game_skill_afflict[12][2] = ",aff_cut={$currentTimestamp}+5*12";
 $game_skill_afflict_text[12][2] = "[<b>{$target_name}</b>] <font class=italic><b>{$player_name}</b> нанес{$sex_a} глубокие раны {$sopernika4}.</font>";
 $game_skill_dmg[12][2] = $blunt_dmg * 1.6;
 $game_skill_mana[12][2] = 7;
@@ -42,7 +42,7 @@ $game_skill_type[12][2] = 1;
 $game_skill_percent[12][2] = 0;
 $game_skill_name[12][3] = "Крест";
 $game_skill_afflict_percent[12][3] = 12;
-$game_skill_afflict[12][3] = ",aff_cut={$cur_time}+5*12";
+$game_skill_afflict[12][3] = ",aff_cut={$currentTimestamp}+5*12";
 $game_skill_afflict_text[12][3] = "[<b>{$target_name}</b>] <font class=italic><b>{$player_name}</b> нанес{$sex_a} глубокие раны {$sopernika4}.</font>";
 $game_skill_dmg[12][3] = $blunt_dmg * 1.5;
 $game_skill_count[12][3] = 1;
@@ -76,7 +76,7 @@ if ( $r == 1 )
 {
     $game_skill_afflict_percent[12][4] = 50;
     $game_skill_dmg[12][4] = $blunt_dmg * 3.5;
-    $game_skill_afflict[12][4] = ",aff_cut={$cur_time}+10*12";
+    $game_skill_afflict[12][4] = ",aff_cut={$currentTimestamp}+10*12";
     $game_skill_textnum[12][4] = 2;
     $game_skill_text[12][4][1] = "[<b>{$target_name}</b>, жизни <font class=dmg><DMG></font>]&nbsp;<b>{$player_name} </b>нанес{$sex_a} isilniy удар топором в <font class=atype>область шеи </font> {$sopernika2}.";
     $game_skill_text[12][4][2] = "[<b>{$target_name}</b>, жизни <font class=dmg><DMG></font>]&nbsp;<b>{$player_name} </b>сжал{$sex_a} топор в руках и с размаху silno вдарил{$sex_a} топором в <font class=atype>область шеи </font> {$sopernika2}.";

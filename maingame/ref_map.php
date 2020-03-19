@@ -1,395 +1,265 @@
 <?php
-$dir = array_key_exists('dir', $_GET) ? intval($_GET['dir']) : 0;
+const SECURE_KEY = 'Frmajkf@9840!jnmj';
+const PLAYER_NOT_SLEEP = 0;
+const DOOR_IS_OPEN = 1;
+const NO_OWNER_LOCATION = 0;
+const CLAN_LOCATION_TYPE = 1;
+const ERROR_PLAYER_IS_SLEEP = 11;
+const SHRINE_LOCATION_NAME = 'Усыпальница';
+const PLAYER_LEAVE_FROM_LOCATION = 1;
+const PLAYER_JOIN_TO_LOCATION = 2;
+/**
+ * Используется в ref.php и map.php
+ */
+require_once(__DIR__ . "/../src/mapFunctions.php");
+if ($secureKey !== SECURE_KEY) { exit; } //Ключ задается в map.php и ref.php
+if (!isPlayerRandomValid($player['id'], $player['rnd'])) { exit; } //Проверка занчения rnd из сессии и значения из бд
+$direction = array_key_exists('dir', $_GET) ? intval($_GET['dir']) : 0; //направление
 
-if ($secureKey != "Frmajkf@9840!jnmj")
-	exit();
-$tmi=0;
-$player_id = (integer) $player_id;
-$cur_balance = $player['balance'];
-$race = $player['race'];
-$show_us = $player['show'];
-$player_opt = $player['opt'];
-$load= 'map';
-$cur_time = time();
-$player['afk'] = $cur_time;
-$player_random =$player['rnd'];
-$online_time = $cur_time-40;
-$time = date("H:i");
+$currentTimestamp =         time();
+$online_time =              $currentTimestamp - 40;
+$currentHoursAndMinutes =   date("H:i");
+$player['afk'] =            $currentTimestamp;
+$went =                     0; // флаг, пользователь не сходил
+$mountModificator =         0; // значение модификатора от средства передвижения
 
-/*if (!isset($n_pvp))
-$n_pvp = 0;*/
-$player['room'] = $player_room;
-$d[1]='sz_';
-$d[2]='s_';
-$d[3]='sv_';
-$d[4]='z_';
-$d[5]='v_';
-$d[6]='jz_';
-$d[7]='j_';
-$d[8]='jv_';
-$rem_dir[1] = 8;
-$rem_dir[2] = 1;
-$rem_dir[3] = 2;
-$rem_dir[4] = 7;
-$rem_dir[5] = 3;
-$rem_dir[6] = 6;
-$rem_dir[7] = 5;
-$rem_dir[8] = 4;
-
-$went = 0;
-
-$SQL="Select rnd from sw_users where id=$player_id";
-	$row_num=SQL_query_num($SQL);
-	while ($row_num){
-		$rnd=$row_num[0];
-		$row_num=SQL_next_num();
-	}
-	if ($result)
-		mysqli_free_result($result);
-if ($rnd != $player_random)
-{
-	SQL_disconnect();
-	exit();
-}
-
-if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> ""))
-{
-
-	if (($sleep == 0) && ($dir >= 0))
-	{
-
-		$dir = round($dir);
+if (isValidDirection(DIRECTIONS, $direction)) {
+    if ($player['sleep'] === PLAYER_NOT_SLEEP) {
+		[
+		    $destinationLocationId, //id комнаты в указанном направлении
+            $currentLocationName    //имя текущей комнаты
+        ] = getCurrentLocationNameAndDestinationLocationId((int)$player_room, DIRECTIONS[$direction]);
 		
-		$SQL="select $d[$dir]"."id as id,$d[$dir]"."name as name2,name from sw_map where id=$player_room";
-		$row_num=SQL_query_num($SQL);
-		while ($row_num){
-			$room_id = $row_num[0];
-			$room_name = $row_num[1];
-			$room_myname = $row_num[2];
-			
-		$row_num=SQL_next_num();
-		}
-		if ($result)
-		mysqli_free_result($result);
-		$SQL="select owner_id,owner_typ,opendoor,owner_name,no_pvp from sw_map where id=$room_id";
-		$row_num=SQL_query_num($SQL);
-		while ($row_num){
-			$own_id = $row_num[0];
-			$own_typ = $row_num[1];
-			$opendoor = $row_num[2];
-			$own_name = $row_num[3];
-			$no_pvp = $row_num[4];
-			$row_num=SQL_next_num();
-		}
-		if ($result)
-		mysqli_free_result($result);
-		setbalance($race);
-		
-		If ($room_id > 0)
-		{
-				
-			if ((($own_id == $player_id) || ($opendoor == 1) || ($own_id == 0)) || (($own_id == $player_clan) && ($own_typ == 1)))
-			{
-				
-				$speed=0;
-				$max_speed = 0;
-				$SQL="select str,max_str,food,max_food,min_speed,max_speed,loyalty,name from sw_pet where owner=$player_id and active=0";
-				$row_num=SQL_query_num($SQL);
-				while ($row_num){
-					$str = $row_num[0];
-					$max_str = $row_num[1];
-					$food = $row_num[2];
-					$max_food = $row_num[3];
-					$speed = $row_num[4];
-					$max_speed = $row_num[5];
-					$loyalty = $row_num[6];
-					$h_name = $row_num[7];
-					$row_num=SQL_next_num();
-				}
-				if ($result)
-					mysqli_free_result($result);
-				$go = 1;
-				if ($max_str > 0)
-				{
-					$n = ($str/$max_str/1.5 + $food/$max_food/2) / $loyalty;
-					if ($n < 0.1)
-					{
-						if (rand(0,round($n*100)) == 0)
-							$go = 0;
-					}
-					if ($str == 0)
-						$go = 0;
-					rand(0,2);
-					if (rand(0,2) == 0)
-					{
-						$SQL="update sw_pet SET str=str-1 where active=0 and owner=$player_id";
-						SQL_do($SQL);
-					}
-				}
-				if ($cur_balance < $cur_time - $balance+1)
-				{
-					if ($go == 1)
-					{
-						if ($level > 120)
-						{
-							$level = 120 + ($level - 120) / 3;
+		if ((int)$destinationLocationId > 0) {
+            [
+                $own_id,    //id владельца/клана
+                $own_typ,   //тип владельца(0 - человек, 1- клан)
+                $opendoor,  //открыта дверь (1 - открыта, 0 - закрыта)
+                $own_name,  //имя владельца
+                $no_pvp     //разрешено ли ПвП
+            ] = getOwnerAndPvpRoomOptions((int)$destinationLocationId);
+            // $race_dex объявлена в racecfg.php
+            $balance = getRaceBalance($player['race'], $race_dex);
+            //если можно следовать в комнату
+            //(если комната принадлежит игроку или дверь открыта или владельца нет) или (комната принадлежит клану игрока и тип владельца комнаты - клан)
+			if ((((int)$own_id === $player['id']) || ((int)$opendoor === DOOR_IS_OPEN) || ((int)$own_id === NO_OWNER_LOCATION)) ||
+                (((int)$own_id === (int)$player_clan) && ((int)$own_typ === CLAN_LOCATION_TYPE))) {
+			                       //объявляется в map.php
+                $isPlayerCanRiding = true;
+				$mountParameters = getPlayerTransportParameters($player['id']);
+				//Если персонаж средство передвижения
+				if (!is_null($mountParameters)) { //если игрок передвигается на животном
+                    [
+                        $mountStrange,
+                        $maxMountStrange,
+                        $mountSatiety,       //Сытость
+                        $maxMountSatiety,    //Максимальная сытость
+                        $mountSpeed,         //Используется для параметра tmi
+                        $maxMountSpeed,      //Используется для параметра tmi
+                        $mountLoyalty,       //Покорность
+                        $mountName,
+                    ] = $mountParameters;
+                    //Если у ездового животного есть силы
+                    if ((int)$maxMountStrange > 0) {
+                        //коэффициент усталости = (сила / максимальная сила / коэфф. силы + сытость / максимальная сытость / коэфф. сытости) / покорность
+                        $fatiqueCoefficient = ((int)$mountStrange/(int)$maxMountStrange/1.5 + (int)$mountSatiety / (int)$maxMountSatiety/2) /
+                            $mountLoyalty;
+                        if ($fatiqueCoefficient < 0.1) {
+                            if (rand(0, round($fatiqueCoefficient * 100)) === 0) {
+                                $isPlayerCanRiding = false;
+                            }
+                        }
+                        if ((int)$mountStrange === 0) {
+                            $isPlayerCanRiding = false;
+                        }
+                        //Случайным образом уменьшаем силу ездового животного
+                        if (rand(0,2) === 0) {
+                            decreaseMountStrength($player['id']);
+                        }
+                    }
+                }
+				//Если текущее значение баланса < текущее время(баланс восстановлен
+				if ($player['balance'] < $currentTimestamp - $balance + 1) {
+				    //Если игрок может идти
+					if ($isPlayerCanRiding) { //если персонаж может передвигаться на ездовом животном
+					                                                               //задается в racecfg.php
+					    $player_max_hp = getPlayerMaximumHP($level, $con, $player['race'], $race_con);
+                        //Если у игрока больше 70% жизней и текущая локация не успыпальница
+						if (($player_max_hp/100*70 < $chp) || ($currentLocationName !== SHRINE_LOCATION_NAME)) {
+						    //Если на игрока не действуют эффекты ограничения движения
+                            if (($aff_paralize < $currentTimestamp) && ($aff_ground < $currentTimestamp)) {
+                                if (((int)$own_id > 0) && ((int)$own_typ === 0)) { //игрок вошел в открытый дом
+                                    openscript();
+                                    print getYouEnteredTheHouseMessage($own_name);
+                                }
+                                $jsptext = "top.mtext(\"{$currentHoursAndMinutes}\", \"{$player['name']}\", {$direction}, " . PLAYER_LEAVE_FROM_LOCATION . ");";
+                                if ($aff_invis < $currentTimestamp) { //игрок видимый, показываем сообщение "игрок уходит на" всем
+                                    updateMytextForUsersInLocationWithoutFour($player['id'], $player_room, $online_time, $jsptext);
+                                } else { //показываем сообщение только для тех, кто может видеть скрытых игроков
+                                    updateMytextForUsersInLocationAndCanSee($player['id'], $player_room, $online_time, $jsptext, $currentTimestamp);
+                                }
+                                $player_room = (int)$destinationLocationId;
+                                $player['room'] = $player_room;
+
+                                $jsptext = "top.mtext(\"{$currentHoursAndMinutes}\", \"{$player['name']}\", {$direction}, " . PLAYER_JOIN_TO_LOCATION . ");";
+                                if ($aff_invis < $currentTimestamp) { //игрок видимый, показываем сообщение "игрок входит" всем
+                                    updateMytextForUsersInLocationWithoutFour($player['id'], $player_room, $online_time, $jsptext);
+                                } else { //показываем сообщение только для тех, кто может видеть скрытых игроков
+                                    updateMytextForUsersInLocationAndCanSee($player['id'], $player_room, $online_time, $jsptext, $currentTimestamp);
+                                }
+                                //какой-то флаг
+                                $went = 1;
+                                $mountModificator = isset($mountSpeed) && isset($maxMountSpeed) ?
+                                    rand($mountSpeed, $maxMountSpeed) : 0;
+
+                                moveUserToLocation($player['id'], $player_room, $currentTimestamp);
+                                moveToUserLocation($player['id'], $player_room, $currentTimestamp);
+
+                                $player['balance'] = $currentTimestamp - $balance + 5 - $mountModificator;
+                            } else { // есть ограничения движения
+                                openscript();
+                                $playerCouldNotMoveMessage = getPlayerCouldNotMoveMessage($player['name'], (int)$sex);
+                                print $playerCouldNotMoveMessage;
+                                updateMytextForUsersInLocation($player['id'], $player_room, $online_time, $playerCouldNotMoveMessage);
+                            }
+						} else { //если игрок в усыпальнице и жизней меньше 70%
+                            openscript();
+                            print getYouCanNotLeaveFromShrineMessage($player['name']);
 						}
-						$player_max_hp =  round(round((6+($con+$race_con[$race])/2)*7)+round((($con+$race_con[$race])/2-1)*$level*2.5)+$level*8); 
-						//print "if (($chp_percent > 70) || ($room_myname <> 'Усыпальница'))";
-						if (($player_max_hp/100*70 < $chp) || ($room_myname <> 'Усыпальница'))
-						{
-							
-								if (($aff_paralize < $cur_time) && ($aff_ground < $cur_time))
-								{
-	
-									if (($own_id <> 0) && ($own_typ == 0))
-									{
-										openscript();
-										$mtext = "* Вы вошли в здание. Владелец здания: $own_name. *";
-										$htext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
-										print "$htext";
-									}
-									if ($aff_invis < $cur_time)
-									{
-										$jsptext = "top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],1);";
-										$SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room  and id <> $player_id and npc=0 and !(options & 4)";
-										SQL_do($SQL);
-									}
-									else
-									{
-										$jsptext = "top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],1);";
-										$SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room  and id <> $player_id and npc=0 and !(options & 4) and aff_see>$cur_time";
-										SQL_do($SQL);
-									}
-										$player_room = $room_id;
-										$player['room'] = $player_room;
-									if ($aff_invis < $cur_time)
-									{
-										$jsptext = "top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],2);";
-										$SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room  and id <> $player_id and npc=0 and !(options & 4)";
-										SQL_do($SQL);
-									}
-									else
-									{
-										$jsptext = "top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],2);";
-										$SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room  and id <> $player_id and npc=0 and !(options & 4) and aff_see>$cur_time";
-										SQL_do($SQL);
-									}
-									$went = 1;
-									$tmi =  rand($speed,$max_speed);
-									
-									if ($player_id == 306144 || $player_id == 1)
-								    {
-								    	$file = fopen("log.dat","a+");
-										$time = date("n-d H:i:s");
-										fputs($file,"$time balance=$balance, cur_time$cur_time, $tmi, if ($cur_balance < $cur_time - $balance+1)");
-										fputs($file,"\n");
-										fclose($file);
-										    	
-								    }
-    
-									$SQL="update sw_users set room=$player_room,online=$cur_time where id = $player_id";									
-									SQL_do($SQL);
-									$SQL="update sw_users set room=$player_room,online=$cur_time where madeby=$player_id";									
-									SQL_do($SQL);
-	
-									
-									$player['balance'] = $cur_time-$balance+5-$tmi;
-								}
-								else
-								{
-									if ($sex == 1)
-										$text = "[<b>$player_name</b>]&nbsp;<i><b>$player_name </b>не смог сдвинуться с места.</i>";
-									else
-										$text = "[<b>$player_name</b>]&nbsp;<i><b>$player_name </b>не смогла сдвинуться с места.</i>";
-									$jptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-									openscript();
-									print "$jptext";
-									$SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room  and id <> $player_id and npc=0";
-									SQL_do($SQL);
-								}
-							
-						}
-						else
-						{
-								openscript();
-								$text = "<b>Для того чтобы выйти из усыпальницы надо набрать как минимум 70% жизней.</b>";
-								$time = date("H:i");
-								$text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");";
-								print "$text";
-						}
-					}
-					else
-					{
+					} else { //если персонаж не может ехать верхом
+                        $player['balance'] = $currentTimestamp - $balance + 5;
 						openscript();
-						$t[0] = "[<b>$player_name</b>] $h_name брыкается и не хочет идти дальше.";
-						$t[1] = "[<b>$player_name</b>] $h_name отказывается двигаться в этом направлении.";
-						$t[2] = "[<b>$player_name</b>] $h_name пытается сбросить своего хозяина со спины и отказывается подчиняться приказам.";
-						$t[3] = "[<b>$player_name</b>] $h_name не хочет выполнять приказы хозяина.";
-						$t[4] = "[<b>$player_name</b>] $h_name устала и не хочет идти дальше.";
-						$r = rand(0,4);
-						$text = "$t[$r]";
-						$time = date("H:i");
-						$player['balance'] = $cur_time-$balance+5;
-						$text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");top.rbal(50,50);";
-						print "$text";
+						print getYourMountWillNotListenMessage($player['name'], $mountName);
 					}
-				}
-				else
-				{
-					if (!($player_opt & 2))
-					{
+				} else { //баланс не восстановлен
+					if (!($player['opt'] & 2)) {
 						openscript();
-						$text = "<b>Баланс не восстановлен.</b>";
-						$time = date("H:i");
-						$text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");";
-						print "$text";
+						print getBalanceWasNotRestoredMessage($player['name']);
 					}
 				}
-			}
-			else
-			{
+			} else { //Если локация заперта
 				openscript();
-				print "alert('Владелец здания: $own_name. Здание закрыто.');";
+				print getHouseIsClosedMessage($own_name);
 			}
 		}
-		if ($show_us == 0)
-		{
+		//После смены локации обновляем список игроков в локации
+		if ($player['show'] === 0) {
 			$ru = 1;
-			showusers($player_id,$player_room);
+			showusers($player['id'], $player_room);
 		}
-	}
-else
-print "<script>alert('Вы сейчас отдыхаете и поэтому не можете ничего делать.');</script>";
+	} else { $error = ERROR_PLAYER_IS_SLEEP; }
+}
+//Запрос на обновление списка игроков в локации
+if ($direction === -1) {
+    $ru = 1;
+    showusers($player['id'], $player_room);
 }
 
 $build = 0;
-$SQL="select name,location,pic,sz_id,sz_name,s_id,s_name,sv_id,sv_name,z_id,z_name,v_id,v_name,jz_id,jz_name,j_id,j_name,jv_id,jv_name,trap,no_pvp,regen,build from sw_map where id=$player_room";
-$row_num=SQL_query_num($SQL);
-while ($row_num){
-	$m_name = $row_num[0];
-	$m_location = $row_num[1];
-	$m_pic = $row_num[2];
-	$sz_id = $row_num[3];
-	$sz_name = $row_num[4];
-	$s_id = $row_num[5];
-	$s_name = $row_num[6];
-	$sv_id = $row_num[7];
-	$sv_name = $row_num[8];
-	$z_id = $row_num[9];
-	$z_name = $row_num[10];
-	$v_id = $row_num[11];
-	$v_name = $row_num[12];
-	$jz_id = $row_num[13];
-	$jz_name = $row_num[14];
-	$j_id = $row_num[15];
-	$j_name = $row_num[16];
-	$jv_id = $row_num[17];
-	$jv_name = $row_num[18];
-	$trap = $row_num[19];
-	$no_pvp = $row_num[20];
-	$regen = $row_num[21];
-	$build = $row_num[22];
-	$row_num=SQL_next_num();
-}
-if ($result)
-mysqli_free_result($result);
-if ($dir == -1)
-{
-	$ru = 1;
-	showusers($player_id, $player_room);
-}
+[
+    $m_name,
+    $m_location,
+    $m_pic,             //Изображение для локаци
+    $sz_id, $sz_name,   //id, название северо-западной локации
+    $s_id, $s_name,     //id, название северной локации
+    $sv_id, $sv_name,   //id, название северо-восточной локации
+    $z_id, $z_name,     //id, название западной локации
+    $v_id, $v_name,     //id, название восточной локации
+    $jz_id, $jz_name,   //id, название юго-западной локации
+    $j_id, $j_name,     //id, название южной локации
+    $jv_id, $jv_name,   //id, название юго-восточной локации
+    $trap,
+    $no_pvp,
+    $regen,
+    $build,
+] = getLocationInfo($player_room);
+
 $player['regen'] = $regen;
 
-max_parametr($level,$race,$con,isset($wis) ? $wis : 0);
+max_parametr($level, $player['race'], $con, isset($wis) ? $wis : 0);
 openscript();
-if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> ""))
-{
-	if ($trap == 1)
-	{
-		if ($aff_see_all < $cur_time)
-		{
+if (isValidDirection(DIRECTIONS, $direction)) {
+	if ($trap == 1) {
+		if ($aff_see_all < $currentTimestamp) {
 			$dmg = -rand(round($player_max_hp/8),round($player_max_hp/6));
 			$chp = $chp + $dmg; 
-			if ($sex == 1)
-				$trap_text= "[<b>$player_name</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$player_name </b> попал в <b>ловушку</b>.</i>";
-			else
-			$trap_text= "[<b>$player_name</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$player_name </b>попала в <b>ловушку</b>.</i>";
-			 $text .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+			if ($sex == 1) {
+                $trap_text = "[<b>{$player['name']}</b>, жизни <font class=dmg>{$dmg}</font>]&nbsp;<i><b>{$player['name']} </b> попал в <b>ловушку</b>.</i>";
+            } else {
+                $trap_text = "[<b>{$player['name']}</b>, жизни <font class=dmg>{$dmg}</font>]&nbsp;<i><b>{$player['name']} </b>попала в <b>ловушку</b>.</i>";
+            }
+			 $text .= "top.add(\"$currentHoursAndMinutes\",\"\",\"$trap_text\",5,\"\");";
 			print "$text";
-			$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and room=$player_room  and id <> $player_id and npc=0";
+			$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and room=$player_room  and id <> {$player['id']} and npc=0";
 			SQL_do($SQL);
-			$SQL="update sw_users SET chp=$chp where id=$player_id";
+			$SQL="update sw_users SET chp=$chp where id={$player['id']}";
 			SQL_do($SQL);
 			$SQL="update sw_map SET trap=0 where id=$player_room";
 			SQL_do($SQL);
-		}
-		else
-		{
-			if ($sex == 1)
-				$trap_text= "[<b>$player_name</b>]&nbsp;<i><b>$player_name </b>обнаружил <b>ловушку</b>.</i>";
-			else
-			$trap_text= "[<b>$player_name</b>]&nbsp;<i><b>$player_name </b>обнаружила <b>ловушку</b>.</i>";
-			 	$text .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+		} else {
+			if ($sex == 1) {
+                $trap_text = "[<b>{$player['name']}</b>]&nbsp;<i><b>{$player['name']} </b>обнаружил <b>ловушку</b>.</i>";
+            } else {
+                $trap_text = "[<b>{$player['name']}</b>]&nbsp;<i><b>{$player['name']} </b>обнаружила <b>ловушку</b>.</i>";
+            }
+			$text .= "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$trap_text}\",5,\"\");";
 			print "$text";
 		}
 	}
-	if ($trap == 2)
-	{
-		if ($aff_see_all < $cur_time)
-		{
-			
+	if ($trap == 2) {
+		if ($aff_see_all < $currentTimestamp) {
 			$dmg = -rand(round($player_max_hp/3),round($player_max_hp/2));
 			$chp = $chp + $dmg; 
-			if ($sex == 1)
-				$trap_text= "[<b>$player_name</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i>попал в <b>капкан</b>.</i>";
-			else
-			$trap_text= "[<b>$player_name</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$player_name </b>попала в <b>капкан</b>.</i>";
-			 $text .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+			if ($sex == 1) {
+                $trap_text = "[<b>{$player['name']}</b>, жизни <font class=dmg>{$dmg}</font>]&nbsp;<i>попал в <b>капкан</b>.</i>";
+            } else {
+                $trap_text = "[<b>{$player['name']}</b>, жизни <font class=dmg>{$dmg}</font>]&nbsp;<i><b>{$player['name']} </b>попала в <b>капкан</b>.</i>";
+            }
+			 $text .= "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$trap_text}\",5,\"\");";
 			print "$text";
-			$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and room=$player_room  and id <> $player_id and npc=0";
+			$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and room=$player_room  and id <> {$player['id']} and npc=0";
 			SQL_do($SQL);
-			$SQL="update sw_users SET chp=$chp,aff_paralize=$cur_time+5*12 where id=$player_id";
+			$SQL="update sw_users SET chp=$chp,aff_paralize=$currentTimestamp+5*12 where id={$player['id']}";
 			SQL_do($SQL);
 			$SQL="update sw_map SET trap=0 where id=$player_room";
 			SQL_do($SQL);
-		}
-		else
-		{
-			if ($sex == 1)
-				$trap_text= "[<b>$player_name</b>]&nbsp;<i><b>$player_name </b>обнаружил  <b>капкан</b>.</i>";
-			else
-			$trap_text= "[<b>$player_name</b>]&nbsp;<i><b>$player_name </b>обнаружила  <b>капкан</b>.</i>";
-			 	$text .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+		} else {
+			if ($sex == 1) {
+                $trap_text = "[<b>{$player['name']}</b>]&nbsp;<i><b>{$player['name']} </b>обнаружил  <b>капкан</b>.</i>";
+            } else {
+                $trap_text = "[<b>{$player['name']}</b>]&nbsp;<i><b>{$player['name']} </b>обнаружила  <b>капкан</b>.</i>";
+            }
+			$text .= "top.add(\"$currentHoursAndMinutes\",\"\",\"$trap_text\",5,\"\");";
 			print "$text";
 		}
 	}
 }
 openscript();
-if ($m_name == "")
-{
+if ($m_name == "") {
 	$m_name = 'Комната арены';
 	$m_pic = 'arena.jpg';
 	$no_pvp = 2;
 }
-if (($player_opt & 1))
-	$m_pic = '';
+if (($player['opt'] & 1)) {
+    $m_pic = '';
+}
 $SQL="select city from sw_location inner join sw_map on sw_map.location=sw_location.id where sw_map.id=$player_room";
 $row_num=SQL_query_num($SQL);
-while ($row_num){
+while ($row_num) {
 	$its_city=$row_num[0];
 	$row_num=SQL_next_num();
 }
-if ($result)
-	mysqli_free_result($result);
-If ($its_city > 0)
-	$save = 1;
-else
-	$save = 0;
-/*$lt = getmicrotime();*/
-$cur_time = time();
-If (file_exists("room/$player_room.html"))
-{
+if ($result) {
+    mysqli_free_result($result);
+}
+if ($its_city > 0) {
+    $save = 1;
+} else {
+    $save = 0;
+}
+
+$currentTimestamp = time();
+if (file_exists("room/$player_room.html")) {
 	$text = '';
 	$file = fopen("room/$player_room.html","r");
 	$text = fgets($file,2);
@@ -398,23 +268,19 @@ If (file_exists("room/$player_room.html"))
 		$isinfo = 1;
 	else
 		$isinfo = 0;
+} else {
+    $isinfo = 0;
 }
-else
-	$isinfo = 0;
-/*$pt = getmicrotime();
-print "alert('".($lt-$pt)."');";*/
-if ($no_pvp == 0)
-	print "document.addEventListener(\"DOMContentLoaded\", function(event) { 
-	top.map($went, '$player_room','$m_name','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi);
-	});";
-else if ($no_pvp == 1)
-	print "top.map($went,'$player_room','<a title=\"Анти-боевая зона\"><font class=usergood>$m_name</font></a>','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi);";
-else
-	print "top.map($went,'$player_room','<a title=\"Боевая зона\"><font class=userbad>$m_name</font></a>','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi);";
-	
+if ($no_pvp == 0) {
+    print "top.map($went, '$player_room','$m_name','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$mountModificator);";
+} else if ($no_pvp == 1) {
+    print "top.map($went,'$player_room','<a title=\"Анти-боевая зона\"><font class=usergood>$m_name</font></a>','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$mountModificator);";
+} else {
+    print "top.map($went,'$player_room','<a title=\"Боевая зона\"><font class=userbad>$m_name</font></a>','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$mountModificator);";
+}
 $SQL="select fid,name,typ,what from sw_object where id=$player_room";
 $row_num=SQL_query_num($SQL);
-while ($row_num){
+while ($row_num) {
 	$fid = $row_num[0];
 	$name = $row_num[1];
 	$typ = $row_num[2];
@@ -425,6 +291,9 @@ while ($row_num){
 	/*}*/
 	$row_num=SQL_next_num();
 }
-if ($result)
-mysqli_free_result($result);
+if ($result) {
+    mysqli_free_result($result);
+}
+
+if (isset($error)) { displayTransitionError($error); }
 ?>

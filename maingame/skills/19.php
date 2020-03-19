@@ -31,7 +31,7 @@ if (strpos(" $player_aff",",4);") == 0)
 	print "top.aflict(2,4);";
 $game_skill_mana[19][2]= 25;
 $game_skill_afflict_percent[19][2]= 100;
-$game_skill_afflict[19][2]= ",aff_def=$cur_time+8*12";
+$game_skill_afflict[19][2]= ",aff_def=$currentTimestamp+8*12";
 $game_skill_afflict_text[19][2]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>наложил$sex_a заклинание <font class=atype>`Каменное тело`</font>.";
 $game_skill_dmg[19][2]= 1;
 $game_skill_textnum[19][2]= 0;
@@ -48,7 +48,7 @@ $game_skill_percent[19][2]= 0;
 $game_skill_name[19][3]= "Медлительность";
 $game_skill_mana[19][3]= 40;
 $game_skill_afflict_percent[19][3]= 100;
-$game_skill_afflict[19][3]= ",aff_speed2=$cur_time + 7*12";
+$game_skill_afflict[19][3]= ",aff_speed2=$currentTimestamp + 7*12";
 $game_skill_afflict_text[19][3]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>наложил$sex_a заклинание <font class=atype>`Медлительность`</font>.";
 $game_skill_dmg[19][3]= 1;
 $game_skill_textnum[19][3]= 0;
@@ -93,7 +93,7 @@ if (($target_id == $player_id) && ($num == 5)&& ($pl_cmana[$player_id] - 40 >= 0
 if (strpos(" $player_aff",",14);") == 0)
 	print "top.aflict(2,14);";
 $game_skill_afflict_percent[19][5]= 100;
-$game_skill_afflict[19][5]= ",aff_skin=$cur_time+8*12";
+$game_skill_afflict[19][5]= ",aff_skin=$currentTimestamp+8*12";
 $game_skill_afflict_text[19][5]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>наложил$sex_a заклинание <font class=atype>`Сопротивление`</font>.";
 $game_skill_dmg[19][5]= 1;
 $game_skill_mana[19][5]= 50;
@@ -111,7 +111,7 @@ $game_skill_percent[19][5]= 0;
 $game_skill_num[19] = 1;
 $game_skill_mana[19][6]= 60;
 $game_skill_afflict_percent[19][6]= 10;
-$game_skill_afflict[19][6]= ",aff_paralize=$cur_time+4*12";
+$game_skill_afflict[19][6]= ",aff_paralize=$currentTimestamp+4*12";
 $game_skill_afflict_text[19][6]= "[<b>$target_name</b>] <font class=italic> После землетрясения Вы потеряли способность передвигаться.</font>";
 
 $game_skill_name[19][6]= "Землетрясение";

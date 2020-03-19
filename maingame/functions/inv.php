@@ -25,7 +25,7 @@ function inventory( $id )
     global $race_wis;
     global $race_con;
     global $cur_weight;
-    global $race;
+    global $raceId;
     global $str;
     global $dex;
     global $int;
@@ -46,7 +46,7 @@ function inventory( $id )
         $int = $row_num[3];
         $wis = $row_num[4];
         $con = $row_num[5];
-        $race = $row_num[6];
+        $raceId = $row_num[6];
         $pic = $row_num[7];
         $pic_server = $row_num[8];
         $row_num = sql_next_num( );
@@ -106,7 +106,7 @@ $('#allItems').click();
     }
     $player['text'] = $text;
     $t = $player['text'];
-    $max_weight = round( ( $race_str[$race] + $str ) * ( 1 + $bag_q / 9 ) );
+    $max_weight = round( ( $race_str[$raceId] + $str ) * ( 1 + $bag_q / 9 ) );
     if ( $pic == "" )
     {
         $pic = "no_obraz.gif";

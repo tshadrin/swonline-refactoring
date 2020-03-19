@@ -24,7 +24,7 @@ $game_skill_percent[26][1] = 0;
 $game_skill_name[26][2] = "Проклятие";
 $game_skill_mana[26][2] = 40;
 $game_skill_afflict_percent[26][2] = 100;
-$game_skill_afflict[26][2] = ",aff_curses={$cur_time}+5*12";
+$game_skill_afflict[26][2] = ",aff_curses={$currentTimestamp}+5*12";
 $game_skill_afflict_text[26][2] = "[<b>{$target_name}</b>]&nbsp;<b>{$player_name} </b> колдует над куклой Voodoo.";
 if ( $pl_emune[$target_id] & 4 && $num == 2 )
 {
@@ -67,7 +67,7 @@ $game_skill_percent[26][3] = 0;
 $game_skill_name[26][4] = "Паралич";
 $game_skill_mana[26][4] = 60;
 $game_skill_afflict_percent[26][4] = 100;
-$game_skill_afflict[26][4] = ",aff_paralize={$cur_time}+6*12";
+$game_skill_afflict[26][4] = ",aff_paralize={$currentTimestamp}+6*12";
 $game_skill_afflict_text[26][4] = "[<b>{$target_name}</b>]&nbsp;<b>{$player_name} </b><font class=atype>парализовал </font> {$sopernika5}.";
 $game_skill_dmg[26][4] = 1;
 $game_skill_textnum[26][4] = 0;

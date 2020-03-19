@@ -74,7 +74,7 @@ if (($num == 3)&& ($pl_cmana[$player_id] - 40 >= 0) )
 if (strpos(" $player_aff",",16);") == 0)
 	print "top.aflict(2,16);";
 $game_skill_afflict_percent[23][3]= 100;
-$game_skill_afflict[23][3]= ",aff_best=$cur_time+6*12";
+$game_skill_afflict[23][3]= ",aff_best=$currentTimestamp+6*12";
 $game_skill_afflict_text[23][3]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>стал$sex_a более <font class=atype>уверен$sex_noi</font> в себе.";
 $game_skill_dmg[23][3]= 1;
 $game_skill_textnum[23][3]= 0;
@@ -91,7 +91,7 @@ $game_skill_percent[23][3]= 0;
 $game_skill_name[23][4]= "Видение";
 $game_skill_mana[23][4]= 90;
 $game_skill_afflict_percent[23][4]= 100;
-$game_skill_afflict[23][4]= ",aff_dream=$cur_time + 4*12";
+$game_skill_afflict[23][4]= ",aff_dream=$currentTimestamp + 4*12";
 $game_skill_afflict_text[23][4]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>объясняет $sopernika4, что в этом мире нету места для человека чёрного и пошлого, как $ona, и после чего $target_name начинает <b>избивать себя</b>.";
 if (($pl_emune[$target_id] & 16) && ($num == 4))
 {
@@ -125,7 +125,7 @@ $game_skill_mana[23][5]= 80;
 $game_skill_afflict_percent[23][5]= 100;
 if ($pl_aff_feel[$player_id] == 0)
 {
-	$game_skill_afflict[23][5]= ",aff_feel=$cur_time+4*12,aff_feel_dmg=0";
+	$game_skill_afflict[23][5]= ",aff_feel=$currentTimestamp+4*12,aff_feel_dmg=0";
 	$game_skill_afflict_text[23][5]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>перестал$sex_a чувствовать боль.";
 }
 else

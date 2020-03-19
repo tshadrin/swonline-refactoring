@@ -4,7 +4,7 @@ if ( !isset( $city_id ) )
 {
     exit( );
 }
-$actvive_time = $cur_time - 604800;
+$actvive_time = $currentTimestamp - 604800;
 if ( $do == "savehttp" && $city_rank == 1 )
 {
     $SQL = "update sw_clan SET http='{$c_http}' where id={$city_id}";
@@ -56,7 +56,7 @@ if ( $result )
     mysqli_free_result( $result );
 }
 $power = round( $power / $activeusers_num / 10 * ( $activeusers_num + 4 ) / 5 ) / 10;
-$d = round( ( $city_last - $cur_time + 2592000 ) / 60 / 60 / 24 );
+$d = round( ( $city_last - $currentTimestamp + 2592000 ) / 60 / 60 / 24 );
 if ( 0 < $d )
 {
     if ( $d == 1 )
@@ -76,7 +76,7 @@ else
 {
     $dat = "В ближайший 1 час";
 }
-if ( 2160000 < $cur_time - $city_last )
+if ( 2160000 < $currentTimestamp - $city_last )
 {
     $dat .= "&nbsp;<a href=menu.php?load={$load}&action=12 target=menu class=menu><font color=red><b>[Выборы]</b></a>";
 }

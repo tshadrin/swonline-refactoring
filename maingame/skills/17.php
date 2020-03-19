@@ -4,7 +4,7 @@ $game_skill_type_dmg[17]= 2;
 $game_skill_num[17] = 1;
 $game_skill_mana[17][1]= 10;
 $game_skill_afflict_percent[17][1]= 10;
-$game_skill_afflict[17][1]= ",aff_fire=$cur_time+3*12";
+$game_skill_afflict[17][1]= ",aff_fire=$currentTimestamp+3*12";
 $game_skill_afflict_text[17][1]= "[<b>$target_name</b>] <font class=italic> Из-за сильных ожогов <b>$target_name </b> чувствует постоянную боль по всему телу.</font>";
 if (($pl_emune[$target_id] & 2) && ($num == 1))
 {
@@ -31,7 +31,7 @@ $game_skill_percent[17][1]= 0;
 $game_skill_name[17][2]= "Проклятие";
 $game_skill_mana[17][2]= 20;
 $game_skill_afflict_percent[17][2]= 100;
-$game_skill_afflict[17][2]= ",aff_curses=$cur_time+8*12";
+$game_skill_afflict[17][2]= ",aff_curses=$currentTimestamp+8*12";
 $game_skill_afflict_text[17][2]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>наложил$sex_a заклинание <font class=atype>`Проклятие`</font> на $sopernika5.";
 if (($pl_emune[$target_id] & 4) && ($num == 2))
 {
@@ -56,7 +56,7 @@ $game_skill_percent[17][2]= 0;
 $game_skill_num[17] = 1;
 $game_skill_mana[17][3]= 25;
 $game_skill_afflict_percent[17][3]= 10;
-$game_skill_afflict[17][3]= ",aff_fire=$cur_time+5*12";
+$game_skill_afflict[17][3]= ",aff_fire=$currentTimestamp+5*12";
 $game_skill_afflict_text[17][3]= "[<b>$target_name</b>] <font class=italic> Из-за сильных ожогов <b>$target_name </b> чувствует постоянную боль по всему телу.</font>";
 if (($pl_emune[$target_id] & 2) && ($num == 3))
 {
@@ -91,7 +91,7 @@ if (($target_id == $player_id) && ($num == 4) && ($pl_cmana[$player_id] - 15 >= 
 if (strpos(" $player_aff",",9);") == 0)
 	print "top.aflict(2,9);";
 $game_skill_afflict_percent[17][4]= 100;
-$game_skill_afflict[17][4]= ",aff_nblood=$cur_time+5*12";
+$game_skill_afflict[17][4]= ",aff_nblood=$currentTimestamp+5*12";
 $game_skill_afflict_text[17][4]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>наложил$sex_a заклинание <font class=atype>`Жажда крови`</font>.";
 $game_skill_dmg[17][4]= 1;
 $game_skill_textnum[17][4]= 0;
@@ -112,7 +112,7 @@ $r = rand(0,100);
 if ($r > 50)
 {
 $game_skill_afflict_percent[17][5]= 100;
-$game_skill_afflict[17][5]= ",aff_cantsee=$cur_time+3*12";
+$game_skill_afflict[17][5]= ",aff_cantsee=$currentTimestamp+3*12";
 $game_skill_afflict_text[17][5]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>наложил$sex_a заклинание <font class=atype>`Слепота`</font> на $sopernika2.";
 if (($pl_emune[$target_id] & 8) && ($num == 5))
 {
@@ -145,7 +145,7 @@ $game_skill_percent[17][5]= 0;
 $game_skill_num[17] = 1;
 $game_skill_mana[17][6]= 60;
 $game_skill_afflict_percent[17][6]= 35;
-$game_skill_afflict[17][6]= ",aff_fire=$cur_time+6*12";
+$game_skill_afflict[17][6]= ",aff_fire=$currentTimestamp+6*12";
 $game_skill_afflict_text[17][6]= "[<b>$target_name</b>] <font class=italic> Из-за сильных ожогов <b>$target_name </b> чувствует постоянную боль по всему телу.</font>";
 if (($pl_emune[$target_id] & 2) && ($num == 6))
 {

@@ -3,7 +3,7 @@
 $game_skill_type_dmg[15] = 1;
 $game_skill_num[15] = 1;
 $game_skill_afflict_percent[15][1] = 8;
-$game_skill_afflict[15][1] = ",aff_bleed_power=10,aff_bleed_time={$cur_time}+5*12";
+$game_skill_afflict[15][1] = ",aff_bleed_power=10,aff_bleed_time={$currentTimestamp}+5*12";
 $game_skill_afflict_text[15][1] = "[<b>{$target_name}</b>] <font class=italic><b>{$target_name}</b> истекает кровью.</font>";
 $game_skill_name[15][1] = "Удар кинжалом";
 $game_skill_dmg[15][1] = $dex_dmg * 0.88;
@@ -23,7 +23,7 @@ $game_skill_type[15][1] = 1;
 $game_skill_percent[15][1] = 0;
 $game_skill_name[15][2] = "Режущий удар";
 $game_skill_afflict_percent[15][2] = 15;
-$game_skill_afflict[15][2] = ",aff_bleed_power=20,aff_bleed_time={$cur_time}+5*12";
+$game_skill_afflict[15][2] = ",aff_bleed_power=20,aff_bleed_time={$currentTimestamp}+5*12";
 $game_skill_afflict_text[15][2] = "[<b>{$target_name}</b>] <font class=italic><b>{$target_name}</b> истекает кровью.</font>";
 $game_skill_dmg[15][2] = $dex_dmg * 1.3;
 $game_skill_mana[15][2] = 7;
@@ -46,7 +46,7 @@ if ( $num == 3 )
 {
     $kickto = 1;
 }
-$game_skill_afflict[15][3] = ",aff_bleed_power=25,aff_bleed_time={$cur_time}+5*12";
+$game_skill_afflict[15][3] = ",aff_bleed_power=25,aff_bleed_time={$currentTimestamp}+5*12";
 $game_skill_afflict_text[15][3] = "[<b>{$target_name}</b>] <font class=italic><b>{$target_name}</b> истекает кровью.</font>";
 $game_skill_dmg[15][3] = $dex_dmg * 1.8;
 $game_skill_mana[15][3] = 15;
@@ -69,10 +69,10 @@ if ( $num == 4 )
 }
 $game_skill_name[15][4] = "Удар сзади";
 $game_skill_mana[15][4] = 25;
-if ( $cur_time < $pl_aff_invis[$player_id] && $pl_aff_see[$target_id] < $cur_time )
+if ( $currentTimestamp < $pl_aff_invis[$player_id] && $pl_aff_see[$target_id] < $currentTimestamp )
 {
     $game_skill_afflict_percent[15][4] = 100;
-    $game_skill_afflict[15][4] = ",aff_bleed_power=35,aff_bleed_time={$cur_time}+4*12";
+    $game_skill_afflict[15][4] = ",aff_bleed_power=35,aff_bleed_time={$currentTimestamp}+4*12";
     $game_skill_afflict_text[15][4] = "[<b>{$target_name}</b>] <font class=italic><b>{$target_name}</b> истекает кровью.</font>";
     $game_skill_dmg[15][4] = $dex_dmg * 2.8;
     $game_skill_textnum[15][4] = 2;
@@ -97,7 +97,7 @@ else
 {
     $game_skill_dmg[15][4] = 1;
     $game_skill_textnum[15][4] = 1;
-    if ( $cur_time < $pl_aff_see[$target_id] )
+    if ( $currentTimestamp < $pl_aff_see[$target_id] )
     {
         $game_skill_text[15][4][1] = "[<b>{$target_name}</b>]&nbsp;<b>{$player_name} </b> попытал{$las} подкрасться, но {$target_name} заметил{$sex2_a} это.";
     }

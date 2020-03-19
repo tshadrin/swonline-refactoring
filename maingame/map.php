@@ -1,82 +1,59 @@
 <?php
+/**
+ * ќдин из фреймов, выводит только js дл€ открисовки карты из ref_map.php
+ */
+const PASSWORD_HIDDEN = 'T13D@';
 session_start();
-if (array_key_exists("player", $_SESSION)) { $player = $_SESSION['player']; }
 header("Content-type: text/html; charset=win-1251");
-require_once("../vendor/autoload.php");
-$passwd_hidden = "T13D@";
+require_once(__DIR__ . '/../vendor/autoload.php');
+require_once(__DIR__ . '/../src/mapFunctions.php');
+
+if (array_key_exists("player", $_SESSION)) {
+    $player = &$_SESSION['player'];
+    $player['id']  = (int)$player['id'];    // map.php get id игрока
+    $player['rnd'] = (int)$player['rnd'];   // map.php get
+    $player['race'] = (int)$player['race']; // map.php get раса игрока
+    // $player['show']    map.php get
+    // $player['opt']     map.php get
+    // $Player['sleep']   map.php get
+    // $player['room']    map.php set
+    // $player['afk']     map.php set
+    // $player['regen']   map.php set
+    // $player['balance'] map.php set текущий timestamp баланса
+
+} else { exit; }
+$passwd_hidden = PASSWORD_HIDDEN; //без парол€ не открыть ./functions.php
+$secureKey = 'Frmajkf@9840!jnmj'; //без ключа не открыть ./ref_map.php используетс€ и в ref.php
 include("../mysqlconfig.php");
-include("functions.php");
 include("racecfg.php");
+include("functions.php");
 
-$player_id = $player['id'];
-$player_name = $player['name'];
-$sleep = $player['sleep'];
-$script = 0;
-
-function getroom($id)
-{
-	global $aff_see;
-	global $aff_invis;
-	global $chp;
-	global $sex;
-	global $oldhp;
-	global $aff_see_all;
-	global $aff_paralize;
-	global $player_city;
-	global $player_clan;
-	global $player_party;
-	global $aff_ground;
-	global $n_pvp;
-	global $chp_percent;
-	global $race;
-	global $con;
-	global $level;
-	global $result;
-
-	$SQL="
-SELECT chp, city, clan, party, room, 
-       aff_see, aff_invis, sex, aff_see_all, 
-       aff_paralize, aff_ground, chp_percent, 
-       race, con, level 
-FROM sw_users
-WHERE id={$id}";
-	$row_num = SQL_query_num($SQL);
-	while ($row_num) {
-		$chp = $row_num[0];
-		$oldhp = $chp;
-		$player_city = $row_num[1];
-		$player_clan = $row_num[2];
-
-		$player_party = $row_num[3];
-		$room = $row_num[4];
-		$aff_see = $row_num[5];
-		$aff_invis = $row_num[6];
-		$sex = $row_num[7];
-		$aff_see_all = $row_num[8];
-		$aff_paralize = $row_num[9];
-		$aff_ground = $row_num[10];
-		$chp_percent = $row_num[11];
-		$race = $row_num[12];
-		$con = $row_num[13];
-		$level = $row_num[14];
-
-		$row_num=SQL_next_num();
-	}
-	if ($result) {
-		mysqli_free_result($result);
-	}
-	//print "|$player_clan|";
-	return $room;
-}
-
-$player_room = getroom($player_id);
-
-if($player_room === 5180 || $player_room == 5181) {
+$player_room = null;
+[
+	$chp,          //global (oldhp = chp global Ќ≈ »—ѕќЋ№«”≈“—я) количество жизней map.php
+	$player_city,  //city global город игрока  functions.php
+	$player_clan,  //clan global клан игрока map.php
+	$player_party, //party global группа игрока functions.php
+	$player_room,  //room infile //комната игрока map.php
+	$aff_see,      //global functions.php
+	$aff_invis,    //global map.php
+	$sex,          //global map.php пол игрока
+	$aff_see_all,  //global map.php
+	$aff_paralize, //global map.php
+	$aff_ground,   //global map.php
+	$chp_percent,  //global Ќ≈ »—ѕќЋ№«”≈“—я «ƒ≈—№
+	$race,         //global id расы игрока
+	$con,          //global map.php параметр "стойкость" игрока
+	$level         //global map.php уровнь игрока
+] = getPlayerRoom($player['id']);
+?>
+<?php if ((int)$player_room === 5180 || (int)$player_room === 5181) {
 	$testBotMeta = '
 	<style type="text/css" media="screen">
 		body { background-color: white; }
-	</style><LINK REL=STYLESHEET TYPE="TEXT/CSS" HREF="style.css" TITLE="STYLE">
-<script type="text/javascript" src="jquery.min.js"></script>
+	</style>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="jquery.min.js"></script>
 	<script type="text/javascript" src="jquery-ui.min.js"></script>
 	<script type="text/javascript" src="jquery.captcha.js?rev=6"></script>';
 
@@ -85,26 +62,23 @@ if($player_room === 5180 || $player_room == 5181) {
 				borderColor: \"silver\",
 				text: \"ќчень проста€ игра,<br />перенеси указанные <span>вещи</span> в круг.\"
 			});";
-} else {
-	$testBotMeta = '';
-}
-$secureKey = "Frmajkf@9840!jnmj";
-echo '<html>
-		<head>
-		'.$testBotMeta.'
-		<meta content="text/html; charset=windows-1251" http-equiv="Content-Type">
-		</head>
-		';
-include('ref_map.php');
-if(isset($room_id) && $room_id == 5182) {
-	$testBot = "top.claimAva();";
-}
-print isset($testBot) ? $testBot : '';
-print "</script></html>";
-
-/*}
-else
-print "<script>alert('¬ы сейчас отдыхаете и поэтому не можете ничего делать.');</script>";*/
-SQL_disconnect();
-
-?>
+} ?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="windows-1251">
+		<?=isset($testBotMeta) ? $testBotMeta : ""?>
+	</head>
+	<body>
+		<?php include('ref_map.php'); //эта срань возвращает текст, поэтому подключаетс€ именно тут
+									  //какого хера открывюащий тег в соседнем файле ?>
+		<?= (isset($room_id) && $room_id == 5182) ? "top.claimAva();" : "" //«начение из ref_map.php?>
+		<?= isset($testBot) ? $testBot : ""?>
+		</script>
+	</body>
+</html>
+<?php
+/*
+} else
+	print "<script>alert('¬ы сейчас отдыхаете и поэтому не можете ничего делать.');</script>";*/
+SQL_disconnect(); ?>

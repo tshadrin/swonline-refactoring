@@ -78,15 +78,15 @@ else if ($action == 'addtrade')
 					$SQL="delete from sw_trade where owner=$id_del";
 					SQL_do($SQL);
 				}
-				$SQL="insert into sw_trading (id,pl_id1,pl_id2,tim) values ($max,$player_id,$target_id,$cur_time)";
+				$SQL="insert into sw_trading (id,pl_id1,pl_id2,tim) values ($max,$player_id,$target_id,$currentTimestamp)";
 				SQL_do($SQL);
 				$text = "Вы подали заявку на торговлю герою <b>$target_name</b>.";
-	   			$text = "parent.add(\"$time\",\"$player_name\",\"$text \",5,\"$player_name\");";
+	   			$text = "parent.add(\"$currentHoursAndMinutes\",\"$player_name\",\"$text \",5,\"$player_name\");";
 				$t = "Торговля";
 				$main = "<table cellpadding=3 width=100%><tr><Td><b>В данный момент вы можете:</b><br></td></tr><tr><td><table><tr><td>- </td><td><input type=submit value=Обновить onclick=\"top.frames[\'menu\'].document.location = \'menu.php?load=trade&trade_id=$max\';\"></td><td><b><font color=AAAAAA>текущий статус торговых отношений.</b></font></td></tr></table></td></tr><tr><td><table><tr><td>- </td><td><input type=submit value=Убрать onclick=\"top.frames[\'menu\'].document.location = \'menu.php?load=trade&action=deltrade&trade_id=$max\';\"></td><td><b><font color=AAAAAA>заявку на торговые отношения.</b></font></td></tr></table></td></tr><tr><td><hr size=1 color=#555555><br> - Подождите, пока пользователь подтвердит вашу заявку на торговлю.</td></tr><tr><td> - Для торговли требуется как минимум $level_need уровень.</td></tr><tr><td> - В одной торговле может участвовать не более 3-x предметов.</td></tr><tr><td> - Вся торговля контролируется администрацией, а поэтому все нарушения будут<br>&nbsp; выявлены и наказаны.</td></tr></table>";
 				print "<script>$text top.domir('$t','$main'); refresh = setTimeout(\"document.location = 'menu.php?load=trade&trade_id=$max';\",12000);</script>";
 				$text = "<b>$player_name</b> предлагает торговать.&nbsp;<a href=menu.php?load=trade&action=accept&trade_id=$max class=menu target=menu><b>[Согласиться]</b></a>";
-	   			$text = "parent.add(\"$time\",\"$player_name\",\"$text \",5,\"$player_name\");";
+	   			$text = "parent.add(\"$currentHoursAndMinutes\",\"$player_name\",\"$text \",5,\"$player_name\");";
 				$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and id=$target_id";
 				SQL_do($SQL);
 			}

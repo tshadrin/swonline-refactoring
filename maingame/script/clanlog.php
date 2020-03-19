@@ -78,7 +78,7 @@ if ($count > 1000)
 $p = "";
 
 if ($city_rank == 1)
-	$p = "<a href=clanlog?page=$page&city_id=$city_id&load=$load&action=$action&do=$d&del=1&sh=$sh class=menu>Удалить лог</a><br><br>";
+	$p = "<a href=clanlog?page=$page&city_id=$city_id&load=$load&action=$action&do=$directions&del=1&sh=$sh class=menu>Удалить лог</a><br><br>";
 
 for ($i=0;$i<$count;$i=$i+100)
 {

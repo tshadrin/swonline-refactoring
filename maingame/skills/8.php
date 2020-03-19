@@ -13,7 +13,7 @@ if ( $npc_kick == 0 && $target_id == $player_id && $num == 1 && 0 <= $pl_cmana[$
     print "top.aflict(2,5);";
 }
 $game_skill_afflict_percent[8][1] = 100;
-$game_skill_afflict[8][1] = ",aff_invis={$cur_time}+8*12";
+$game_skill_afflict[8][1] = ",aff_invis={$currentTimestamp}+8*12";
 $game_skill_afflict_text[8][1] = "[<b>{$target_name}</b>]&nbsp;<b>{$player_name} </b><font class=atype>скрыл{$las}</font>.";
 $game_skill_dmg[8][1] = 1;
 $game_skill_textnum[8][1] = 0;
@@ -37,7 +37,7 @@ if ( $npc_kick == 0 && $target_id == $player_id && $num == 2 && 0 <= $pl_cmana[$
     print "top.aflict(2,6);";
 }
 $game_skill_afflict_percent[8][2] = 100;
-$game_skill_afflict[8][2] = ",aff_see={$cur_time}+10*12";
+$game_skill_afflict[8][2] = ",aff_see={$currentTimestamp}+10*12";
 $game_skill_afflict_text[8][2] = "[<b>{$target_name}</b>]&nbsp;<b>{$player_name} </b>стал{$sex_a} более <font class=atype>бдитель{$sex_noi}</font>.";
 $game_skill_dmg[8][2] = 1;
 $game_skill_textnum[8][2] = 0;
@@ -61,7 +61,7 @@ if ( $npc_kick == 0 && $target_id == $player_id && $num == 3 && 0 <= $pl_cmana[$
     print "top.aflict(2,5);";
 }
 $game_skill_afflict_percent[8][3] = 100;
-$game_skill_afflict[8][3] = ",aff_invis={$cur_time}+15*12";
+$game_skill_afflict[8][3] = ",aff_invis={$currentTimestamp}+15*12";
 $game_skill_afflict_text[8][3] = "";
 $game_skill_dmg[8][3] = 1;
 $game_skill_textnum[8][3] = 0;

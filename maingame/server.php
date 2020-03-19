@@ -1,14 +1,13 @@
 <?php
 if (!isset($player)) { exit; }
 
-
 $file = fopen("30min.dat","r");
 $min30 = fgets($file,15);
 fclose($file);
-if ($min30 + 3600 < $cur_time)
+if ($min30 + 3600 < $currentTimestamp)
 {
 	$file = fopen("30min.dat","w");
-	fputs($file,$cur_time);
+	fputs($file,$currentTimestamp);
 	fclose($file);
 	include("stat.php");
 	$dat = date("H");
@@ -17,7 +16,7 @@ if ($min30 + 3600 < $cur_time)
 		$tp = 1;
 	if ($tp > 12)
 		$tp = 12;
-	$SQL="select count(*) from sw_users where online>$cur_time-60 and npc=0";
+	$SQL="select count(*) from sw_users where online>$currentTimestamp-60 and npc=0";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
 		$onl=$row_num[0];
@@ -147,7 +146,7 @@ if ($min30 + 3600 < $cur_time)
 		mysqli_free_result($result);
 	for ($k=1;$k<=$i;$k++)
 	{
-		if ($cur_time - $city_last[$k] > 2592000)
+		if ($currentTimestamp - $city_last[$k] > 2592000)
 		{
 			$n=0;
 			$SQL="select count(sw_selvote.id) as num,sw_selection.owner from sw_selvote  right join sw_selection on sw_selvote.id=sw_selection.owner where sw_selection.city=$city_id[$k] group by sw_selection.id order by num desc limit 0,2";
@@ -171,7 +170,7 @@ if ($min30 + 3600 < $cur_time)
 				SQL_do($SQL);
 				$SQL="update sw_users SET city_rank=1,city_pay=0,city_text='' where id=$v_id";
 				SQL_do($SQL);
-				$SQL="update sw_city SET last=$cur_time,fromdate=NOW() where id=$city_id[$k]";
+				$SQL="update sw_city SET last=$currentTimestamp,fromdate=NOW() where id=$city_id[$k]";
 				SQL_do($SQL);
 				$SQL="delete from sw_selection where city=$city_id[$k]";
 				SQL_do($SQL);
@@ -198,15 +197,15 @@ if ($min30 + 3600 < $cur_time)
 $file = fopen("2min.dat","r");
 $min2 = fgets($file,15);
 fclose($file);
-if ($min2 + 120 < $cur_time)
+if ($min2 + 120 < $currentTimestamp)
 {
 	$file = fopen("2min.dat","w");
-	fputs($file,$cur_time);
+	fputs($file,$currentTimestamp);
 	fclose($file);
-	$on_time = $cur_time-60;
-	$SQL="delete from sw_arena_reg where reg_time<$cur_time-300";
+	$on_time = $currentTimestamp-60;
+	$SQL="delete from sw_arena_reg where reg_time<$currentTimestamp-300";
 	SQL_do($SQL);
-	$SQL="delete from sw_arena_app where reg_time<$cur_time-300";
+	$SQL="delete from sw_arena_app where reg_time<$currentTimestamp-300";
 	SQL_do($SQL);
 	//Животные
 	$r = rand(0,1);
@@ -265,7 +264,7 @@ if ($min2 + 120 < $cur_time)
 //		print "";
 		if ($np_rr[$k] > 0)
 		{
-			$SQL="update sw_users SET online=$cur_time,chp=(10+con)*8+round((10+con)*level*2),chp_percent=100,room=$np_rr[$k] where id=$np_id[$k]";
+			$SQL="update sw_users SET online=$currentTimestamp,chp=(10+con)*8+round((10+con)*level*2),chp_percent=100,room=$np_rr[$k] where id=$np_id[$k]";
 			SQL_do($SQL);
 		}
 		else
@@ -282,21 +281,21 @@ if ($min2 + 120 < $cur_time)
 					mysqli_free_result($result);
 			/*}*/
 			$ri = $rid[$np_ol[$k]];
-			$SQL="update sw_users SET online=$cur_time,chp=(10+con)*7+round((10+con)*level*2),chp_percent=100,room=$ri where id=$np_id[$k]";
+			$SQL="update sw_users SET online=$currentTimestamp,chp=(10+con)*7+round((10+con)*level*2),chp_percent=100,room=$ri where id=$np_id[$k]";
 			SQL_do($SQL);
 
 		}
 	}
 
-	$SQL="delete from sw_users where live<$cur_time and npc=1 and live>0";
+	$SQL="delete from sw_users where live<$currentTimestamp and npc=1 and live>0";
 	SQL_do($SQL);
 	//Made player
-	$SQL="update sw_users set room=9999 where room<>9999 and madecity>0 and lastcity<$cur_time-60";
+	$SQL="update sw_users set room=9999 where room<>9999 and madecity>0 and lastcity<$currentTimestamp-60";
 	//print "$SQL";
 	SQL_do($SQL);
 	// arena
 		$i = 0;
-		$SQL="select id,start_room,end_room,text,lvlfrom,lvlto,city,ct_id from sw_arena where typ=1 and free=1 and tim<$cur_time-180";
+		$SQL="select id,start_room,end_room,text,lvlfrom,lvlto,city,ct_id from sw_arena where typ=1 and free=1 and tim<$currentTimestamp-180";
 		$row_num=SQL_query_num($SQL);
 		while ($row_num){
 			$i++;
@@ -315,7 +314,7 @@ if ($min2 + 120 < $cur_time)
 		for ($k = 1;$k <= $i;$k++)
 		{
 			$count = 0;
-			$SQL="select count(*) as num from sw_users where room >=$astart_room[$k] and room <=$aend_room[$k] and npc=0 and online>$cur_time-60";
+			$SQL="select count(*) as num from sw_users where room >=$astart_room[$k] and room <=$aend_room[$k] and npc=0 and online>$currentTimestamp-60";
 			$row_num=SQL_query_num($SQL);
 			while ($row_num){
 				$count=$row_num[0];
@@ -333,7 +332,7 @@ if ($min2 + 120 < $cur_time)
 			if ($count == 1)
 			{
 
-				$SQL="select id,name from sw_users where room >=$astart_room[$k] and room <=$aend_room[$k] and npc=0 and online>$cur_time-60";
+				$SQL="select id,name from sw_users where room >=$astart_room[$k] and room <=$aend_room[$k] and npc=0 and online>$currentTimestamp-60";
 				$row_num=SQL_query_num($SQL);
 				while ($row_num){
 					$arenaid=$row_num[0];
@@ -374,16 +373,16 @@ if ($min2 + 120 < $cur_time)
 					$jsptex .= "top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
 				}
 				if ($arncity[$k] <> 0)
-					$SQL="update sw_users set mytext=CONCAT(mytext,'$jsptex') where city=$acity[$k] and level>=$lvlfrom[$k] and level<=$lvlto[$k] and online>$cur_time-60 and npc=0";
+					$SQL="update sw_users set mytext=CONCAT(mytext,'$jsptex') where city=$acity[$k] and level>=$lvlfrom[$k] and level<=$lvlto[$k] and online>$currentTimestamp-60 and npc=0";
 				else
-					$SQL="update sw_users set mytext=CONCAT(mytext,'$jsptex') where level>=$lvlfrom[$k] and level<=$lvlto[$k] and online>$cur_time-60 and npc=0";
+					$SQL="update sw_users set mytext=CONCAT(mytext,'$jsptex') where level>=$lvlfrom[$k] and level<=$lvlto[$k] and online>$currentTimestamp-60 and npc=0";
 			//	print "$SQL";
 				SQL_do($SQL);
 			}
 		}
 	//
 	$i = 0;
-	$SQL="select count(sw_users.id) as n,sw_fights.id,sw_users.id as id2,sw_fights.from_room,sw_fights.room from sw_fights  left join sw_users on sw_fights.room=sw_users.room  where sw_users.online > $cur_time-60 or sw_users.online is null group by sw_fights.room having n<2";
+	$SQL="select count(sw_users.id) as n,sw_fights.id,sw_users.id as id2,sw_fights.from_room,sw_fights.room from sw_fights  left join sw_users on sw_fights.room=sw_users.room  where sw_users.online > $currentTimestamp-60 or sw_users.online is null group by sw_fights.room having n<2";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
 		$i++;
@@ -474,10 +473,10 @@ if ($min2 + 120 < $cur_time)
 $file = fopen("02min.dat","r");
 $min02 = fgets($file,15);
 fclose($file);
-if ($min02 + 16 < $cur_time)
+if ($min02 + 16 < $currentTimestamp)
 {
 	$file = fopen("02min.dat","w");
-	fputs($file,$cur_time);
+	fputs($file,$currentTimestamp);
 	fclose($file);
 	$file = fopen("dead.dat","w");
 	fclose($file);
@@ -490,7 +489,7 @@ if ($min02 + 16 < $cur_time)
 	SQL_do($SQL);
 	$SQL="update sw_pet set str=str + 1 where active = 2 and str<max_str";
 	SQL_do($SQL);
-	$SQL="select count(*) as num from sw_users where npc=0 and online>$cur_time-60 and city<>7";
+	$SQL="select count(*) as num from sw_users where npc=0 and online>$currentTimestamp-60 and city<>7";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
 		$online =$row_num[0];
@@ -498,7 +497,7 @@ if ($min02 + 16 < $cur_time)
 	}
 	if ($result)
 	mysqli_free_result($result);
-	$SQL="select count(*) as num from sw_users where npc=0 and online>$cur_time-60 and city=1";
+	$SQL="select count(*) as num from sw_users where npc=0 and online>$currentTimestamp-60 and city=1";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
 		$akademia =$row_num[0];
@@ -512,8 +511,8 @@ if ($min02 + 16 < $cur_time)
 	fputs($file,$akademia);
 	fclose($file);
 	$pact_count = 0;
-	$on_time = $cur_time-60;
-	$SQL="update sw_users SET mytext='',online=$cur_time where npc=1 and online>$on_time";
+	$on_time = $currentTimestamp-60;
+	$SQL="update sw_users SET mytext='',online=$currentTimestamp where npc=1 and online>$on_time";
 	SQL_do($SQL);
 	$r = rand(1,4);
 	$SQL="update sw_users SET chp=chp+round(((10+con)*7+((10+con)*level*2))/70+1),chp_percent=round(chp/((10+con)*7+((10+con)*level*2))*100),block=$r where npc=1 and chp<=round((10+con)*7+((10+con)*level*2))+round(((10+con)*7+((10+con)*level*2))/70+1) and online>$on_time";

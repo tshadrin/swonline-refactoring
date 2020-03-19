@@ -106,7 +106,7 @@ if ( $what == "arena" )
                                 $SQL = "delete from sw_arena_app where player={$player_id}";
                                 sql_do( $SQL );
                                 $tim = date( "H:i" );
-                                $SQL = "insert into sw_arena_app (owner,player,room,name,level,tim,reg_time,money) values ({$reg},{$player_id},{$player_room},'{$player_name}',{$level},'{$tim}',{$cur_time},{$sgold})";
+                                $SQL = "insert into sw_arena_app (owner,player,room,name,level,tim,reg_time,money) values ({$reg},{$player_id},{$player_room},'{$player_name}',{$level},'{$tim}',{$currentTimestamp},{$sgold})";
                                 sql_do( $SQL );
                             }
                         }
@@ -272,7 +272,7 @@ if ( $what == "arena" )
                     if ( $mx <= $end_room )
                     {
                         $r = rand( 1, 99999999 );
-                        $SQL = "insert into sw_fights (id,pl1,pl2,tim,room,from_room,allow_bet) values ({$r},{$pl1_id},{$pl2_id},{$cur_time},{$mx},{$player_room},{$a_b})";
+                        $SQL = "insert into sw_fights (id,pl1,pl2,tim,room,from_room,allow_bet) values ({$r},{$pl1_id},{$pl2_id},{$currentTimestamp},{$mx},{$player_room},{$a_b})";
                         sql_do( $SQL );
                         if ( $player_id != $pl1_id )
                         {
@@ -334,9 +334,9 @@ if ( $what == "arena" )
                             }
                         }
                         $text = "* <b>Вы</b> подтвердили вызов соперника. Бой начнётся через 1 минуту. *";
-                        $jsptex = "top.add(\"{$time}\",\"\",\"{$text}\",8,\"\");top.rbal(600,600);";
+                        $jsptex = "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$text}\",8,\"\");top.rbal(600,600);";
                         setbalance( $race );
-                        $player['balance'] = $cur_time - $balance + 60;
+                        $player['balance'] = $currentTimestamp - $balance + 60;
                         print "<script>top.gotoskills(0);{$jsptex}</script>";
                         if ( $player_sex == 1 )
                         {
@@ -346,9 +346,9 @@ if ( $what == "arena" )
                         {
                             $text = "* <b>{$player_name}</b> подтвердила  ваш вызов. Бой начнётся через 1 минуту. *";
                         }
-                        $jsptex = "top.gotoskills(0);top.add(\"{$time}\",\"\",\"{$text}\",8,\"\");";
+                        $jsptex = "top.gotoskills(0);top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$text}\",8,\"\");";
                         setbalance( $hsrace );
-                        $bal = $cur_time - $balance + 60;
+                        $bal = $currentTimestamp - $balance + 60;
                         if ( $player_id != $pl1_id )
                         {
                             $SQL = "update sw_users SET mytext=CONCAT(mytext,'{$jsptex}'),balance={$bal} where id={$pl1_id}";
@@ -418,7 +418,7 @@ if ( $what == "arena" )
                         $SQL = "delete from sw_arena_reg where owner={$player_id}";
                         sql_do( $SQL );
                         $tim = date( "H:i" );
-                        $SQL = "insert into sw_arena_reg (owner,room,name,level,tim,reg_time,allow_bet,money) values ({$player_id},{$player_room},'{$player_name}',{$level},'{$tim}',{$cur_time},{$stavka},{$sgold})";
+                        $SQL = "insert into sw_arena_reg (owner,room,name,level,tim,reg_time,allow_bet,money) values ({$player_id},{$player_room},'{$player_name}',{$level},'{$tim}',{$currentTimestamp},{$stavka},{$sgold})";
                         sql_do( $SQL );
 						
 						
@@ -441,10 +441,10 @@ if ( $what == "arena" )
 							}
 							$arena_post_time = time();
 							$text = "<a href=http://www.shamaal.ru/fullinfo.php?name={$player_name}  target=_blank class=menu2><b>{$player_name}</b></a> Бросил$sex_a вызов 1 на 1, на арене `<b>{$arn_name}</b>`, уровни {$minlvl} - {$maxlvl} могут принять вызов.";
-							$jsptex = "top.add(\"{$time}\",\"\",\"{$text}\",2,\"Арена\");";
+							$jsptex = "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$text}\",2,\"Арена\");";
 							print "<script>{$jsptex}</script>";
 							$text = "<a href=http:\/\/www.shamaal.ru/fullinfo.php?name={$player_name}  target=_blank class=menu2><b>{$player_name}</b></a> Бросил$sex_a вызов 1 на 1, на арене `<b>{$arn_name}</b>`, уровни {$minlvl} - {$maxlvl} могут принять вызов.";
-							$jsptex = "top.add(\"{$time}\",\"\",\"{$text}\",2,\"Арена\");";
+							$jsptex = "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$text}\",2,\"Арена\");";
 							$SQL = "update sw_users set arena_post={$arena_post_time} where id={$player_id}";
 							sql_do( $SQL );
 							$SQL = "update sw_users set mytext=CONCAT(mytext,'{$jsptex}') where id<>{$player_id} and level>={$minlvl} and level<={$maxlvl} and online>{$online_time} and npc=0";
@@ -590,7 +590,7 @@ if ( $what == "arena" )
                     }
                 }
             }
-            $SQL = "select count(*) as num from sw_fights where tim>{$cur_time}-70 and allow_bet=1 and from_room={$player_room}";
+            $SQL = "select count(*) as num from sw_fights where tim>{$currentTimestamp}-70 and allow_bet=1 and from_room={$player_room}";
             $row_num = sql_query_num( $SQL );
             while ( $row_num )
             {
@@ -629,7 +629,7 @@ if ( $what == "arena" )
             }
             print "<script>top.tatol({$id},-1,0,'',0,'',0,'{$p}',0);";
             $n = 0;
-            $SQL = "select id,pl1,pl2 from sw_fights where tim>{$cur_time}-120 and allow_bet=1 and from_room={$player_room} order by tim desc limit {$page},10";
+            $SQL = "select id,pl1,pl2 from sw_fights where tim>{$currentTimestamp}-120 and allow_bet=1 and from_room={$player_room} order by tim desc limit {$page},10";
             $row_num = sql_query_num( $SQL );
             while ( $row_num )
             {
@@ -895,7 +895,7 @@ if ( $what == "arena" )
                 }
                 if ( $levelfrom <= $level && $level <= $levelto && ( $acity == $city || $arena_city == 0 ) )
                 {
-                    if ( $cur_time < $tim + 180 )
+                    if ( $currentTimestamp < $tim + 180 )
                     {
                         $SQL = "select count(*) as num from sw_users where room >= {$str} and room <= {$enr} and npc=0 and online>{$online_time}";
                         $row_num = sql_query_num( $SQL );
@@ -911,8 +911,8 @@ if ( $what == "arena" )
                         if ( $ispl < $pl )
                         {
                             setbalance( $race );
-                            $t = $cur_time - $tim;
-                            $player['balance'] = $cur_time - $balance + 180 - $t;
+                            $t = $currentTimestamp - $tim;
+                            $player['balance'] = $currentTimestamp - $balance + 180 - $t;
                             $t = ( 180 - $t ) * 10;
                             print "<script>top.rbal({$t},{$t});</script>";
                             $r = rand( $str, $enr );
@@ -953,7 +953,7 @@ if ( $what == "arena" )
                 $tim = $row_num[6];
                 $aren = $row_num[7];
                 $acity = $row_num[8];
-                if ( $cur_time < $tim + 180 )
+                if ( $currentTimestamp < $tim + 180 )
                 {
                     $c = "bgcolor=00AA00";
                 }
@@ -966,7 +966,7 @@ if ( $what == "arena" )
                     $c = "bgcolor=AA0000";
                 }
                 $a = "";
-                if ( $levelfrom <= $level && $level <= $levelto && ( $acity == $city || $arena_city == 0 ) && $cur_time < $tim + 180 )
+                if ( $levelfrom <= $level && $level <= $levelto && ( $acity == $city || $arena_city == 0 ) && $currentTimestamp < $tim + 180 )
                 {
                     $a = "<input type=submit value=Вступить style=width:55>";
                 }
@@ -1026,10 +1026,10 @@ if ( $what == "arena" )
                                             $ct = $city;
                                         }
                                         setbalance( $race );
-                                        $t = $cur_time - $balance + 180;
+                                        $t = $currentTimestamp - $balance + 180;
                                         $player['balance'] = $t;
                                         print "<script>top.rbal(1800,1800);</script>";
-                                        $SQL = "update sw_arena set free=1,tim={$cur_time},lvlfrom={$minlvl},lvlto={$maxlvl},pl={$maxpl},city={$ct} where owner={$player_room} and typ=1";
+                                        $SQL = "update sw_arena set free=1,tim={$currentTimestamp},lvlfrom={$minlvl},lvlto={$maxlvl},pl={$maxpl},city={$ct} where owner={$player_room} and typ=1";
                                         sql_do( $SQL );
                                         $r = rand( $start_room, $end_room );
                                         $SQL = "update sw_users set room={$r},arena_room={$player_room},balance={$t},gold=GREATEST(0, gold-10) where id={$player_id}";
@@ -1037,7 +1037,7 @@ if ( $what == "arena" )
                                         $SQL = "update sw_city set money=money+10 where id={$acity}";
                                         sql_do( $SQL );
                                         $text = "На арене `<a href=# onclick=top.arenainfo({$arena_id}); class=menu2><b>{$arn_name}</b></a>` для {$minlvl} - {$maxlvl} уровней создан общий бой.";
-                                        $jsptex = "top.add(\"{$time}\",\"\",\"{$text}\",2,\"Арена\");";
+                                        $jsptex = "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$text}\",2,\"Арена\");";
                                         print "<script>{$jsptex}</script>";
                                         if ( $ct != 0 )
                                         {

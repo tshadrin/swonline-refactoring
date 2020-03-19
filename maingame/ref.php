@@ -1,11 +1,31 @@
 <?php
+/**
+ * Один из фреймов
+ */
 session_start();
-if (!array_key_exists("player", $_SESSION)) {
-    exit;
-} else {
-    $player = $_SESSION['player'];
-}
 header('Content-type: text/html; charset=win-1251');
+require_once(__DIR__. "/../vendor/autoload.php");
+
+if (array_key_exists("player", $_SESSION)) {
+    $player = &$_SESSION['player'];
+    $player['id']  = (int)$player['id'];    // map.php get id игрока
+    $player['rnd'] = (int)$player['rnd'];   // map.php get
+    $player['race'] = (int)$player['race']; // map.php get раса игрока
+    // $player['show']    map.php get
+    // $player['opt']     map.php get
+    // $Player['sleep']   map.php get
+    // $player['room']    map.php set
+    // $player['afk']     map.php set
+    // $player['regen']   map.php set
+    // $player['balance'] map.php set текущий timestamp баланса
+} else { exit; }
+
+$passwd_hidden = "T13D@"; //без пароля не открыть ./functions.php
+$secureKey = "Frmajkf@9840!jnmj"; //без ключа не открыть ./ref_map.php используется и в map.php
+
+include('../mysqlconfig.php');
+include("functions.php");
+
 //background: F6FAFF;
 $player_id = $player['id'];
 $player_name = $player['name'];
@@ -27,15 +47,16 @@ $server_id = $player['server'];
 $script = 0;
 $player_do = "";
 $cur_time = time();
+$currentTimestamp = time();
 $player['online'] = $cur_time;
 //print $cur_time;
 $online_time = time() - 60;
 $time = date("H:i");
+$currentHoursAndMinutes = date("H:i");
 
-include('../mysqlconfig.php');
+
 $and = "";
-$passwd_hidden = "T13D@";
-include("functions.php");
+
 echo '<html>
 <head>
 <meta content="text/html; charset=windows-1251" http-equiv="Content-Type">
@@ -58,7 +79,7 @@ $lt = getmicrotime();
 //print $lt-$pt;
 $player_random =$player['rnd'];
 
-$SQL="select balance,exp,room,sex,con,wis,level,city,clan,chp,cmana,race,mytext,aff_afraid,aff_cut,aff_bleed_power,aff_bleed_time,aff_def,aff_invis,aff_see,aff_ground,aff_curses,aff_nblood,aff_cantsee,aff_fire,aff_bless,aff_speed,aff_skin,aff_see_all,aff_tree,room,aff_best,aff_fight,aff_feel,aff_feel_dmg,aff_dream,aff_mad,aff_prep,aff_paralize,party,aff_rune1,aff_rune2,aff_rune3,aff_rune4,ban,ban_for,aff_speed2,aff_sleep,rnd, ingame, ban_chat from sw_users where id=$player_id";
+$SQL="select balance,exp,room,sex,con,wis,level,city,clan,chp,cmana,race,mytext,aff_afraid,aff_cut,aff_bleed_power,aff_bleed_time,aff_def,aff_invis,aff_see,aff_ground,aff_curses,aff_nblood,aff_cantsee,aff_fire,aff_bless,aff_speed,aff_skin,aff_see_all,aff_tree,room,aff_best,aff_fight,aff_feel,aff_feel_dmg,aff_dream,aff_mad,aff_prep,aff_paralize,party,aff_rune1,aff_rune2,aff_rune3,aff_rune4,ban,ban_for,aff_speed2,aff_sleep,rnd, ingame from sw_users where id=$player_id";
 $row_num=SQL_query_num($SQL);
 while ($row_num){
 	$newbalance=$row_num[0];
@@ -112,13 +133,13 @@ while ($row_num){
 	$aff_sleep = $row_num[47];
 	$pl_rnd = $row_num[48];
 	$ingame = $row_num[49];
-	$ban_chat = $row_num[50];
+	//$ban_chat = $row_num[50];
 	$row_num=SQL_next_num();
 }
 if ($result)
 mysqli_free_result($result);
 
-$player['ban_chat'] = $ban_chat;
+//$player['ban_chat'] = $ban_chat;
 
 $health = 0;
 $mana = 0;
@@ -175,7 +196,6 @@ include("racecfg.php");
 
 if ($room <> $old_room)
 {
-	$secureKey = "Frmajkf@9840!jnmj";
 	include('ref_map.php');
 }
 
@@ -255,14 +275,7 @@ if ($exptolevel<=$exp && $level < 255)
 
 }
 
-if($ban_chat > time())
-{
-	print "top.addMute('".time_left($ban_chat-time())."');";
-}
-else
-{
-	print "top.dMute();";
-}
+//print $ban_chat < time() ?  "top.addMute('".time_left($ban_chat-time())."');" : "top.dMute();";
 
 if ($mytext <> " ")
 {

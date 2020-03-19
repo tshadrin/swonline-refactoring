@@ -12,7 +12,7 @@ if (strpos(" $player_aff",",20);") == 0)
 $game_skill_name[24][1]= "ярость";
 $game_skill_mana[24][1]= 10;
 $game_skill_afflict_percent[24][1]= 100;
-$game_skill_afflict[24][1]= ",aff_mad=$cur_time+5*12";
+$game_skill_afflict[24][1]= ",aff_mad=$currentTimestamp+5*12";
 $game_skill_afflict_text[24][1]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>cтал$sex_a <font class=atype>€ростно </font> посматривать на соперников.";
 $game_skill_dmg[24][1]= 1;
 $game_skill_textnum[24][1]= 0;
@@ -37,7 +37,7 @@ if (strpos(" $player_aff",",21);") == 0)
 $game_skill_name[24][2]= "ѕодготовка";
 $game_skill_mana[24][2]= 30;
 $game_skill_afflict_percent[24][2]= 100;
-$game_skill_afflict[24][2]= ",aff_prep=$cur_time+5*12";
+$game_skill_afflict[24][2]= ",aff_prep=$currentTimestamp+5*12";
 $game_skill_afflict_text[24][2]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>встал$sex_a  <font class=atype>в боевую </font> стойку.";
 $game_skill_dmg[24][2]= 1;
 $game_skill_textnum[24][2]= 0;
@@ -63,7 +63,7 @@ if (($num == 3)&& ($pl_cmana[$player_id] - 35 >= 0) )
 if (strpos(" $player_aff",",17);") == 0)
 	print "top.aflict(2,17);";
 $game_skill_afflict_percent[24][3]= 100;
-$game_skill_afflict[24][3]= ",aff_fight=$cur_time+6*12";
+$game_skill_afflict[24][3]= ",aff_fight=$currentTimestamp+6*12";
 $game_skill_afflict_text[24][3]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>стал$sex_a более <font class=atype>отваж$sex_noi</font>.";
 $game_skill_dmg[24][3]= 1;
 $game_skill_textnum[24][3]= 0;
@@ -90,7 +90,7 @@ if (($num == 4)&& ($pl_cmana[$player_id] - 50 >= 0) )
 $game_skill_name[24][4]= "‘инт";
 $game_skill_mana[24][4]= 50;
 $game_skill_afflict_percent[24][4]= 100;
-$game_skill_afflict[24][4]= ",aff_mad=$cur_time+9*12,aff_prep=$cur_time+9*12";
+$game_skill_afflict[24][4]= ",aff_mad=$currentTimestamp+9*12,aff_prep=$currentTimestamp+9*12";
 $game_skill_afflict_text[24][4]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>встал$sex_a  в хорошо подготовленную <font class=atype>боевую </font> стойку.";
 $game_skill_dmg[24][4]= 1;
 $game_skill_textnum[24][4]= 0;
@@ -108,7 +108,7 @@ $game_skill_afflict_percent[24][5]= 100;
 $r = rand(0,100);
 if ($r > 50)
 {
-	$game_skill_afflict[24][5]= ",aff_afraid=$cur_time+5*12";
+	$game_skill_afflict[24][5]= ",aff_afraid=$currentTimestamp+5*12";
 	$game_skill_afflict_text[24][5]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>испугал$sex_a $sopernika5 до смерти.";
 	if (($pl_emune[$target_id] & 32) && ($num == 5))
 	{

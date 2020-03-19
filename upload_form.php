@@ -3,7 +3,7 @@
 	$upload_form = "<form action='' name=frm_main method=post target=_self enctype=multipart/form-data>";
 	
 	$upload_form = $upload_form. "<input type=file name=fotka value=$f class=myi><input name=ctp type=hidden value=$ctp><br>";
-	$upload_form = $upload_form. "Раздел: $dir";
+	$upload_form = $upload_form. "Раздел: $direction";
 	$upload_form = $upload_form. "<br><input type=submit name=Submit style=width:200 value=Загрузить образ(18kb)>";
 	$upload_form = $upload_form."<input name=proc type=hidden value=1>";
 	$upload_form = $upload_form."<input name=city_id type=hidden value=$city_id>";	

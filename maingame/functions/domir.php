@@ -1,7 +1,7 @@
 <?php
 function domir($type)
 {
-	global $player,$cur_balance,$cur_time,$balance,$balance_ten,$race_dex,$player_sex,$player_id,$player_name,$action,$load,$scroll,$mobj1,$mobj2,$mobj3,$mobj1_num,$mobj2_num,$mobj3_num,$old_room,$player_race,$result;
+	global $player,$cur_balance,$currentTimestamp,$balance,$balance_ten,$race_dex,$player_sex,$player_id,$player_name,$action,$load,$scroll,$mobj1,$mobj2,$mobj3,$mobj1_num,$mobj2_num,$mobj3_num,$old_room,$player_race,$result;
 	include("functions/copyobj.php");
 	$SQL="select count(*) as num from sw_object where what='$load' and id=$old_room";
 	$row_num=SQL_query_num($SQL);
@@ -114,9 +114,9 @@ function domir($type)
 							if ($error == 0)
 							{
 								setbalance($player_race);
-								if (($cur_balance < $cur_time - $balance+1))
+								if (($cur_balance < $currentTimestamp - $balance+1))
 								{
-									$player['balance'] = $cur_time+14;
+									$player['balance'] = $currentTimestamp+14;
 									$balance_ten = $balance_ten+140;
 									print "<script>top.rbal($balance_ten,$balance_ten);</script>";
 									$time = date("H:i");
@@ -128,7 +128,7 @@ function domir($type)
 									$r = rand(0,2);;
 									$text = $skill_all[$sk][0][$r];
 									$text = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-									$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and room=$old_room and id <> $player_id and npc=0";
+									$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $currentTimestamp-60 and room=$old_room and id <> $player_id and npc=0";
 									SQL_do($SQL);
 									$text1 = $skill_text[$sk][1];
 									$text2 = $skill_text[$sk][2];

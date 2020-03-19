@@ -1,7 +1,6 @@
 <?php
 declare(strict_types = 1);
 
-
 /**
  * Удаление запрещенных символов из данных переданных пользователем
  * @param string $string

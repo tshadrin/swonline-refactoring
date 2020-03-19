@@ -46,7 +46,7 @@ if ( $num == 1 )
     {
         $t = "[<b>{$target_name}</b>]&nbsp;{$tn} телепатического соединени€ не выбрана.";
     }
-    $t = "top.add(\"{$time}\",\"\",\"{$t}\",5,\"\");";
+    $t = "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$t}\",5,\"\");";
     print "{$t}";
 }
 $game_skill_dmg[25][1] = 1;
@@ -84,7 +84,7 @@ $game_skill_percent[25][2] = 0;
 $game_skill_name[25][3] = "ѕаралич";
 $game_skill_mana[25][3] = 40;
 $game_skill_afflict_percent[25][3] = 100;
-$game_skill_afflict[25][3] = ",aff_paralize={$cur_time}+3*12";
+$game_skill_afflict[25][3] = ",aff_paralize={$currentTimestamp}+3*12";
 $game_skill_afflict_text[25][3] = "[<b>{$target_name}</b>]&nbsp;<b>{$player_name} </b><font class=atype>парализовал </font> {$sopernika5}.";
 $game_skill_dmg[25][3] = 1;
 $game_skill_textnum[25][3] = 0;
@@ -99,7 +99,7 @@ $game_skill_percent[25][3] = 0;
 $game_skill_name[25][4] = "Ѕоль";
 $game_skill_mana[25][4] = 50;
 $game_skill_afflict_percent[25][4] = 100;
-$game_skill_afflict[25][4] = ",aff_bleed_power=20,aff_bleed_time={$cur_time}+3*12";
+$game_skill_afflict[25][4] = ",aff_bleed_power=20,aff_bleed_time={$currentTimestamp}+3*12";
 $game_skill_afflict_text[25][4] = "[<b>{$target_name}</b>]&nbsp;<b>{$player_name} </b>направил{$sex_a} сильный энергетический поток на {$sopernika5}.";
 if ( $pl_emune[$target_id] & 4 && $num == 4 )
 {

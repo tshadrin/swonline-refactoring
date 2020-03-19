@@ -55,7 +55,7 @@ if (($target_id == $player_id) && ($num == 3)&& ($pl_cmana[$player_id] - 15 >= 0
 if (strpos(" $player_aff",",12);") == 0)
 	print "top.aflict(2,12);";
 $game_skill_afflict_percent[18][3]= 100;
-$game_skill_afflict[18][3]= ",aff_bless=$cur_time+5*12";
+$game_skill_afflict[18][3]= ",aff_bless=$currentTimestamp+5*12";
 $game_skill_afflict_text[18][3]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>наложил$sex_a заклинание <font class=atype>`Ѕлагословление`</font>.";
 $game_skill_dmg[18][3]= 2;
 $game_skill_textnum[18][3]= 0;
@@ -95,7 +95,7 @@ $game_skill_percent[18][4]= 0;
 $game_skill_num[18] = 1;
 $game_skill_mana[18][5]= 55;
 $game_skill_afflict_percent[18][5]= 15;
-$game_skill_afflict[18][5]= ",aff_speed2=$cur_time+3*12";
+$game_skill_afflict[18][5]= ",aff_speed2=$currentTimestamp+3*12";
 $game_skill_afflict_text[18][5]= "[<b>$target_name</b>] <font class=italic> —ильное обморожение сковывает ваши движени€.</font>";
 
 $game_skill_name[18][5]= "Ћед€ные шипы";
@@ -168,9 +168,9 @@ $game_skill_afflict[18][5]= ",aff_fire=3";
 $game_skill_afflict_text[18][5]= "[<b>$target_name</b>] <font class=italic> »з-за сильных ожогов <b>$target_name </b> чувствует посто€нную боль по всему телу.</font>";*/
 $game_skill_name[18][7]= "¬одный элемент";
 $game_skill_dmg[18][7]= 0;
-$live = $cur_time + 2 * 60;
+$live = $currentTimestamp + 2 * 60;
 $level = 20 + round($pl_level[$player_id] / 4);
-$game_skill_do_SQL[18][7]= "INSERT INTO sw_users (name,up_name,npc,madeby,pwr,typ,typ_num,typ2,typ2_num,room,online,level,chp,chp_percent,bad,live,sex) values ('@Ёлементаль@','@Ёлементаль@',1,$player_id,1,18,1,18,4,$pl_room[$player_id],$cur_time,$level,80+10*$level,100,1,$live,1)";
+$game_skill_do_SQL[18][7]= "INSERT INTO sw_users (name,up_name,npc,madeby,pwr,typ,typ_num,typ2,typ2_num,room,online,level,chp,chp_percent,bad,live,sex) values ('@Ёлементаль@','@Ёлементаль@',1,$player_id,1,18,1,18,4,$pl_room[$player_id],$currentTimestamp,$level,80+10*$level,100,1,$live,1)";
 $game_skill_textnum[18][7]= 2;
 $game_skill_text[18][7][1] = "[<b>$player_name</b>]&nbsp;<font color=red><b>$player_name </b>объедин€ет все магические силы в элементе.</font></font>";
 $game_skill_text[18][7][2] = "[<b>$player_name</b>]&nbsp;<font color=red><b>$player_name </b>концентрирует все магические силы в элементе.</font></font>";

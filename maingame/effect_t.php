@@ -35,7 +35,7 @@ if ( 0 < $aff_bleed_time )
     }
     $player_do .= ",aff_bleed_time={$aff_bleed_time}";
     $text = "[<b>{$player_name}</b>, жизни <font class=dmg>{$dmg}</font>]&nbsp;<i><b>{$player_name}</b> истекает кровью.</i>";
-    $totext .= "top.add(\"{$time}\",\"\",\"{$text}\",5,\"\");";
+    $totext .= "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$text}\",5,\"\");";
     $mytext .= $totext;
     $chp = $chp + $dmg;
     if ( $aff_bleed_time != 0 )
@@ -180,7 +180,7 @@ if ( 0 < $aff_tree )
     $player_do .= ",aff_tree={$aff_tree}";
     $dmg = 0 - round( $player_max_hp * 0.05 );
     $text = "[<b>{$player_name}</b>, жизни <font class=dmg>{$dmg}</font>]&nbsp;<i>Разгневанный <b>лес</b> наносит урон обидчику.</i>";
-    $totext .= "top.add(\"{$time}\",\"\",\"{$text}\",5,\"\");";
+    $totext .= "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$text}\",5,\"\");";
     $mytext .= $totext;
     $chp = $chp + $dmg;
 }
@@ -224,7 +224,7 @@ if ( 0 < $aff_feel )
         {
             $text = "[<b>{$player_name}</b>, жизни <font class=dmg>{$dmg}</font>]&nbsp;<i><b>{$player_name} </b>перестала быть бесчувственной.</i>";
         }
-        $totext .= "top.add(\"{$time}\",\"\",\"{$text}\",5,\"\");";
+        $totext .= "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$text}\",5,\"\");";
         $mytext .= $totext;
         $chp = $chp + $dmg;
     }
@@ -325,7 +325,7 @@ if ( $oldeffect != $aff || $effect == 1 )
 }
 if ( $totext )
 {
-    $SQL = "update sw_users SET mytext=CONCAT(mytext,'{$totext}') where online > {$cur_time}-60 and (room={$room}) and id <> {$player_id} and npc=0";
+    $SQL = "update sw_users SET mytext=CONCAT(mytext,'{$totext}') where online > {$currentTimestamp}-60 and (room={$room}) and id <> {$player_id} and npc=0";
     sql_do( $SQL );
 }
 ?>

@@ -24,7 +24,7 @@ $per_amana = 100 - $per_mana;
 <head>
     <title>Shamaal World</title>
     <meta charset="windows-1251">
-    <!--<script type="text/javascript" src="stooltip.js"></script>-->
+    <script type="text/javascript" src="stooltip.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>

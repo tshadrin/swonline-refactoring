@@ -6,7 +6,7 @@
 <body>
 <?
 //if ( !session_is_registered("admin")) {exit();}
-if (!isset($dir))
+if (!isset($direction))
 exit();
 $dir = str_replace(".","",$dir);
 $handle = opendir("maingame/pic/$dir");

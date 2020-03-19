@@ -3,7 +3,7 @@
 $game_skill_type_dmg[16]= 1;
 $game_skill_num[16] = 1;
 $game_skill_afflict_percent[16][1]= 10;
-$game_skill_afflict[16][1]= ",aff_ground=".($cur_time+4*12);
+$game_skill_afflict[16][1]= ",aff_ground=".($currentTimestamp+4*12);
 $game_skill_afflict_text[16][1]= "[<b>$target_name</b>] <font class=italic><b>$player_name </b> сбил$sex_a $sopernika5 с ног.</font>";
 $game_skill_name[16][1]= "Удар кулаком";
 $game_skill_dmg[16][1]= $blunt_dmg*0.95;
@@ -24,7 +24,7 @@ $game_skill_percent[16][1]= 0;
 
 $game_skill_name[16][2]= "Удар ногой";
 $game_skill_afflict_percent[16][2]= 13;
-$game_skill_afflict[16][2]= ",aff_ground=".($cur_time+4*12);
+$game_skill_afflict[16][2]= ",aff_ground=".($currentTimestamp+4*12);
 $game_skill_afflict_text[16][2]= "[<b>$target_name</b>] <font class=italic><b>$player_name  </b> сбил$sex_a $sopernika5 с ног.</font>";
 $game_skill_dmg[16][2]= $blunt_dmg*1.40;
 $game_skill_mana[16][2]= 8;
@@ -45,7 +45,7 @@ $game_skill_percent[16][2]= 0;
 
 $game_skill_name[16][3]= "Комбинация";
 $game_skill_afflict_percent[16][3]= 20;
-$game_skill_afflict[16][3]= ",aff_ground=".($cur_time+4*12);
+$game_skill_afflict[16][3]= ",aff_ground=".($currentTimestamp+4*12);
 $game_skill_afflict_text[16][3]= "[<b>$target_name</b>] <font class=italic><b>$player_name  </b> сбил$sex_a $sopernika5 с ног.</font>";
 $game_skill_dmg[16][3]= $blunt_dmg*0.95;
 $game_skill_count[16][3]= rand(0,2);
@@ -70,7 +70,7 @@ $game_skill_mana[16][4]= 30;
 $game_skill_dmg[16][4]= $blunt_dmg*2.6;
 $game_skill_textnum[16][4]= 1;
 
-if ($pl_aff_ground[$target_id] > $cur_time)
+if ($pl_aff_ground[$target_id] > $currentTimestamp)
 {
 	$game_skill_text[16][4][1] = "[<b>$target_name</b>, жизни <font class=dmg><DMG></font>]&nbsp;<b>$player_name </b>поднял$sex_a соперника и со всей силы бросил$sex_a $ee на землю.";
 }

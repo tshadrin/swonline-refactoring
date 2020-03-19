@@ -1,11 +1,9 @@
 <?php
-//if (array_key_exists('player', $_SESSION)) {
-//    $player = $_SESSION['player'];
-//}
-//$player = $_SESSION['player'];
-//if ($passwd_hidden != "T13D@") {exit("acces denied");}
+/**
+ * Используется в ref.php map.php и menu.php. Напрямую не используется.
+ */
+if ($passwd_hidden !== "T13D@") { exit; }
 
-$player_id = $player['id'];
 //$id = (integer) $id;
 //if ($id == 191392)
 //	exit();
@@ -37,10 +35,10 @@ Function add_parametr($health,$mana)
 	$player_max_hp += $health;   
 	$player_max_mana +=  $mana; 
 }
-Function setbalance($race)
+function setbalance(int $raceId): array
 {
-	global $balance,$balance_ten,$race_dex;
-	$balance = 26 - $race_dex[$race];
+	global $balance, $balance_ten, $race_dex;
+	$balance = 26 - $race_dex[$raceId];
 	$balance_ten = $balance * 10;
 }
 function GetIP()
@@ -49,12 +47,6 @@ function GetIP()
 	$iphost1=$_SERVER['HTTP_X_FORWARDED_FOR'];
 	$iphost2=$_SERVER['REMOTE_ADDR'];
 	$iphost="$iphost2;$iphost1;";
-	return $iphost;
-}	
-function GetHorseWeight()
-{
-	global $player_id;
-	
 	return $iphost;
 }
 function time_left($secs){
@@ -92,12 +84,12 @@ function make_seed() {
 	}
 Function showusers($id, $room, $r_pvp=0)
 {
-	global $script,$old_users,$cur_time,$player,$ru,$aff_see,$player_party,$player_city,$pact_count,$pact_who,$pact_city,$pact_war,$player_clan,$player,$result;
+	global $script,$old_users,$currentTimestamp,$player,$ru,$aff_see,$player_party,$player_city,$pact_count,$pact_who,$pact_city,$pact_war,$player_clan,$player,$result;
 	//$lt = getmicrotime();
 	$show = $player['show'];
 	$show_city = $player['city'];
  	$show_city = (integer) $show_city;
-	$t_time = $cur_time-60;
+	$t_time = $currentTimestamp-60;
 	$ref1 = "";
 	$text = "";
 	$pact_count = 0;
@@ -238,7 +230,7 @@ Function showusers($id, $room, $r_pvp=0)
 		}
 		if (($r_pvp == 2) && ($show == 0))
 			$color = 3;
-		if (($aff_invis < $cur_time) || ($aff_see > $cur_time) || ($show <> 0))
+		if (($aff_invis < $currentTimestamp) || ($aff_see > $currentTimestamp) || ($show <> 0))
 			$ref1 = $ref1."top.au($par,$mid,'$name',$p,$color,'$c_litle[$clan]',$clan,$heismute);\r\n";
 		$row_num=SQL_next_num();
 	}
@@ -257,6 +249,5 @@ Function showusers($id, $room, $r_pvp=0)
 		//$player['users'] = $ref1;
 		//$player['users'] = '';
 	}
-	
 }
 ?>

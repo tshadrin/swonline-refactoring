@@ -21,7 +21,7 @@ $game_skill_percent[103][1] = 0;
 $game_skill_name[103][2] = "Паутина";
 $game_skill_mana[103][2] = 0;
 $game_skill_afflict_percent[103][2] = 100;
-$game_skill_afflict[103][2] = ",aff_paralize={$cur_time}+4*12";
+$game_skill_afflict[103][2] = ",aff_paralize={$currentTimestamp}+4*12";
 $game_skill_afflict_text[103][2] = "[<b>{$target_name}</b>]&nbsp;<b>{$player_name} </b>накинула<font class=atype> паутину </font> на {$sopernika5}.";
 $game_skill_dmg[103][2] = 2;
 $game_skill_textnum[103][2] = 0;

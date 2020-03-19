@@ -188,7 +188,7 @@ if ( $action == "feed" )
                 $SQL = "update sw_pet set food={$food} where id={$id} and owner={$player_id}";
                 sql_do( $SQL );
                 $time = date( "H:i" );
-                $player['balance'] = $cur_time - $balance + 5;
+                $player['balance'] = $currentTimestamp - $balance + 5;
                 $textt = "parent.add(\"{$time}\",\"{$player_name}\",\"* {$player_name} кормит животное. *\",6,\"\");";
                 print "<script>{$text} top.rbal(50,50);</script>";
                 $SQL = "update sw_users SET mytext=CONCAT(mytext,'{$textt}') where online > {$online_time} and id <> {$player_id} and room={$room}  and npc=0";

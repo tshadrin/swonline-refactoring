@@ -4,7 +4,7 @@ $game_skill_type_dmg[104] = 1;
 $game_skill_num[104] = 1;
 $game_skill_name[104][1] = " усание";
 $game_skill_afflict_percent[104][1] = 5;
-$game_skill_afflict[104][1] = ",aff_scare={$cur_time}+2*12";
+$game_skill_afflict[104][1] = ",aff_scare={$currentTimestamp}+2*12";
 $game_skill_dmg[104][1] = $blunt_dmg * 2.5;
 $game_skill_textnum[104][1] = 1;
 $game_skill_text[104][1][1] = "[<b>{$target_name}</b>, жизни <font class=dmg><DMG></font>]&nbsp;<b>{$player_name} </b>ревЄт во всю глотку.";

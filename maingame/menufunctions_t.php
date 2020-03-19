@@ -70,7 +70,7 @@ function getobjinfo( $search, $link, $buy = "", $ob = 1, $pr = 1, $showlike = 1,
     global $race_int;
     global $race_wis;
     global $race_con;
-    global $race;
+    global $raceId;
     global $str;
     global $dex;
     global $int;
@@ -281,7 +281,7 @@ function getobjinfo( $search, $link, $buy = "", $ob = 1, $pr = 1, $showlike = 1,
             $info_canon[$i] = 1;
             if ( 0 < $info_obj_str[$i] )
             {
-                if ( $race_str[$race] + $str < $info_obj_str[$i] )
+                if ( $race_str[$raceId] + $str < $info_obj_str[$i] )
                 {
                     $info = $info."<tr><td class=inv width=80>Сила:</td><td class=info2small><font color=red>{$info_obj_str[$i]}</font></td></tr>";
                     $info_canon[$i] = 1;
@@ -293,7 +293,7 @@ function getobjinfo( $search, $link, $buy = "", $ob = 1, $pr = 1, $showlike = 1,
             }
             if ( 0 < $info_obj_dex[$i] )
             {
-                if ( $race_dex[$race] + $dex < $info_obj_dex[$i] )
+                if ( $race_dex[$raceId] + $dex < $info_obj_dex[$i] )
                 {
                     $info = $info."<tr><td class=inv width=80>Подвижность:</td><td class=info2small><font color=red>{$info_obj_dex[$i]}</font></td></tr>";
                     $info_canon[$i] = 1;
@@ -305,7 +305,7 @@ function getobjinfo( $search, $link, $buy = "", $ob = 1, $pr = 1, $showlike = 1,
             }
             if ( 0 < $info_obj_int[$i] )
             {
-                if ( $race_int[$race] + $int < $info_obj_int[$i] )
+                if ( $race_int[$raceId] + $int < $info_obj_int[$i] )
                 {
                     $info = $info."<tr><td class=inv width=80>Интеллект:</td><td class=info2small><font color=red>{$info_obj_int[$i]}</font></td></tr>";
                     $info_canon[$i] = 1;
@@ -317,7 +317,7 @@ function getobjinfo( $search, $link, $buy = "", $ob = 1, $pr = 1, $showlike = 1,
             }
             if ( 0 < $info_obj_wis[$i] )
             {
-                if ( $race_wis[$race] + $wis < $info_obj_wis[$i] )
+                if ( $race_wis[$raceId] + $wis < $info_obj_wis[$i] )
                 {
                     $info = $info."<tr><td class=inv width=80>Мудрость:</td><td class=info2small><font color=red>{$info_obj_wis[$i]}</font></td></tr>";
                     $info_canon[$i] = 1;
@@ -329,7 +329,7 @@ function getobjinfo( $search, $link, $buy = "", $ob = 1, $pr = 1, $showlike = 1,
             }
             if ( 0 < $info_obj_con[$i] )
             {
-                if ( $race_con[$race] + $con < $info_obj_con[$i] )
+                if ( $race_con[$raceId] + $con < $info_obj_con[$i] )
                 {
                     $info = $info."<tr><td class=inv width=80>Телосложение:</td><td class=info2small><font color=red>{$info_obj_con[$i]}</font></td></tr>";
                     $info_canon[$i] = 1;
@@ -697,7 +697,7 @@ function getobj( )
     global $result;
     global $player_id;
     global $id;
-    global $cur_time;
+    global $currentTimestamp;
     global $player;
     global $cur_balance;
     global $race_dex;
@@ -765,9 +765,9 @@ function getobj( )
         mysqli_free_result( $result );
     }
     setbalance( $race );
-    if ( $num == 1 && $cur_balance < $cur_time - $balance + 1 && $cur_weight + 0.2 < $max_weight )
+    if ( $num == 1 && $cur_balance < $currentTimestamp - $balance + 1 && $cur_weight + 0.2 < $max_weight )
     {
-        $player['balance'] = $cur_time - $balance + 22;
+        $player['balance'] = $currentTimestamp - $balance + 22;
         print "<script>top.settop('Сбор');top.rbal(220,220);</script>";
         include( "script/ruda.php" );
         $i = 0;
@@ -994,7 +994,7 @@ function getobj( )
             }
         }
     }
-    else if ( $cur_time - $balance + 1 <= $cur_balance )
+    else if ( $currentTimestamp - $balance + 1 <= $cur_balance )
     {
         if ( !( $player_opt & 2 ) )
         {
@@ -1213,7 +1213,7 @@ function inventory( $id )
     global $race_wis;
     global $race_con;
     global $cur_weight;
-    global $race;
+    global $raceId;
     global $str;
     global $dex;
     global $int;
@@ -1234,7 +1234,7 @@ function inventory( $id )
         $int = "{$row[intt]}";
         $wis = "{$row[wis]}";
         $con = "{$row[con]}";
-        $race = "{$row[race]}";
+        $raceId = "{$row[race]}";
         $pic = "{$row[pic]}";
         $row_num = sql_next_num( );
     }
@@ -1255,7 +1255,7 @@ function inventory( $id )
     }
     $player['text'] = $text;
     $t = $player['text'];
-    $max_weight = round( ( $race_str[$race] + $str ) * ( 1 + $bag_q / 9 ) );
+    $max_weight = round( ( $race_str[$raceId] + $str ) * ( 1 + $bag_q / 9 ) );
     if ( $pic == "" )
     {
         $pic = "no_obraz.gif";
@@ -1265,7 +1265,7 @@ function inventory( $id )
 
 function useobj( $id )
 {
-    global $cur_time;
+    global $currentTimestamp;
     global $online_time;
     global $player_id;
     global $player_name;
@@ -1382,7 +1382,7 @@ function useobj( $id )
         if ( $obj_name != "" )
         {
             $btime = $race_wis[$race] * 10;
-            if ( $drink_balance + $race_wis[$race] <= $cur_time )
+            if ( $drink_balance + $race_wis[$race] <= $currentTimestamp )
             {
                 include( "elixir.php" );
             }
@@ -1542,7 +1542,7 @@ function useobj( $id )
             $time = date( "H:i" );
             $text = "parent.add(\"{$time}\",\"{$player_name}\",\"{$text} \",6,\"\");";
             print "<script>{$text}</script>";
-            $SQL = "update sw_users SET mytext=CONCAT(mytext,'{$text}') where online > {$cur_time}-60 and id <> {$player_id} and room={$player_room}  and npc=0";
+            $SQL = "update sw_users SET mytext=CONCAT(mytext,'{$text}') where online > {$currentTimestamp}-60 and id <> {$player_id} and room={$player_room}  and npc=0";
             sql_do( $SQL );
             inventory( $player_id );
         }
@@ -1970,7 +1970,7 @@ function domir( $type )
 {
     global $player;
     global $cur_balance;
-    global $cur_time;
+    global $currentTimestamp;
     global $balance;
     global $balance_ten;
     global $race_dex;
@@ -2112,9 +2112,9 @@ function domir( $type )
                             if ( $error == 0 )
                             {
                                 setbalance( $player_race );
-                                if ( $cur_balance < $cur_time - $balance + 1 )
+                                if ( $cur_balance < $currentTimestamp - $balance + 1 )
                                 {
-                                    $player['balance'] = $cur_time + 15;
+                                    $player['balance'] = $currentTimestamp + 15;
                                     $balance_ten = $balance_ten + 150;
                                     print "<script>top.rbal({$balance_ten},{$balance_ten});</script>";
                                     $time = date( "H:i" );

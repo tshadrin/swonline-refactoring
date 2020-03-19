@@ -22,7 +22,7 @@ if ( 0 < $npc_aff_bleed_time[$npccount] )
     $player_do .= ",aff_bleed_time={$npc_aff_bleed_time[$npccount]}";
     $dmg = 0 - rand( $npc_aff_bleed_power[$npccount] / 2 + 5, $npc_aff_bleed_power[$npccount] + 5 );
     $text = "[<b>{$npc_name[$npccount]}</b>, жизни <font class=dmg>{$dmg}</font>]&nbsp;<i><b>{$npc_name[$npccount]}</b> истекает кровью.</i>";
-    $ptext .= "top.add(\"{$time}\",\"\",\"{$text}\",5,\"\");";
+    $ptext .= "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$text}\",5,\"\");";
     $npchp += $dmg;
 }
 if ( 0 < $npc_aff_def[$npccount] )
@@ -110,7 +110,7 @@ if ( 0 < $npc_aff_tree[$npccount] )
     $player_do .= ",aff_tree={$npc_aff_tree[$npccount]}";
     $dmg = 0 - round( $npc_maxhp[$pi] * 0.05 );
     $text = "[<b>{$npc_name[$npccount]}</b>, жизни <font class=dmg>{$dmg}</font>]&nbsp;<i>Разгневанный <b>лес</b> наносит урон обидчику.</i>";
-    $ptext .= "top.add(\"{$time}\",\"\",\"{$text}\",5,\"\");";
+    $ptext .= "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$text}\",5,\"\");";
     $npchp += $dmg;
 }
 if ( 0 < $npc_aff_best[$npccount] )
@@ -144,7 +144,7 @@ if ( 0 < $npc_aff_feel[$npccount] )
         {
             $text = "[<b>{$npc_name[$npccount]}</b>, жизни <font class=dmg>{$dmg}</font>]&nbsp;<i><b>{$npc_name[$npccount]} </b>перестала не чувствовать боль.</i>";
         }
-        $ptext .= "top.add(\"{$time}\",\"\",\"{$text}\",5,\"\");";
+        $ptext .= "top.add(\"{$currentHoursAndMinutes}\",\"\",\"{$text}\",5,\"\");";
         $npchp += $dmg;
     }
 }

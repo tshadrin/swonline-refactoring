@@ -1,5 +1,5 @@
 <?php
-max_parametr($level,$race,$con,$wis);
+max_parametr($level,$raceId,$con,$wis);
 $cur_time=time();
 $t[1] = "";
 $t[0] = "à";

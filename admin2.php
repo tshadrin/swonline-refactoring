@@ -608,8 +608,8 @@ Function arena()
 }
 function inf()
 {
-	global $result,$cur_time,$load,$do,$mx_online,$mn_admin;
-	$cur_time = time();
+	global $result,$currentTimestamp,$load,$do,$mx_online,$mn_admin;
+	$currentTimestamp = time();
 	$clr[1] = '222222';
 	$clr[2] = '444444';
 	$clr[3] = '666666';
@@ -627,7 +627,7 @@ function inf()
 	{
 		print "<div align=center><i>Игроки выгнаны с сервера</i></div>";
 		$text = "top.myalert(\"Сервер закрыл доступ\",\"Сервер закрыл доступ на некоторое время.\");top.wclose();";
-		$SQL="update sw_users set mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and npc=0";
+		$SQL="update sw_users set mytext=CONCAT(mytext,'$text') where online > $currentTimestamp-60 and npc=0";
 		SQL_do($SQL);
 	}
 	$SQL="select count(*) from sw_users where npc=0";
@@ -638,7 +638,7 @@ function inf()
 	}
 	if ($result)
 	mysqli_free_result($result);
-	$SQL="select count(*) from sw_users where npc=0 and reg_time > $cur_time - 864000";
+	$SQL="select count(*) from sw_users where npc=0 and reg_time > $currentTimestamp - 864000";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
 		$count_player10 = $row_num[0];
@@ -646,7 +646,7 @@ function inf()
 	}
 	if ($result)
 	mysqli_free_result($result);
-	$SQL="select count(*) from sw_users where npc=0 and online > $cur_time - 604800";
+	$SQL="select count(*) from sw_users where npc=0 and online > $currentTimestamp - 604800";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
 		$count_active = $row_num[0];
@@ -654,7 +654,7 @@ function inf()
 	}
 	if ($result)
 	mysqli_free_result($result);
-	$SQL="select count(*) from sw_users where npc=0 and online > $cur_time - 60";
+	$SQL="select count(*) from sw_users where npc=0 and online > $currentTimestamp - 60";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
 		$count_online = $row_num[0];
@@ -670,7 +670,7 @@ function inf()
 	}
 	if ($result)
 	mysqli_free_result($result);
-	$SQL="select count(*) from sw_users where npc=1 and online > $cur_time - 60";
+	$SQL="select count(*) from sw_users where npc=1 and online > $currentTimestamp - 60";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
 		$count_npc_alive = $row_num[0];
@@ -1818,7 +1818,7 @@ print "</table>";
 }
 Function mapobj()
 {
-	global $admin_name,$page,$pic,$id,$action,$load,$name,$cur_time,$do,$min_attack,$max_attack,$magic_attack,$def,$def_all,$magic_def,$fire_attack,$cold_attack,$drain_attack,$cur_cond,$max_cond,$price,$num,$inf,$add_obj,$fid,$dat,$what,$text,$do,$owner_city,$owner,$loc_city,$owner_player,$sid,$oldid,$weight,$loc_clan;
+	global $admin_name,$page,$pic,$id,$action,$load,$name,$currentTimestamp,$do,$min_attack,$max_attack,$magic_attack,$def,$def_all,$magic_def,$fire_attack,$cold_attack,$drain_attack,$cur_cond,$max_cond,$price,$num,$inf,$add_obj,$fid,$dat,$what,$text,$do,$owner_city,$owner,$loc_city,$owner_player,$sid,$oldid,$weight,$loc_clan;
 	
 	if ($action == "showobj")
 	{
@@ -2088,7 +2088,7 @@ Function logs()
 }
 Function player()
 {
-	global $skill,$clan,$city_rank,$clan_rank,$pack1,$pack2,$pack3,$adminlvl,$admin_text,$admin_name,$admin_lvl,$ban_time,$ban_for,$sdate,$smonth,$syear,$tradepage,$pl_name,$id,$action,$load,$name,$cur_time,$do,$id,$min_attack,$max_attack,$magic_attack,$def,$def_all,$magic_def,$fire_attack,$cold_attack,$drain_attack,$cur_cond,$max_cond,$price,$num,$inf,$add_obj,$id,$pl_chp,$pl_cmana,$pl_pic,$pl_race,$pl_sex,$pl_str,$pl_dex,$pl_int,$pl_wis,$pl_con,$pl_h_up,$pl_exp,$pl_level,$pl_gold,$pl_bank_gold,$pl_s_up,$pl_city,$pl_rank,$show_obj,$admin_lvl,$admin_name,$chat_banTime, $chat_banFor, $achievementId;
+	global $skill,$clan,$city_rank,$clan_rank,$pack1,$pack2,$pack3,$adminlvl,$admin_text,$admin_name,$admin_lvl,$ban_time,$ban_for,$sdate,$smonth,$syear,$tradepage,$pl_name,$id,$action,$load,$name,$currentTimestamp,$do,$id,$min_attack,$max_attack,$magic_attack,$def,$def_all,$magic_def,$fire_attack,$cold_attack,$drain_attack,$cur_cond,$max_cond,$price,$num,$inf,$add_obj,$id,$pl_chp,$pl_cmana,$pl_pic,$pl_race,$pl_sex,$pl_str,$pl_dex,$pl_int,$pl_wis,$pl_con,$pl_h_up,$pl_exp,$pl_level,$pl_gold,$pl_bank_gold,$pl_s_up,$pl_city,$pl_rank,$show_obj,$admin_lvl,$admin_name,$chat_banTime, $chat_banFor, $achievementId;
 	print "<table width=100% cellspacing=1 cellpadding=4 bgcolor=768E92 align=center><form action=admin.php method=post><input type=hidden name=load value=$load><tr bgcolor=EFF3F><td><table width=100%><tr><td>Введите имя игрока: </td><td><input type=text name=name value=$name></td><td align=right><input type=submit value=Показать></td></tr></table></tr></td></form></table>";
 	if (isset($name))
 	{
@@ -2145,11 +2145,11 @@ Function player()
 					if ($chat_banTime > 120)
 						$chat_banTime = 120;
 				
-				$chat_banTime = $chat_banTime*60 + $cur_time;
+				$chat_banTime = $chat_banTime*60 + $currentTimestamp;
 				$chat_banFor = htmlspecialchars("$chat_banFor", ENT_QUOTES, 'cp1251');
 				$chat_banFor = checkletter($chat_banFor);
-				$min = (round((($chat_banTime - $cur_time) / 60) * 10))/10;
-				$hour = (round(($chat_banTime - $cur_time ) / 60 / 60 * 10))/10;
+				$min = (round((($chat_banTime - $currentTimestamp) / 60) * 10))/10;
+				$hour = (round(($chat_banTime - $currentTimestamp ) / 60 / 60 * 10))/10;
 				if ($min < 60)
 					$t = "$min минут";
 				else if ($hour < 200)
@@ -2174,11 +2174,11 @@ Function player()
 					if ($ban_time > 4320)
 						$ban_time = 4320;
 				
-				$ban_time = $ban_time*60 + $cur_time;
+				$ban_time = $ban_time*60 + $currentTimestamp;
 				$ban_for = htmlspecialchars("$ban_for", ENT_QUOTES, 'cp1251');
 				$ban_for = checkletter($ban_for);
-				$min = (round((($ban_time - $cur_time) / 60) * 10))/10;
-				$hour = (round(($ban_time - $cur_time ) / 60 / 60 * 10))/10;
+				$min = (round((($ban_time - $currentTimestamp) / 60) * 10))/10;
+				$hour = (round(($ban_time - $currentTimestamp ) / 60 / 60 * 10))/10;
 				if ($min < 60)
 					$t = "$min минут";
 				else if ($hour < 200)
@@ -2249,12 +2249,12 @@ Function player()
 				$pl_pic = 'no_obraz.gif';
 			if ($pl_online == 0)
 				$on = "Не заходил в игру";
-			else if ($cur_time - $pl_online < 60)
+			else if ($currentTimestamp - $pl_online < 60)
 				$on = "<b><font color=red>Играет</font></b>";
 			else
 			{
-				$min = (round((($cur_time - $pl_online) / 60) * 10))/10;
-				$hour = (round(($cur_time - $pl_online) / 60 / 60 * 10))/10;
+				$min = (round((($currentTimestamp - $pl_online) / 60) * 10))/10;
+				$hour = (round(($currentTimestamp - $pl_online) / 60 / 60 * 10))/10;
 				if ($min < 60)
 					$on = "$min минут назад";
 				else 
@@ -2262,10 +2262,10 @@ Function player()
 			}
 			
 			
-			if ($ban_chat > $cur_time)
+			if ($ban_chat > $currentTimestamp)
 			{
-				$min = (round((($ban_chat - $cur_time) / 60) * 10))/10;
-				$hour = (round(($ban_chat - $cur_time ) / 60 / 60 * 10))/10;
+				$min = (round((($ban_chat - $currentTimestamp) / 60) * 10))/10;
+				$hour = (round(($ban_chat - $currentTimestamp ) / 60 / 60 * 10))/10;
 				if ($min < 60)
 					$t = "$min минут";
 				else if ($hour < 200)
@@ -2275,10 +2275,10 @@ Function player()
 				$chaton = "<font color=red class=small>Забанен на $t </font>";
 			}
 			
-			if ($ban > $cur_time)
+			if ($ban > $currentTimestamp)
 			{
-				$min = (round((($ban - $cur_time) / 60) * 10))/10;
-				$hour = (round(($ban - $cur_time ) / 60 / 60 * 10))/10;
+				$min = (round((($ban - $currentTimestamp) / 60) * 10))/10;
+				$hour = (round(($ban - $currentTimestamp ) / 60 / 60 * 10))/10;
 				if ($min < 60)
 					$t = "$min минут";
 				else if ($hour < 200)
@@ -2325,7 +2325,7 @@ Function player()
 				$ip2 = $row_num[2];
 				$mail2 = $row_num[3];
 				$online = $row_num[4];
-				if ($online > $cur_time - 86400)
+				if ($online > $currentTimestamp - 86400)
 					$on2 = "<font color=red>Играл в теч. 24ч</font>";
 				else
 					$on2= "Неактивный";
@@ -3353,7 +3353,7 @@ function kvest()
 }
 function npc()
 {
-	global $npc_givemore,$npc_yell,$npc_pic,$n_resp_tim,$npc_sex,$def1,$def2,$action,$do,$npc_id,$load,$timeleft,$badis,$aggis,$npc_name,$n_id,$n_name,$n_room,$n_level,$n_aggresive,$n_resp_room,$n_bad,$n_live,$n_move,$n_on_location,$n_pwr,$n_typ,$n_typ_num,$n_typ2,$n_typ2_num,$n_typ3,$n_typ3_num,$n_heal,$cur_time,$online,$page,$givepercent,$give,$emune1,$emune2,$emune4,$emune8,$emune16,$emune32;
+	global $npc_givemore,$npc_yell,$npc_pic,$n_resp_tim,$npc_sex,$def1,$def2,$action,$do,$npc_id,$load,$timeleft,$badis,$aggis,$npc_name,$n_id,$n_name,$n_room,$n_level,$n_aggresive,$n_resp_room,$n_bad,$n_live,$n_move,$n_on_location,$n_pwr,$n_typ,$n_typ_num,$n_typ2,$n_typ2_num,$n_typ3,$n_typ3_num,$n_heal,$currentTimestamp,$online,$page,$givepercent,$give,$emune1,$emune2,$emune4,$emune8,$emune16,$emune32;
 	
 	if (!isset($page))
 		$page = 0;
@@ -3656,8 +3656,8 @@ function npc()
 			$optskill3 = str_replace("opt$n_typ3","SELECTED",$optskill);
 			$optskill3 = str_replace("[name]","n_typ3",$optskill3);
 			$obj_list = str_replace("se$give","SELECTED",$gv_obj);
-			$t = $cur_time - 61;
-			if ($cur_time-60<$online )
+			$t = $currentTimestamp - 61;
+			if ($currentTimestamp-60<$online )
 				$o = "<a href=admin.php?load=$load&action=online&online=$t&n_id=$n_id&page=$page>Живой</a>";
 			else if ($online==0)
 				$o = "<a href=admin.php?load=$load&action=online&online=$t&n_id=$n_id&page=$page><font color=888800>Живой</font></a>";
@@ -3884,8 +3884,8 @@ Function chat()
 }
 Function nickname()
 {
-	global $action,$id,$load,$name,$cur_time,$page,$slc,$del,$ok,$action2,$lid,$admin_name;
-	$cur_time=time();
+	global $action,$id,$load,$name,$currentTimestamp,$page,$slc,$del,$ok,$action2,$lid,$admin_name;
+	$currentTimestamp=time();
 	if ($action2 == "appr")
 	{
 		if ($del == '')
@@ -3906,7 +3906,7 @@ Function nickname()
 				$time = date("Y-m-d H:i");
 				$SQL="update sw_users set admin_text=CONCAT(admin_text,'<font color=red>$time [$admin_name]: Бан на $t по причине: `Имя персонажа не соответствует правилам игры пункт 5`</font><br>') where avtorizate=1 and id=$slc[$i]";
 				SQL_do($SQL);
-				$SQL="update sw_users SET avtorizate=0,ban=$cur_time+9999999,ban_for='Имя персонажа не соответствует правилам игры пункт 5.' where avtorizate=1 and id=$slc[$i] ";			
+				$SQL="update sw_users SET avtorizate=0,ban=$currentTimestamp+9999999,ban_for='Имя персонажа не соответствует правилам игры пункт 5.' where avtorizate=1 and id=$slc[$i] ";
 				SQL_do($SQL);
 			}
 		}
@@ -3971,10 +3971,10 @@ Function nickname()
 }
 function uploadpic()
 {
-	global $dir, $load, $fotka, $ctp, $proc, $go, $action;
-	if (!isset($dir))
-		$dir = "stuff/";	
-	$dir = str_replace(".","",$dir);
+	global $direction, $load, $fotka, $ctp, $proc, $go, $action;
+	if (!isset($direction))
+		$direction = "stuff/";
+	$direction = str_replace(".","",$direction);
 
 	print "<hr>Загрузка новой картинки <br>";
 	include("upload_form.php");
@@ -3984,7 +3984,7 @@ function uploadpic()
 	$dr[1] = "npc/";
 	$dr[2] = "stuff/";
 	$dr[3] = "map/";
-	$handle = opendir("maingame/pic/$dir");
+	$handle = opendir("maingame/pic/$direction");
 	$array_indx = 0;
 	while (false !== ($file = readdir($handle)))
 	    {
@@ -3995,7 +3995,7 @@ function uploadpic()
 		print "<input type=hidden name=load value=$load>";
 		print "<select name=dir>";
 		for ($i = 0; $i < $count; $i++)
-			if ($dir == $dr[$i])
+			if ($direction == $dr[$i])
 				print  "<option value='".$dr[$i]."' SELECTED>".$dr[$i]."</option>";
 			else
 				print  "<option value='".$dr[$i]."'>".$dr[$i]."</option>";
@@ -4009,7 +4009,7 @@ function uploadpic()
 		 $pos = strpos($n, ".");
 		 if ($pos != false)
 		 	if ((strpos(strtoupper($n), ".GIF")) || (strpos(strtoupper($n), ".JPG")))
-		 		print "<tr><td width=300><img src=maingame/pic/$dir/$n></td><td>$n</td></tr>";
+		 		print "<tr><td width=300><img src=maingame/pic/$direction/$n></td><td>$n</td></tr>";
 	} 
 	print "<table>";
 	

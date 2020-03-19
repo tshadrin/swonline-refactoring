@@ -1,7 +1,7 @@
 <?php
 Function getobj()
 {
-	global $result,$player_name,$player_id,$id,$cur_time,$player,$cur_balance,$race_dex,$balance,$balance_ten,$race_str;
+	global $result,$player_name,$player_id,$id,$currentTimestamp,$player,$cur_balance,$race_dex,$balance,$balance_ten,$race_str;
 	$test = rand( 0, 100);
 	$SQL="Select arena_post from sw_users where id=$player_id";
 		$row_num=SQL_query_num($SQL);
@@ -79,10 +79,10 @@ Function getobj()
 	if ($ob_cond > 0)
 		$out = "$ob_cond / $ob_max_cond";
 	//print "|$num|";
-	if (($num == 1) && ($cur_balance < $cur_time - $balance+1) && ($cur_weight+0.2<$max_weight))
+	if (($num == 1) && ($cur_balance < $currentTimestamp - $balance+1) && ($cur_weight+0.2<$max_weight))
 	{
 
-		$player['balance'] = $cur_time-$balance+22;
+		$player['balance'] = $currentTimestamp-$balance+22;
 		print "<script>top.settop('—бор');top.rbal(220,220);</script>";
 
 		include("script/ruda.php");
@@ -228,7 +228,7 @@ Function getobj()
 							$exam[2] = "<b>$player_name</b> добывает руду в местных скалах.";
 							$r=rand(0,2);
 							$text = "parent.add(\"$time\",\"$player_name\",\"$exam[$r] \",5,\"\");";
-							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and id <> $player_id and room=$room and npc=0";
+							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $currentTimestamp-60 and id <> $player_id and room=$room and npc=0";
 							SQL_do($SQL);
 							//print "<script>alert('—казать это фиксу : where online > $online_time and id <> $player_id and room=$room and npc=0');</script>";
 
@@ -306,7 +306,7 @@ Function getobj()
 							$exam[2] = "<b>$player_name</b> с серпом пытаетс€ найти ценную траву.";
 							$r=rand(0,2);
 							$text = "parent.add(\"$time\",\"$player_name\",\"$exam[$r] \",5,\"\");";
-							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and id <> $player_id and room=$room and npc=0";
+							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $currentTimestamp-60 and id <> $player_id and room=$room and npc=0";
 							SQL_do($SQL);
 						}
 						else
@@ -381,7 +381,7 @@ Function getobj()
 							$exam[2] = "<b>$player_name</b> машет топором перед деревом.";
 							$r=rand(0,2);
 							$text = "parent.add(\"$time\",\"$player_name\",\"$exam[$r] \",5,\"\");";
-							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and id <> $player_id and room=$room and npc=0";
+							$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $currentTimestamp-60 and id <> $player_id and room=$room and npc=0";
 							SQL_do($SQL);
 						}
 						else
@@ -406,7 +406,7 @@ Function getobj()
 	else
 	{
 		//print "else if ($cur_weight+0.2>=$max_weight)";
-		if ($cur_balance >= $cur_time - $balance+1)
+		if ($cur_balance >= $currentTimestamp - $balance+1)
 		{
 			if (!($player_opt & 2))
 			{

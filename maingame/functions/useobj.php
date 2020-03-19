@@ -3,7 +3,7 @@ include('functions/objinfo.php');
 include("functions/plinfo.php");
 function useobj($id)
 {
-	global $player,$dir,$do,$load,$obj_id,$cur_time,$online_time,$player_id,$player_name,$race_str,$race_dex,$race_int,$race_wis,$race_con,$result,$player_max_hp,$player_max_mana,$level,$race_con,$race_wis,$drink_balance,$race_wis,$player,$do,$clan_name,$clan_litle,$clan_http,$textp,$finv;
+	global $player,$direction,$do,$load,$obj_id,$currentTimestamp,$online_time,$player_id,$player_name,$race_str,$race_dex,$race_int,$race_wis,$race_con,$result,$player_max_hp,$player_max_mana,$level,$race_con,$race_wis,$drink_balance,$race_wis,$player,$do,$clan_name,$clan_litle,$clan_http,$textp,$finv;
 	
 		
 	$id = (integer) $id;
@@ -120,7 +120,7 @@ function useobj($id)
 			if ($obj_name <> "")
 			{
 				$btime = $race_wis[$race]*3*10;
-				if ($drink_balance + $race_wis[$race]*3<= $cur_time){
+				if ($drink_balance + $race_wis[$race]*3<= $currentTimestamp){
 					include("elixir.php");
 					if($finv == 1)
 					{
@@ -423,7 +423,7 @@ function useobj($id)
 				$time = date("H:i");
 				$text = "parent.add(\"$time\",\"$player_name\",\"$text \",6,\"\");";
 				print "<script>$text</script>";
-				$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and id <> $player_id and (room=$player_room or room= $obj_toroom)  and npc=0";
+				$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $currentTimestamp-60 and id <> $player_id and (room=$player_room or room= $obj_toroom)  and npc=0";
 				SQL_do($SQL);
 				include("functions/inv.php");
 				inventory($player_id);

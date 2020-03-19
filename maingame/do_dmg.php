@@ -17,8 +17,8 @@ if (($loop == 0 ) || ($npc_kick == 0))
 	$sql_text = "";
 	function checkarena()
 	{
-		global $result,$cur_time,$target_id,$time,$mysql_text;
-		$SQL="select id,start_room,end_room,text,lvlfrom,lvlto,city,ct_id from sw_arena where typ=1 and free=1 and tim<$cur_time-180";
+		global $result,$currentTimestamp,$target_id,$currentHoursAndMinutes,$mysql_text;
+		$SQL="select id,start_room,end_room,text,lvlfrom,lvlto,city,ct_id from sw_arena where typ=1 and free=1 and tim<$currentTimestamp-180";
 		$row_num=SQL_query_num($SQL);
 		while ($row_num){
 			$i++;
@@ -37,7 +37,7 @@ if (($loop == 0 ) || ($npc_kick == 0))
 		for ($k = 1;$k <= $i;$k++)
 		{
 			$count = 0;
-			$SQL="select count(*) as num from sw_users where room >=$astart_room[$k] and room <=$aend_room[$k] and npc=0 and online>$cur_time-60 and id<>$target_id";
+			$SQL="select count(*) as num from sw_users where room >=$astart_room[$k] and room <=$aend_room[$k] and npc=0 and online>$currentTimestamp-60 and id<>$target_id";
 			$row_num=SQL_query_num($SQL);
 			while ($row_num){
 				$count=$row_num[0];
@@ -54,7 +54,7 @@ if (($loop == 0 ) || ($npc_kick == 0))
 			}
 			if ($count == 1)
 			{
-				$SQL="select name from sw_users where room >=$astart_room[$k] and room <=$aend_room[$k] and npc=0 and online>$cur_time-60 and id<>$target_id";
+				$SQL="select name from sw_users where room >=$astart_room[$k] and room <=$aend_room[$k] and npc=0 and online>$currentTimestamp-60 and id<>$target_id";
 				$row_num=SQL_query_num($SQL);
 				while ($row_num){
 					$arenaname=$row_num[0];
@@ -78,7 +78,7 @@ if (($loop == 0 ) || ($npc_kick == 0))
 				if ($ggold >= $f_gold)
 				{
 					$text = "Победитель общего боя на арене <b>`$txt[$k]`</b> для $lvlfrom[$k] - $lvlto[$i] уровней: <b>$arenaname</b> (Выигрыш: $f_gold злт.).";
-					$jsptex = "top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
+					$jsptex = "top.add(\"$currentHoursAndMinutes\",\"\",\"$text\",2,\"Арена\");";
 					$mysql_text .=  ",gold=gold+$f_gold";
 					$SQL="update sw_city set money=money-$f_gold where id=$acity[$k]";
 					SQL_do($SQL);
@@ -86,14 +86,14 @@ if (($loop == 0 ) || ($npc_kick == 0))
 				else
 				{
 					$text = "Победитель общего боя на арене <b>`$txt[$k]`</b> для $lvlfrom[$k] - $lvlto[$i] уровней: <b>$arenaname</b>.";
-					$jsptex = "top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
+					$jsptex = "top.add(\"$currentHoursAndMinutes\",\"\",\"$text\",2,\"Арена\");";
 					$text = "У города нет средств, чтобы выплатить выигрыш победителю.";
-					$jsptex .= "top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
+					$jsptex .= "top.add(\"$currentHoursAndMinutes\",\"\",\"$text\",2,\"Арена\");";
 				}
 				if ($arncity[$k] <> 0)
-				$SQL="update sw_users set mytext=CONCAT(mytext,'$jsptex') where city=$acity[$k] and level>=$lvlfrom[$k] and level<=$lvlto[$k] and online>$cur_time-60 and npc=0";
+				$SQL="update sw_users set mytext=CONCAT(mytext,'$jsptex') where city=$acity[$k] and level>=$lvlfrom[$k] and level<=$lvlto[$k] and online>$currentTimestamp-60 and npc=0";
 				else
-				$SQL="update sw_users set mytext=CONCAT(mytext,'$jsptex') where level>=$lvlfrom[$k] and level<=$lvlto[$k] and online>$cur_time-60 and npc=0";
+				$SQL="update sw_users set mytext=CONCAT(mytext,'$jsptex') where level>=$lvlfrom[$k] and level<=$lvlto[$k] and online>$currentTimestamp-60 and npc=0";
 				SQL_do($SQL);
 			}
 		}
@@ -136,7 +136,7 @@ if (($loop == 0 ) || ($npc_kick == 0))
 	}
 	function tatoliz()
 	{
-		global $cur_time,$mysql_text,$sql_text,$player_id,$target_id,$pl_room,$time,$result;
+		global $currentTimestamp,$mysql_text,$sql_text,$player_id,$target_id,$pl_room,$currentHoursAndMinutes,$result;
 		$i = 0;
 
 		$SQL="select sw_fights.id,sw_fights.from_room from sw_fights  left join sw_users on sw_fights.room=sw_users.room  where sw_fights.room=$pl_room[$player_id]";
@@ -187,7 +187,7 @@ if (($loop == 0 ) || ($npc_kick == 0))
 				$total_old = $total_money[$n];
 				$total_money[$n] = $total_money[$n]/$sumwon * $sum;
 				$tattext = "<b> * Ваша ставка выиграла на тотализаторе. Ставка: <font color=555500>$total_old злт</font>, выигрыш:<font color=555500> $total_money[$n] злт</font>.* </b>";
-				$tattext = "top.add(\"$time\",\"\",\"$tattext\",5,\"\");";
+				$tattext = "top.add(\"$currentHoursAndMinutes\",\"\",\"$tattext\",5,\"\");";
 				$total_owner[$n] = (integer) $total_owner[$n];
 				$total_money[$n] = (integer) $total_money[$n];
 				$SQL="update sw_users SET mytext=CONCAT(mytext,'$tattext'),gold=gold+$total_money[$n] where npc=0 and id=$total_owner[$n]";
@@ -199,15 +199,15 @@ if (($loop == 0 ) || ($npc_kick == 0))
 	}
 	Function dead()
 	{
-		global $pl_rating,$MRank,$HRank,$MD,$HD,$time,$pl_map_name,$target_name,$pl_name,$pl_room,$skill_id,$num,$player_id,$player_name,$target_id,$pl_no_pvp,$pl_sex,$las2,$sex2_a,$jsptext,$mytext,$npc_kick,$mysql_text,$sql_text,$exp,$texp,$cur_time,$pl_npc,$pl_party,$pl_level,$pl_room,$plnum,$pl_madeby,$pl_madecity,$result, $pl_city;
+		global $pl_rating,$MRank,$HRank,$MD,$HD,$currentHoursAndMinutes,$pl_map_name,$target_name,$pl_name,$pl_room,$skill_id,$num,$player_id,$player_name,$target_id,$pl_no_pvp,$pl_sex,$las2,$sex2_a,$jsptext,$mytext,$npc_kick,$mysql_text,$sql_text,$exp,$texp,$currentTimestamp,$pl_npc,$pl_party,$pl_level,$pl_room,$plnum,$pl_madeby,$pl_madecity,$result, $pl_city;
 
 		$texp = 0;
-		$time = date("H:i");
+		$currentHoursAndMinutes = date("H:i");
 		$t[0] = "[<b>$player_name</b>] $player_name, после вашего удара <b>$target_name</b> покачнул$las2 и упал$sex2_a <font color=red>замертво</font>.";
 		$t[1] = "[<b>$player_name</b>] <b>$target_name</b> покачнул$las2 и упал$sex2_a <font color=red>замертво</font>.";
 		$r = rand(0,1);
 		$text = $t[$r];
-		$jsptext .= "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+		$jsptext .= "top.add(\"$currentHoursAndMinutes\",\"\",\"$text\",5,\"\");";
 
 		if ($npc_kick == 1)
 		$mysql_text .= ",target=0";
@@ -220,9 +220,9 @@ if (($loop == 0 ) || ($npc_kick == 0))
 		{
 			$m_id = $pl_madeby[$player_id];
 			if ($pl_madeby[$player_id] <> 0)
-			$SQL="select max(level) as lvl,count(*) as num from sw_users where (party=$pl_party[$player_id] OR id = $m_id) and room=$pl_room[$player_id] and online>$cur_time-60";
+			$SQL="select max(level) as lvl,count(*) as num from sw_users where (party=$pl_party[$player_id] OR id = $m_id) and room=$pl_room[$player_id] and online>$currentTimestamp-60";
 			else
-			$SQL="select max(level) as lvl,count(*) as num from sw_users where party=$pl_party[$player_id] and room=$pl_room[$player_id] and online>$cur_time-60";
+			$SQL="select max(level) as lvl,count(*) as num from sw_users where party=$pl_party[$player_id] and room=$pl_room[$player_id] and online>$currentTimestamp-60";
 			$row_num=SQL_query_num($SQL);
 			while ($row_num){
 				$max_level=$row_num[0];
@@ -363,11 +363,11 @@ if (($loop == 0 ) || ($npc_kick == 0))
 			}*/
 
 		if ($pl_npc[$target_id] == 1)
-		$sql_text .= ",online=$cur_time-70,room=60000";
+		$sql_text .= ",online=$currentTimestamp-70,room=60000";
 
 		if (($pl_no_pvp[$player_id] <> 2) && ($pl_npc[$player_id] == 0))
 		{
-			$SQL="insert into sw_kills (owner,dat,tim,who_id,who_name,who_npc,time_sec,owner_lvl,who_lvl) values ($player_id,NOW(),NOW(),$target_id,'$target_name',$pl_npc[$target_id],$cur_time,$pl_level[$player_id],$pl_level[$target_id])";
+			$SQL="insert into sw_kills (owner,dat,tim,who_id,who_name,who_npc,time_sec,owner_lvl,who_lvl) values ($player_id,NOW(),NOW(),$target_id,'$target_name',$pl_npc[$target_id],$currentTimestamp,$pl_level[$player_id],$pl_level[$target_id])";
 			SQL_do($SQL);
 		}
 		//		print $pl_map_name[$player_id]."|".$player_id."|".$pl_no_pvp[$target_id];
@@ -851,12 +851,12 @@ if (($loop == 0 ) || ($npc_kick == 0))
 	}
 	function anatomy($dmg)
 	{
-		global $text,$anatomy,$dmg_from,$pl_aff_rune2,$player_id,$cur_time,$skill_id,$num,$game_skill_afflict_percent;
+		global $text,$anatomy,$dmg_from,$pl_aff_rune2,$player_id,$currentTimestamp,$skill_id,$num,$game_skill_afflict_percent;
 
 
 		$ran = rand(0,100-round($anatomy/1.7) - $bn);
 
-		if ($pl_aff_rune2[$player_id] > $cur_time && $ran > 15)
+		if ($pl_aff_rune2[$player_id] > $currentTimestamp && $ran > 15)
 		{
 			$ran2 = rand(1,10);
 			if ($ran2 <= 1)
@@ -906,8 +906,8 @@ if (($loop == 0 ) || ($npc_kick == 0))
 	}
 	function checkdex($dmy,$den,$miss)
 	{
-		global $pl_toch,$player_id,$pl_aff_rune3,$cur_time,$pl_speed,$target_id,$result;
-		if ($pl_aff_rune3[$player_id] > $cur_time)
+		global $pl_toch,$player_id,$pl_aff_rune3,$currentTimestamp,$pl_speed,$target_id,$result;
+		if ($pl_aff_rune3[$player_id] > $currentTimestamp)
 		$bn = 5;
 		else
 		$bn = 0;
@@ -1194,7 +1194,7 @@ setbalance($pl_race[$player_id]);
 if ($pl_balance[$player_id] > $cur_balance)
 $cur_balance = $pl_balance[$player_id];
 
-if (($cur_balance < $cur_time - $balance+1) || ($npc_kick == 1))
+if (($cur_balance < $currentTimestamp - $balance+1) || ($npc_kick == 1))
 {
 
 	if ($npc_kick == 0)
@@ -1221,13 +1221,13 @@ if (($cur_balance < $cur_time - $balance+1) || ($npc_kick == 1))
 	{
 		if ($npc_kick == 0)
 		{
-			if ($pl_aff_speed2[$player_id] > $cur_time)
+			if ($pl_aff_speed2[$player_id] > $currentTimestamp)
 			$ref = 4;
-			else if ($pl_aff_speed[$player_id] > $cur_time)
+			else if ($pl_aff_speed[$player_id] > $currentTimestamp)
 			$ref = -4;
 			else
 			$ref = 0;
-			$player['balance'] = $cur_time+$ref;
+			$player['balance'] = $currentTimestamp+$ref;
 			$balance_ten = $balance_ten + $ref*10;
 			print "top.rbal($balance_ten,$balance_ten);";
 		}
@@ -1346,19 +1346,19 @@ if (($cur_balance < $cur_time - $balance+1) || ($npc_kick == 1))
 					$player['cmana'] = $mana;
 				}
 				$r = rand(0,100);
-				if (($pl_aff_afraid[$player_id] > $cur_time) && ($r <= 50))
+				if (($pl_aff_afraid[$player_id] > $currentTimestamp) && ($r <= 50))
 				{
 					$ran = rand(1,$aff_text_num[1]);
 					$dmg = 0;
 					$do_not_shoot = 1;
 					$text = $aff_text[1][$ran];
 				}
-				else if ($pl_aff_afraid[$player_id] > $cur_time)
+				else if ($pl_aff_afraid[$player_id] > $currentTimestamp)
 				{
 					$dmg = round($dmg / 1.5);
 					$text = str_replace("<b>$player_name </b>","<b>$player_name </b>дрожал$sex_a от страха, но собрал$las с духом, а затем ",$text);
 				}
-				if (($pl_aff_dream[$player_id] > $cur_time) && ($r <= 50))
+				if (($pl_aff_dream[$player_id] > $currentTimestamp) && ($r <= 50))
 				{
 					$ran = rand(1,$aff_text_num[4]);
 					$dmg = -rand(round($pl_maxhp[$player_id]/12),round($pl_maxhp[$player_id]/11));
@@ -1368,14 +1368,14 @@ if (($cur_balance < $cur_time - $balance+1) || ($npc_kick == 1))
 					$target_name=$player_name;
 					$target_id=$player_id;
 				}
-				if ( ($pl_aff_ground[$player_id] > $cur_time) )
+				if ( ($pl_aff_ground[$player_id] > $currentTimestamp) )
 				{
 					$ran = rand(1,$aff_text_num[2]);
 					$dmg = 0;
 					$do_not_shoot = 1;
 					$text = $aff_text[2][$ran];
 				}
-				if ( ($pl_aff_cantsee[$player_id] > $cur_time) )
+				if ( ($pl_aff_cantsee[$player_id] > $currentTimestamp) )
 				{
 					$ran = rand(1,$aff_text_num[3]);
 					$dmg = 0;
@@ -1385,36 +1385,36 @@ if (($cur_balance < $cur_time - $balance+1) || ($npc_kick == 1))
 
 				if ($dmg < 1)
 				{
-					if (($pl_aff_def[$target_id] > $cur_time))
+					if (($pl_aff_def[$target_id] > $currentTimestamp))
 					$dmg = $dmg - $dmg*0.25;
-					if (($pl_aff_cut[$player_id] > $cur_time))
+					if (($pl_aff_cut[$player_id] > $currentTimestamp))
 					$dmg = $dmg - $dmg*0.25;
-					if (($pl_aff_fire[$target_id] > $cur_time))
+					if (($pl_aff_fire[$target_id] > $currentTimestamp))
 					$dmg = $dmg + $dmg*0.25;
-					if (($pl_aff_rune4[$target_id] > $cur_time))
+					if (($pl_aff_rune4[$target_id] > $currentTimestamp))
 					$dmg = $dmg - $dmg*0.15;
 
-					if (($pl_aff_curses[$player_id] > $cur_time))
+					if (($pl_aff_curses[$player_id] > $currentTimestamp))
 					$dmg = $dmg - $dmg*0.25;
-					if (($pl_aff_nblood[$player_id] > $cur_time))
+					if (($pl_aff_nblood[$player_id] > $currentTimestamp))
 					$dmg = $dmg + $dmg*0.40;
-					if (($pl_aff_fight[$player_id] > $cur_time))
+					if (($pl_aff_fight[$player_id] > $currentTimestamp))
 					$dmg = $dmg + $dmg*0.3;
-					if (($pl_aff_bless[$player_id] > $cur_time))
+					if (($pl_aff_bless[$player_id] > $currentTimestamp))
 					$dmg = $dmg + $dmg*0.15;
-					if (($pl_aff_bless[$target_id] > $cur_time))
+					if (($pl_aff_bless[$target_id] > $currentTimestamp))
 					$dmg = $dmg - $dmg*0.15;
-					if (($pl_aff_best[$player_id] > $cur_time))
+					if (($pl_aff_best[$player_id] > $currentTimestamp))
 					$dmg = $dmg + $dmg*0.10;
-					if (($pl_aff_best[$target_id] > $cur_time))
+					if (($pl_aff_best[$target_id] > $currentTimestamp))
 					$dmg = $dmg - $dmg*0.10;
-					if (($pl_aff_skin[$target_id] > $cur_time))
+					if (($pl_aff_skin[$target_id] > $currentTimestamp))
 					$dmg = $dmg - $dmg*0.35;
-					if (($pl_aff_mad[$player_id] > $cur_time))
+					if (($pl_aff_mad[$player_id] > $currentTimestamp))
 					$dmg = $dmg + $dmg*0.2;
-					if (($pl_aff_mad[$target_id] > $cur_time))
+					if (($pl_aff_mad[$target_id] > $currentTimestamp))
 					$dmg = $dmg + $dmg*0.1;
-					if (($pl_aff_prep[$target_id] > $cur_time))
+					if (($pl_aff_prep[$target_id] > $currentTimestamp))
 					$dmg = $dmg - $dmg*0.2;
 				}
 				$dmgtext = "";
@@ -1427,7 +1427,7 @@ if (($cur_balance < $cur_time - $balance+1) || ($npc_kick == 1))
 					else
 					$newdmg = $dmg;
 					$newdmg = round($newdmg);
-					if (($pl_aff_feel[$target_id] < $cur_time) || ($newdmg > 0))
+					if (($pl_aff_feel[$target_id] < $currentTimestamp) || ($newdmg > 0))
 					$pl_chp[$target_id] += $newdmg;
 					else
 					$feel_dmg -= $newdmg;
@@ -1438,7 +1438,7 @@ if (($cur_balance < $cur_time - $balance+1) || ($npc_kick == 1))
 					else
 					$dmgtext .= " $newdmg";
 				}
-				if ($pl_aff_feel[$target_id] > $cur_time)
+				if ($pl_aff_feel[$target_id] > $currentTimestamp)
 				{
 					$text = "[<b>$target_name</b>]&nbsp;<b>$player_name </b> нанёс$sex_a урон, но $target_name совершенно  не почувствовал боли.";
 					$sql_text .= ",aff_feel_dmg=$feel_dmg";
@@ -1893,7 +1893,7 @@ else
 			$text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");";
 			print "$text";
 		}
-		$a = ($cur_time + $balance - $cur_balance) * 10;
+		$a = ($currentTimestamp + $balance - $cur_balance) * 10;
 		print "top.rbal($a,$a);";
 	}
 }

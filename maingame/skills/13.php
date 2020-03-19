@@ -4,7 +4,7 @@ $game_skill_type_dmg[13]= 1;
 $game_skill_num[13] = 1;
 $game_skill_afflict_percent[13][1]= 5;
 
-$game_skill_afflict[13][1]= ",aff_bleed_power=10,aff_bleed_time=$cur_time+5*12";
+$game_skill_afflict[13][1]= ",aff_bleed_power=10,aff_bleed_time=$currentTimestamp+5*12";
 $game_skill_afflict_text[13][1]= "[<b>$target_name</b>] <font class=italic><b>$target_name</b> истекает кровью.</font>";
 $game_skill_name[13][1]= "Удар мечём";
 $game_skill_dmg[13][1]= $blunt_dmg*0.9;
@@ -25,7 +25,7 @@ $game_skill_percent[13][1]= 0;
 
 $game_skill_name[13][2]= "Режущий удар";
 $game_skill_afflict_percent[13][2]= 12;
-$game_skill_afflict[13][2]= ",aff_bleed_power=20,aff_bleed_time=$cur_time+5*12";
+$game_skill_afflict[13][2]= ",aff_bleed_power=20,aff_bleed_time=$currentTimestamp+5*12";
 $game_skill_afflict_text[13][2]= "[<b>$target_name</b>] <font class=italic><b>$target_name</b> истекает кровью.</font>";
 $game_skill_dmg[13][2]= $blunt_dmg*1.30;
 $game_skill_mana[13][2]= 6;
@@ -45,7 +45,7 @@ $game_skill_percent[13][2]= 0;
 
 $game_skill_name[13][3]= "Атака мечом";
 $game_skill_afflict_percent[13][3]= 15;
-$game_skill_afflict[13][3]= ",aff_bleed_power=25,aff_bleed_time=$cur_time+5*12";
+$game_skill_afflict[13][3]= ",aff_bleed_power=25,aff_bleed_time=$currentTimestamp+5*12";
 $game_skill_afflict_text[13][3]= "[<b>$target_name</b>] <font class=italic><b>$target_name</b> истекает кровью.</font>";
 $game_skill_dmg[13][3]= $blunt_dmg*0.9;
 $game_skill_count[13][3]= rand(0,2);
@@ -67,7 +67,7 @@ $game_skill_percent[13][3]= 0;
 
 $game_skill_name[13][4] = "Фехтование";
 $game_skill_afflict_percent[13][4]= 18;
-$game_skill_afflict[13][4]= ",aff_bleed_power=25,aff_bleed_time=$cur_time+5*12";
+$game_skill_afflict[13][4]= ",aff_bleed_power=25,aff_bleed_time=$currentTimestamp+5*12";
 $game_skill_afflict_text[13][4]= "[<b>$target_name</b>] <font class=italic><b>$target_name</b> истекает кровью.</font>";
 $game_skill_count[13][4]= rand(1,2);
 $game_skill_mana[13][4]= 25;
