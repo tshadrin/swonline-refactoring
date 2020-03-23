@@ -1316,42 +1316,38 @@ function map(went, id, name, pic, sz_name, s_name, sv_name, z_name,
 	informationFrame = top.frames['info'].document;
 	topFrame = top.frames['mtop'].document;
 	if (typeof informationFrame !== "undefined") {
-		$(informationFrame).ready(function(event) { //корректное событие при загрузке фрейма(костыль)
-			if (informationFrame.getElementById('map')) {
-				if (typeof topFrame !== "undefined") {
-					$(topFrame).ready(function(event) { //корректное событие при загрузке фрейма(костыль)
-						if (topFrame.getElementById('upmenutext')) {
-							topFrame.getElementById('upimg').innerHTML = '';
-							topFrame.getElementById('upmenutext').innerHTML = '';
-						}
-					});
+		if (informationFrame.getElementById('map')) {
+			if (typeof topFrame !== "undefined") {
+				if (topFrame.getElementById('upmenutext')) {
+					topFrame.getElementById('upimg').innerHTML = '';
+					topFrame.getElementById('upmenutext').innerHTML = '';
 				}
-				if (isinfo == 1)
-					imap = '<td width=18 align=center><a href=# onclick="javascript:Room=window.open(\'room.php?id=' + id + '\', \'Room\', \'width=\'+500+\',height=\'+300+\', toolbar=0,location=0,status=0,scrollbars=0,resizable=0,left=100,top=100\');"><img  src=pic/game/more.gif width=15 height=15 alt="Просмотреть описание"></a></td>';
-				else
-					imap = '';
-				if (build == 1)
-					ibuild = '<td width=18 align=center><img  src=pic/game/house.gif width=16 height=15 alt="Жилой район. Разрешена постройка домов."></td>';
-				else if (build == 2)
-					ibuild = '<td width=18 align=center><img  src=pic/game/house.gif width=16 height=15 alt="Палатки. Разрешена постройка магазинов."></td>';
-				else
-					ibuild = '';
-
-				if (save == 1)
-					isave = '<td width=18 align=center><img  src=pic/game/def.gif width=15 height=15 alt="Защитная зона города"></td>';
-				else
-					isave = '';
-				informationFrame.getElementById('maploc').innerHTML = '<table cellpadding=0 cellspacing=0><tr><td><b class=inv>' + name + '</b></td>' + imap + isave + ibuild + '</tr></table>';
-				if (pic != '') {
-					p = ' bgcolor=B8C7D8 background=pic/map/' + pic;
-					name = '&nbsp;';
-				} else
-					p = 'bgcolor=B8C7D8';
-				informationFrame.getElementById('map').innerHTML = '<table width=100% height=170 cellspacing=0 style=cursor:hand cellpadding=0><tr bgcolor=EBF1F7 align=center><td width=33% height=33% onclick=parent.gomap("1");>' + sz_name + '</td><td width=1 bgcolor=8C9AAD></td><td onclick=parent.gomap("2");>' + s_name + '</td><td width=1 bgcolor=8C9AAD></td><td width=33% onclick=parent.gomap("3");>' + sv_name + '</td></tr><tr><td colspan=5 bgcolor=8C9AAD height=1></td></tr><tr bgcolor=EBF1F7 align=center><td onclick=parent.gomap("4");>' + z_name + '</td><td width=1 bgcolor=8C9AAD></td><td ' + p + ' class=map>' + name + '</td><td width=1 bgcolor=8C9AAD><td onclick=parent.gomap("5");>' + v_name + '</td></tr><tr><td colspan=5 bgcolor=8C9AAD height=1></td></tr><tr bgcolor=EBF1F7 align=center><td height=33% onclick=parent.gomap("6");>' + jz_name + '</td><td width=1 bgcolor=8C9AAD><td onclick=parent.gomap("7");>' + j_name + '</td><td width=1 bgcolor=8C9AAD><td onclick=parent.gomap("8");>' + jv_name + '</td></tr></table>';
-				if (went == 1)
-					rbal(50 - tmi * 10, 50 - tmi * 10);
 			}
-		});
+			if (isinfo === true)
+				imap = '<td width=18 align=center><a href=# onclick="javascript:Room=window.open(\'room.php?id=' + id + '\', \'Room\', \'width=\'+500+\',height=\'+300+\', toolbar=0,location=0,status=0,scrollbars=0,resizable=0,left=100,top=100\');"><img  src=pic/game/more.gif width=15 height=15 alt="Просмотреть описание"></a></td>';
+			else
+				imap = '';
+			if (build == 1)
+				ibuild = '<td width=18 align=center><img  src=pic/game/house.gif width=16 height=15 alt="Жилой район. Разрешена постройка домов."></td>';
+			else if (build == 2)
+				ibuild = '<td width=18 align=center><img  src=pic/game/house.gif width=16 height=15 alt="Палатки. Разрешена постройка магазинов."></td>';
+			else
+				ibuild = '';
+
+			if (save === true)
+				isave = '<td width=18 align=center><img  src=pic/game/def.gif width=15 height=15 alt="Защитная зона города"></td>';
+			else
+				isave = '';
+			informationFrame.getElementById('maploc').innerHTML = '<table cellpadding=0 cellspacing=0><tr><td><b class=inv>' + name + '</b></td>' + imap + isave + ibuild + '</tr></table>';
+			if (pic != '') {
+				p = ' bgcolor=B8C7D8 background=pic/map/' + pic;
+				name = '&nbsp;';
+			} else
+				p = 'bgcolor=B8C7D8';
+			informationFrame.getElementById('map').innerHTML = '<table width=100% height=170 cellspacing=0 style=cursor:hand cellpadding=0><tr bgcolor=EBF1F7 align=center><td width=33% height=33% onclick=parent.gomap("1");>' + sz_name + '</td><td width=1 bgcolor=8C9AAD></td><td onclick=parent.gomap("2");>' + s_name + '</td><td width=1 bgcolor=8C9AAD></td><td width=33% onclick=parent.gomap("3");>' + sv_name + '</td></tr><tr><td colspan=5 bgcolor=8C9AAD height=1></td></tr><tr bgcolor=EBF1F7 align=center><td onclick=parent.gomap("4");>' + z_name + '</td><td width=1 bgcolor=8C9AAD></td><td ' + p + ' class=map>' + name + '</td><td width=1 bgcolor=8C9AAD><td onclick=parent.gomap("5");>' + v_name + '</td></tr><tr><td colspan=5 bgcolor=8C9AAD height=1></td></tr><tr bgcolor=EBF1F7 align=center><td height=33% onclick=parent.gomap("6");>' + jz_name + '</td><td width=1 bgcolor=8C9AAD><td onclick=parent.gomap("7");>' + j_name + '</td><td width=1 bgcolor=8C9AAD><td onclick=parent.gomap("8");>' + jv_name + '</td></tr></table>';
+			if (went === true)
+				rbal(50 - tmi * 10, 50 - tmi * 10);
+		}
 	}
 }
 ChatTimer = setTimeout("rchat();",13000);

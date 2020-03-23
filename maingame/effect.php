@@ -133,8 +133,9 @@ if ($aff_sleep > 0) {
 }
 //print "alert('$oldeffect <> $aff');";
 //print "|$cur_time|";
-if (($oldeffect <> $aff) || ($effect == 1)) {
-	$player['effect'] = $aff;
+//if (($oldeffect <> $aff) || ($effect == 1)) { shamfix
+if ($oldeffect <> $aff) {
+    $player['effect'] = $aff;
 	if ($aff <> "") {
 		openscript();
 		print " $aff";

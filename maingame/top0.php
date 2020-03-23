@@ -2,7 +2,6 @@
 session_start( );
 if (!array_key_exists('player', $_SESSION)) { exit; }
 $player = $_SESSION['player'];
-$player['server'] = 1; //hack
 header( "Content-type: text/html; charset=win-1251" );
 $player_id = $player['id'];
 $player_name = $player['name'];

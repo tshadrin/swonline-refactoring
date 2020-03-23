@@ -4,7 +4,6 @@ if (array_key_exists("player", $_SESSION)) {
     $player = $_SESSION['player'];
 }
 $player = $_SESSION['player'];
-$player['server'] = 1; //hack
 $load = array_key_exists('load', $_REQUEST) ? $_REQUEST['load'] : '';
 
 header('Content-type: text/html; charset=win-1251');

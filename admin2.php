@@ -803,7 +803,7 @@ function inf()
 }
 Function map()
 {
-	global $admin_name, $build,$disc,$start_page,$show_name,$id_end,$id_from,$showin,$map_name,$map_id,$load,$map_location,$sz_id,$sz_name,$s_id,$s_name,$sv_id,$sv_name,$z_id,$z_name,$v_id,$v_name,$jz_id,$jz_name,$j_id,$j_name,$jv_name,$jv_id,$jv_name,$action,$map_pic,$no_pvp;
+	global $admin_name, $canBuild,$disc,$start_page,$show_name,$id_end,$id_from,$showin,$map_name,$map_id,$load,$map_location,$sz_id,$sz_name,$s_id,$s_name,$sv_id,$sv_name,$z_id,$z_name,$v_id,$v_name,$jz_id,$jz_name,$j_id,$j_name,$jv_name,$jv_id,$jv_name,$action,$map_pic,$pvpType;
 	if (!isset($start_page))
 		$start_page = 0;
 	$bld = "<select name=build style=width:60><option value=0 cel0>Нельзя</option><option value=1 cel1>Комнаты</option><option value=2 cel2>Магазины</option></select>";
@@ -852,7 +852,7 @@ Function map()
 	$opt = $opt."</select>";
 	if ($action == "save")
 	{
-		$SQL="UPDATE sw_map SET name='$map_name',location=$map_location,pic='$map_pic',sz_id=$sz_id,sz_name='$sz_name',s_id=$s_id,s_name='$s_name',sv_id=$sv_id,sv_name='$sv_name',z_id=$z_id,z_name='$z_name',v_id=$v_id,v_name='$v_name',jz_id=$jz_id,jz_name='$jz_name',j_id=$j_id,j_name='$j_name',jv_id=$jv_id,jv_name='$jv_name',no_pvp=$no_pvp,build=$build where id=$map_id";
+		$SQL="UPDATE sw_map SET name='$map_name',location=$map_location,pic='$map_pic',sz_id=$sz_id,sz_name='$sz_name',s_id=$s_id,s_name='$s_name',sv_id=$sv_id,sv_name='$sv_name',z_id=$z_id,z_name='$z_name',v_id=$v_id,v_name='$v_name',jz_id=$jz_id,jz_name='$jz_name',j_id=$j_id,j_name='$j_name',jv_id=$jv_id,jv_name='$jv_name',no_pvp=$pvpType,build=$canBuild where id=$map_id";
 		SQL_do($SQL);
 		$file = fopen("maingame/room/$map_id.html","w");
 		fputs($file,"$disc");
@@ -977,12 +977,12 @@ Function map()
 		$j_name = $row_num[17];
 		$jv_id = $row_num[18];
 		$jv_name = $row_num[19];
-		$no_pvp = $row_num[20];
-		$build = $row_num[21];
+		$pvpType = $row_num[20];
+		$canBuild = $row_num[21];
 		$optend = str_replace("cel$m_location","SELECTED",$opt);
-		$bldend = str_replace("cel$build","SELECTED",$bld);
+		$bldend = str_replace("cel$canBuild","SELECTED",$bld);
 		
-		$npvp[$no_pvp] = "selected";
+		$npvp[$pvpType] = "selected";
 		print "<form action=admin.php method=post><input type=hidden name=start_page value=$start_page><input type=hidden name=show_name value=$show_name><input type=hidden name=id_end value=$id_end><input type=hidden name=id_from value=$id_from><input type=hidden name=showin value=$showin><input type=hidden name=load value=$load><input type=hidden name=action value=save><input type=hidden name=map_id value=$m_id><tr bgcolor=E7EBEF><td align=center>$m_id</td>
 			<input type=hidden name=showin value=$showin><input type=hidden name=id_from value=$id_from><input type=hidden name=id_end value=$id_end><input type=hidden name=show_name value=$show_name>
 				<td align=center>
@@ -1023,7 +1023,7 @@ Function map()
 					</table>
 
 				</td></tr></form>";
-			$npvp[$no_pvp] = "";
+			$npvp[$pvpType] = "";
 		$row_num=SQL_next_num();
 	}
 	if ($result)

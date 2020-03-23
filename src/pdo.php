@@ -134,7 +134,7 @@ function getUserInfoStmt(): \PDOStatement
 SELECT style, chp, cmana, level, con, wis, 
        online, id, sex, name, race, block, 
        room, city, options, ban, ban_for, 
-       admin, s_up,pack, ingame, decodepwd
+       admin, s_up,pack, ingame, decodepwd, ban_chat
 FROM sw_users
 WHERE UPPER(up_login) = UPPER(:login) AND decodepwd = :password AND npc = :is_npc";
     return $pdo->prepare($query);

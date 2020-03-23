@@ -1,10 +1,12 @@
 <?php
+const ISREF = true;
 /**
  * Один из фреймов
  */
 session_start();
 header('Content-type: text/html; charset=win-1251');
 require_once(__DIR__. "/../vendor/autoload.php");
+
 
 if (array_key_exists("player", $_SESSION)) {
     $player = &$_SESSION['player'];
@@ -21,7 +23,6 @@ if (array_key_exists("player", $_SESSION)) {
 } else { exit; }
 
 $passwd_hidden = "T13D@"; //без пароля не открыть ./functions.php
-$secureKey = "Frmajkf@9840!jnmj"; //без ключа не открыть ./ref_map.php используется и в map.php
 
 include('../mysqlconfig.php');
 include("functions.php");
@@ -29,10 +30,10 @@ include("functions.php");
 //background: F6FAFF;
 $player_id = $player['id'];
 $player_name = $player['name'];
-$old_player_max_hp = $player['maxhp'];
-$old_player_max_mana = $player['maxmana'];
-$old_chp = $player['chp'];
-$old_cmana = $player['cmana'];
+$old_player_max_hp = (int)$player['maxhp'];
+$old_player_max_mana = (int)$player['maxmana'];
+$old_chp = (int)$player['chp'];
+$old_cmana = (int)$player['cmana'];
 $old_users = $player['users'];
 $old_player_race = $player['race'];
 $balance = $player['reboot'];
@@ -42,7 +43,6 @@ $old_room = $player['room'];
 $player_opt = $player['opt'];
 $sleep = $player['sleep'];
 $regen = $player['regen'];
-$afk = $player['afk'];
 $server_id = $player['server'];
 $script = 0;
 $player_do = "";
@@ -62,13 +62,11 @@ echo '<html>
 <meta content="text/html; charset=windows-1251" http-equiv="Content-Type">
 </head>
 ';
-if ($afk+1200 < $cur_time)
-{
+openscript();
+if ($player['afk']+1200 < $cur_time) {
 	openscript();
 	print "top.myalert('AFK: 20 минут','AFK: 20 больше минут');top.wclose();";
-}
-else if ($afk+1186 < $cur_time)
-{
+} else if ($player['afk']+1186 < $cur_time) {
 	openscript();
 	$text= "Вы не совершали активных действий в течение 18 минут.";
  	$totext = "top.add(\"$time\",\"\",\"$text\",7,\"AFK\");";
@@ -79,7 +77,8 @@ $lt = getmicrotime();
 //print $lt-$pt;
 $player_random =$player['rnd'];
 
-$SQL="select balance,exp,room,sex,con,wis,level,city,clan,chp,cmana,race,mytext,aff_afraid,aff_cut,aff_bleed_power,aff_bleed_time,aff_def,aff_invis,aff_see,aff_ground,aff_curses,aff_nblood,aff_cantsee,aff_fire,aff_bless,aff_speed,aff_skin,aff_see_all,aff_tree,room,aff_best,aff_fight,aff_feel,aff_feel_dmg,aff_dream,aff_mad,aff_prep,aff_paralize,party,aff_rune1,aff_rune2,aff_rune3,aff_rune4,ban,ban_for,aff_speed2,aff_sleep,rnd, ingame from sw_users where id=$player_id";
+$SQL="select balance,exp,room,sex,con,wis,level,city,clan,chp,cmana,race,mytext,aff_afraid,aff_cut,aff_bleed_power,aff_bleed_time,aff_def,aff_invis,aff_see,aff_ground,aff_curses,aff_nblood,aff_cantsee,aff_fire,aff_bless,aff_speed,aff_skin,aff_see_all,aff_tree,room,aff_best,aff_fight,aff_feel,aff_feel_dmg,aff_dream,aff_mad,aff_prep,aff_paralize,party,aff_rune1,aff_rune2,aff_rune3,aff_rune4,ban,ban_for,aff_speed2,aff_sleep,rnd, ingame, ban_chat
+       t from sw_users where id=$player_id";
 $row_num=SQL_query_num($SQL);
 while ($row_num){
 	$newbalance=$row_num[0];
@@ -133,13 +132,13 @@ while ($row_num){
 	$aff_sleep = $row_num[47];
 	$pl_rnd = $row_num[48];
 	$ingame = $row_num[49];
-	//$ban_chat = $row_num[50];
+	$ban_chat = $row_num[50];
 	$row_num=SQL_next_num();
 }
 if ($result)
 mysqli_free_result($result);
 
-//$player['ban_chat'] = $ban_chat;
+$player['ban_chat'] = $ban_chat;
 
 $health = 0;
 $mana = 0;
@@ -194,8 +193,8 @@ if (($level >= 10) && ($player_city == 1))
 }
 include("racecfg.php");
 
-if ($room <> $old_room)
-{
+if ($room <> $old_room)  { //в теории - никогда не будет загружен
+    $lol = true;
 	include('ref_map.php');
 }
 
@@ -208,7 +207,7 @@ add_parametr($health, $mana);
 
 include("effect.php");
 
-showusers($player_id,$room);
+showusers($player_id, $room);
 
 
 If ($balance+11<=$cur_time)
@@ -275,7 +274,11 @@ if ($exptolevel<=$exp && $level < 255)
 
 }
 
-//print $ban_chat < time() ?  "top.addMute('".time_left($ban_chat-time())."');" : "top.dMute();";
+if($ban_chat > time()) {
+    print "top.addMute('".time_left($ban_chat-time())."');";
+} else {
+    print "top.dMute();";
+}
 
 if ($mytext <> " ")
 {
@@ -305,7 +308,6 @@ if ($server_id == 0)
 
 	if ($min02 + 16 < $cur_time)
 	{
-//		print "alert('ok');";
 		include("server.php");
 	}
 }

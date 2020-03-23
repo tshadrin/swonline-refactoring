@@ -53,7 +53,8 @@ if ($serverIsDisabled !== SERVER_DISABLED) {
             $s_up,
             $pck,
             $ingame,
-            $decodepwd      //закодированный пароль
+            $decodepwd,      //закодированный пароль
+            $ban_chat
         ] = getUserInfo($tlogin, $decodepwd);
         $ip = GetIP();
 
@@ -160,9 +161,11 @@ if ($serverIsDisabled !== SERVER_DISABLED) {
                 $player['opt'] = $options;
                 $player['online'] = $cur_time;
                 $player['afk'] = $cur_time;
+                $player['ban_chat'] = $ban_chat;
                 $player['lastUpdateTime'] = $cur_time;
                 $rn = rand(0, 30000);
                 $player['rnd'] = $rn;
+                $player['server'] = 0;
                 $player['leg'] = 0;
                 $player['regen'] = 0;
                 $i = 0;

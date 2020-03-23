@@ -12,13 +12,11 @@ if ($passwd_hidden !== "T13D@") { exit; }
 //$room = (integer) $room;
 //$player_clan = (integer) $player_clan;
 
-
-Function max_parametr($level,$race,$con,$wis, $isNpc = 0)
+function max_parametr($level, $race, $con, $wis, $isNpc = 0)
 {
-	global $player_max_hp,$player_max_mana,$race_con,$race_wis;
+	global $player_max_hp, $player_max_mana, $race_con, $race_wis;
 	
-	if ($isNpc == 0 && $level > 120)
-	{
+	if ($isNpc === 0 && $level > 120) {
 		$level = 120 + ($level - 120) / 3;
 	}
 	$player_max_hp = getMaxHp($con + $race_con[$race], $level, $isNpc);   
@@ -35,7 +33,7 @@ Function add_parametr($health,$mana)
 	$player_max_hp += $health;   
 	$player_max_mana +=  $mana; 
 }
-function setbalance(int $raceId): array
+function setbalance(int $raceId)
 {
 	global $balance, $balance_ten, $race_dex;
 	$balance = 26 - $race_dex[$raceId];
@@ -49,25 +47,29 @@ function GetIP()
 	$iphost="$iphost2;$iphost1;";
 	return $iphost;
 }
-function time_left($secs){
-    $bit = array(
-        ' лет'        => $secs / 31556926 % 12,
-        ' недель'        => $secs / 604800 % 52,
-        ' дней'        => $secs / 86400 % 7,
-        ' часов'        => $secs / 3600 % 24,
-        ' минут'    => $secs / 60 % 60,
-        ' секунд'    => $secs % 60
-        );
-        
-    foreach($bit as $k => $v){
-        if($v > 1)$ret[] = $v . $k;
-        if($v == 1)$ret[] = $v . $k;
+function time_left($secs) {
+    $bit = [
+        ' лет'    => $secs / 31556926 % 12,
+        ' недель' => $secs / 604800 % 52,
+        ' дней'   => $secs / 86400 % 7,
+        ' часов'  => $secs / 3600 % 24,
+        ' минут'  => $secs / 60 % 60,
+        ' секунд' => $secs % 60
+    ];
+
+    foreach ($bit as $k => $v) {
+        if($v > 1) {
+            $ret[] = $v . $k;
         }
+        if($v == 1) {
+            $ret[] = $v . $k;
+        }
+    }
     array_splice($ret, count($ret)-1, 0, '');
     $ret[] = '.';
     
     return join(' ', $ret);
-    }
+}
 	
 Function openscript()
 {
@@ -135,8 +137,7 @@ Function showusers($id, $room, $r_pvp=0)
 		$row_num=SQL_next_num();
 	}
 	if ($result)
-		mysqli_free_result($result);	
-	
+		mysqli_free_result($result);
 	if ($show == 1)
 		$SQL="select chp_percent,id,name,aff_invis,party,npc,bad,city,clan,madeby, ban_chat from sw_users where city=$player_city and id<>$id and online>$t_time and npc=0 order by id";//
 	else if ($show == 2)
@@ -145,7 +146,7 @@ Function showusers($id, $room, $r_pvp=0)
 		$SQL="select chp_percent,id,name,aff_invis,party,npc,bad,city,clan,madeby, ban_chat from sw_users where room=$room and id<>$id and online>$t_time order by id";//
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
-		$i++;
+		//$i++;
 		$chp_percent = $row_num[0];
 		$mid = $row_num[1];
 		$name = $row_num[2];
@@ -230,8 +231,10 @@ Function showusers($id, $room, $r_pvp=0)
 		}
 		if (($r_pvp == 2) && ($show == 0))
 			$color = 3;
-		if (($aff_invis < $currentTimestamp) || ($aff_see > $currentTimestamp) || ($show <> 0))
-			$ref1 = $ref1."top.au($par,$mid,'$name',$p,$color,'$c_litle[$clan]',$clan,$heismute);\r\n";
+		if (($aff_invis < $currentTimestamp) || ($aff_see > $currentTimestamp) || ($show <> 0)) {
+            $abbreviature = isset($c_litle) && array_key_exists($clan, $c_litle) ? $c_litle[$clan] : '';
+            $ref1 = $ref1 . "top.au($par, $mid, '$name', $p, $color, '$abbreviature', $clan, $heismute);\r\n";
+        }
 		$row_num=SQL_next_num();
 	}
 	if ($result)
@@ -243,9 +246,8 @@ Function showusers($id, $room, $r_pvp=0)
 	{
 		//print "$c_litle[$player_clan] - $player_clan";
 	//	print "refreshing";
-		openscript();
-		$clan = isset($c_title) && array_key_exists($player_clan, $c_title) ? $c_title[$player_clan] : '';
-		print "top.du('{$clan}'); $ref1 top.fu($show, $show_city);";
+		$abbreviature = isset($c_litle) && array_key_exists($player_clan, $c_litle) ? $c_litle[$player_clan] : '';
+		print "top.du('{$abbreviature}'); $ref1 top.fu($show, $show_city);";
 		//$player['users'] = $ref1;
 		//$player['users'] = '';
 	}
