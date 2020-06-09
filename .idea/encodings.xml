@@ -2,6 +2,15 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/fullinfo.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/maingame/do_dmg.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/maingame/effect.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/maingame/functions.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/maingame/map.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/maingame/ref.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/maingame/ref_map.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/maingame/server.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/mapFunctions.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/pdo.php" charset="windows-1251" />
     <file url="PROJECT" charset="windows-1251" />
   </component>
 </project>
